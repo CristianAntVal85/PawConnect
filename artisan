@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Script proxy para ejecutar artisan dentro del contenedor Docker
+# Uso: ./artisan migrate
+#      ./artisan make:model User -mfR
+
+docker compose exec app php artisan "$@"

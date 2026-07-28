@@ -1,0 +1,25 @@
+# Entorno local
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Dependencias
+backend/vendor/
+backend/node_modules/
+
+# Artefactos de build
+backend/bootstrap/cache/
+backend/storage/
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Git local
+.git/local/
