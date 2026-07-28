@@ -6,7 +6,7 @@ Sistema web integral para conectar dueños de mascotas, gestionar salud veterina
 
 ```
 pawconnect/
-├── doc/                          # Documentación del proyecto
+├── docs/                         # Documentación del proyecto
 │   ├── 01-requisitos.md         # Especificación de requisitos
 │   ├── 02-casos_de_uso.md       # Casos de uso
 │   ├── 03-ER_diagrama.md        # Diagrama Entidad-Relación
@@ -147,7 +147,7 @@ php artisan test
 
 ## 📚 Documentación
 
-Ver carpeta `doc/` para especificaciones detalladas.
+Ver carpeta `docs/` para especificaciones detalladas.
 
 ## 🔐 Seguridad
 
