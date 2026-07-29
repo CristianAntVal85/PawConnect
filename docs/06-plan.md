@@ -175,7 +175,7 @@ tests/
   SANCTUM_STATEFUL_DOMAINS=localhost:8000,127.0.0.1:8000
   ```
 
-- [ ] **2.3** Crear migraciones *(respetar orden de FKs)*
+- [x] **2.3** Crear migraciones *(respetar orden de FKs)*
 
   ```bash
   php artisan make:migration add_fields_to_users_table
@@ -195,12 +195,13 @@ tests/
   php artisan make:migration create_place_favorites_table
   ```
 
-- [ ] **2.4** Crear modelos con relaciones
+- [x] **2.4** Crear modelos con relaciones
 
   ```bash
   php artisan make:model Pet -mfR
   php artisan make:model HealthRecord -f
-  php artisan make:model Match -f
+  # Match es palabra reservada en PHP; usar PetMatch para la tabla matches
+  php artisan make:model PetMatch -f
   php artisan make:model Message -f
   php artisan make:model Walk -f
   php artisan make:model Product -f
@@ -214,7 +215,7 @@ tests/
   |---|---|
   | `User` | hasMany Pets, Orders, PlaceReviews |
   | `Pet` | belongsTo User, hasMany HealthRecords, belongsToMany Walks/Matches |
-  | `Match` | hasMany Messages |
+  | `PetMatch` | hasMany Messages |
   | `Order` | hasMany OrderStatusHistory, belongsTo Provider |
 
 - [ ] **2.5** Implementar autenticación completa

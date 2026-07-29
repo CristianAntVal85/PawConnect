@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,6 +24,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'photo',
+        'lat',
+        'lng',
+        'address',
+        'billing_address',
     ];
 
     /**
@@ -44,6 +52,44 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'lat' => 'decimal:7',
+            'lng' => 'decimal:7',
         ];
+    }
+
+    public function pets(): HasMany
+    {
+        return $this->hasMany(Pet::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function placeReviews(): HasMany
+    {
+        return $this->hasMany(PlaceReview::class);
+    }
+
+    public function createdPlaces(): HasMany
+    {
+        return $this->hasMany(PetFriendlyPlace::class, 'created_by');
+    }
+
+    public function favoritePlaces(): BelongsToMany
+    {
+        return $this->belongsToMany(PetFriendlyPlace::class, 'place_favorites', 'user_id', 'place_id')
+            ->withTimestamps();
+    }
+
+    public function messagesSent(): HasMany
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function walksCreated(): HasMany
+    {
+        return $this->hasMany(Walk::class, 'creator_id');
     }
 }
