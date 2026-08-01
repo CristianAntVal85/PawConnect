@@ -218,7 +218,7 @@ tests/
   | `PetMatch` | hasMany Messages |
   | `Order` | hasMany OrderStatusHistory, belongsTo Provider |
 
-- [ ] **2.5** Implementar autenticación completa
+- [x] **2.5** Implementar autenticación completa
 
   ```bash
   php artisan install:api
