@@ -230,7 +230,7 @@ tests/
   - `logout`: revocar token actual
   - `forgotPassword / resetPassword`: usar built-in de Laravel
 
-- [ ] **2.6** Sistema de roles
+- [x] **2.6** Sistema de roles
 
   ```bash
   php artisan make:policy PetPolicy
@@ -240,7 +240,7 @@ tests/
   - Añadir columna `role` a `users` (enum: `user`, `admin`)
   - Crear middleware `IsAdmin`
 
-- [ ] **2.7** CRUD Usuarios y Mascotas
+- [x] **2.7** CRUD Usuarios y Mascotas
 
   ```bash
   php artisan make:controller Api/UserController
