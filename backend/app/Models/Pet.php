@@ -45,6 +45,11 @@ class Pet extends Model
         return $this->hasMany(HealthRecord::class);
     }
 
+    public function photos(): HasMany
+    {
+        return $this->hasMany(PetPhoto::class)->orderBy('display_order');
+    }
+
     public function walks(): BelongsToMany
     {
         return $this->belongsToMany(Walk::class, 'walk_pet', 'pet_id', 'walk_id')

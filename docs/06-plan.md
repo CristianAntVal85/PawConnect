@@ -249,7 +249,7 @@ tests/
   php artisan make:request UpdatePetRequest
   ```
 
-- [ ] **2.8** Subida de fotos
+- [x] **2.8** Subida de fotos
 
   ```bash
   php artisan storage:link
@@ -258,7 +258,7 @@ tests/
   - Usar Laravel Storage con disco `public`
   - Crear `StorageService` para centralizar la lógica
 
-- [ ] **2.9** Seeders y Factories
+- [x] **2.9** Seeders y Factories
 
   ```bash
   php artisan make:seeder UserSeeder
@@ -269,7 +269,7 @@ tests/
 
   Mínimo: 10 usuarios, 20 mascotas, 30 productos, 15 lugares.
 
-- [ ] **2.10** Ejecutar y verificar
+- [x] **2.10** Ejecutar y verificar
 
   ```bash
   php artisan migrate --seed

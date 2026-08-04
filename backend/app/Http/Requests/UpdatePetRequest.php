@@ -31,6 +31,8 @@ class UpdatePetRequest extends FormRequest
             'energy_level' => ['nullable', 'string', 'max:30'],
             'personality' => ['nullable', 'string', 'max:2000'],
             'available_for_walks' => ['sometimes', 'boolean'],
+            'photos' => ['sometimes', 'array', 'max:6'],
+            'photos.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 }
