@@ -35,16 +35,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Registro exitoso.',
-            'token'   => $token,
-            'user'    => [
-                'id'    => $user->id,
-                'name'  => $user->name,
+        return $this->success([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
                 'email' => $user->email,
-                'role'  => $user->role,
+                'role' => $user->role,
             ],
-        ], 201);
+        ], 'Registro exitoso.', 201);
     }
 
     /**
@@ -70,16 +69,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso.',
-            'token'   => $token,
-            'user'    => [
-                'id'    => $user->id,
-                'name'  => $user->name,
+        return $this->success([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
                 'email' => $user->email,
-                'role'  => $user->role,
+                'role' => $user->role,
             ],
-        ]);
+        ], 'Inicio de sesión exitoso.');
     }
 
     /**
@@ -89,7 +87,7 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Sesión cerrada correctamente.']);
+        return $this->success(null, 'Sesión cerrada correctamente.');
     }
 
     /**
@@ -104,10 +102,10 @@ class AuthController extends Controller
         $status = Password::sendResetLink($request->only('email'));
 
         if ($status !== Password::RESET_LINK_SENT) {
-            return response()->json(['message' => __($status)], 422);
+            return $this->error(__($status), 422);
         }
 
-        return response()->json(['message' => __($status)]);
+        return $this->success(null, __($status));
     }
 
     /**
@@ -134,10 +132,10 @@ class AuthController extends Controller
         );
 
         if ($status !== Password::PASSWORD_RESET) {
-            return response()->json(['message' => __($status)], 422);
+            return $this->error(__($status), 422);
         }
 
-        return response()->json(['message' => __($status)]);
+        return $this->success(null, __($status));
     }
 }
 

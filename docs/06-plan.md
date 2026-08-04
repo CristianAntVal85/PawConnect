@@ -284,7 +284,7 @@ tests/
 
 **Objetivo:** todos los endpoints implementados, documentados y con tests.
 
-- [ ] **3.1** Crear controllers API restantes
+- [x] **3.1** Crear controllers API restantes
 
   ```bash
   php artisan make:controller Api/HealthController
@@ -296,7 +296,7 @@ tests/
   php artisan make:controller Api/PlaceController
   ```
 
-- [ ] **3.2** Crear API Resources
+- [x] **3.2** Crear API Resources
 
   ```bash
   php artisan make:resource PetResource
@@ -311,7 +311,7 @@ tests/
 
   > Siempre devolver datos a través de Resources, nunca el modelo directo.
 
-- [ ] **3.3** Definir rutas en `routes/api.php`
+- [x] **3.3** Definir rutas en `routes/api.php`
 
   ```php
   Route::prefix('v1')->group(function () {
@@ -324,7 +324,7 @@ tests/
   });
   ```
 
-- [ ] **3.4** Implementar `ApiResponse` trait
+- [x] **3.4** Implementar `ApiResponse` trait
 
   Métodos: `success($data, $message, $code = 200)` y `error($message, $code = 400)`.
 
