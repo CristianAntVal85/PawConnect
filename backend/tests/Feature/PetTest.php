@@ -1,78 +1,142 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
-use Tests\TestCase;
 
-class PetTest extends TestCase
-{
-    use RefreshDatabase;
+uses(RefreshDatabase::class);
 
-    public function test_guest_cannot_access_pets_routes(): void
-    {
-        $this->getJson('/api/v1/pets')->assertUnauthorized();
-    }
+// ── Autorización ──────────────────────────────────────────────────────────
 
-    public function test_authenticated_user_can_crud_own_pet(): void
-    {
-        $user = User::factory()->create();
-        Sanctum::actingAs($user);
+test('un invitado no puede acceder a las rutas de mascotas', function () {
+    $this->getJson('/api/v1/pets')->assertUnauthorized();
+    $this->postJson('/api/v1/pets', [])->assertUnauthorized();
+});
 
-        $createResponse = $this->postJson('/api/v1/pets', [
-            'species' => 'dog',
-            'name' => 'Firulais',
-            'available_for_walks' => true,
+// ── Crear mascota ─────────────────────────────────────────────────────────
+
+test('un usuario autenticado puede crear una mascota', function () {
+    $user = actingAsUser();
+
+    $response = $this->postJson('/api/v1/pets', [
+        'species' => 'dog',
+        'name' => 'Firulais',
+        'breed' => 'Labrador',
+        'age' => 3,
+        'weight' => 25.5,
+        'size' => 'medium',
+        'energy_level' => 'high',
+        'available_for_walks' => true,
+    ]);
+
+    $response->assertCreated()
+        ->assertJsonStructure([
+            'data' => ['id', 'name', 'species', 'breed', 'user_id'],
         ]);
 
-        $createResponse->assertCreated();
-        $petId = $createResponse->json('data.id');
+    expect($response->json('data.name'))->toBe('Firulais');
+    expect($response->json('data.user_id'))->toBe($user->id);
 
-        $this->assertDatabaseHas('pets', [
-            'id' => $petId,
-            'user_id' => $user->id,
-            'name' => 'Firulais',
-        ]);
+    $this->assertDatabaseHas('pets', [
+        'user_id' => $user->id,
+        'name' => 'Firulais',
+        'species' => 'dog',
+    ]);
+});
 
-        $this->putJson('/api/v1/pets/'.$petId, [
-            'name' => 'Max',
-        ])->assertOk();
+test('la creación falla sin campos requeridos', function () {
+    actingAsUser();
 
-        $this->assertDatabaseHas('pets', [
-            'id' => $petId,
-            'name' => 'Max',
-        ]);
+    $this->postJson('/api/v1/pets', [])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['species', 'name']);
+});
 
-        $this->deleteJson('/api/v1/pets/'.$petId)->assertOk();
+test('la creación valida el peso máximo', function () {
+    actingAsUser();
 
-        $this->assertDatabaseMissing('pets', [
-            'id' => $petId,
-        ]);
-    }
+    $this->postJson('/api/v1/pets', [
+        'species' => 'dog',
+        'name' => 'Test',
+        'weight' => 9999,
+    ])->assertUnprocessable()
+      ->assertJsonValidationErrors(['weight']);
+});
 
-    public function test_policy_blocks_updating_other_users_pet(): void
-    {
-        $owner = User::factory()->create();
-        $intruder = User::factory()->create();
+// ── Listar mascotas ───────────────────────────────────────────────────────
 
-        $pet = Pet::factory()->create([
-            'user_id' => $owner->id,
-            'species' => 'dog',
-            'name' => 'Rocky',
-        ]);
+test('un usuario puede listar solo sus propias mascotas', function () {
+    $user = actingAsUser();
+    $otherUser = User::factory()->create();
 
-        Sanctum::actingAs($intruder);
+    Pet::factory()->count(3)->create(['user_id' => $user->id]);
+    Pet::factory()->count(2)->create(['user_id' => $otherUser->id]);
 
-        $this->putJson('/api/v1/pets/'.$pet->id, [
-            'name' => 'No permitido',
-        ])->assertForbidden();
+    $response = $this->getJson('/api/v1/pets');
 
-        $this->assertDatabaseHas('pets', [
-            'id' => $pet->id,
-            'name' => 'Rocky',
-        ]);
-    }
-}
+    $response->assertOk()
+        ->assertJsonCount(3, 'data');
+});
+
+// ── Actualizar mascota ────────────────────────────────────────────────────
+
+test('un usuario puede actualizar su propia mascota', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create([
+        'user_id' => $user->id,
+        'name' => 'Nombre Original',
+    ]);
+
+    $this->putJson('/api/v1/pets/'.$pet->id, [
+        'name' => 'Nombre Actualizado',
+        'age' => 5,
+    ])->assertOk();
+
+    $this->assertDatabaseHas('pets', [
+        'id' => $pet->id,
+        'name' => 'Nombre Actualizado',
+        'age' => 5,
+    ]);
+});
+
+test('un usuario NO puede actualizar mascotas de otros usuarios', function () {
+    $owner = User::factory()->create();
+    $intruder = actingAsUser();
+
+    $pet = Pet::factory()->create([
+        'user_id' => $owner->id,
+        'name' => 'Rocky',
+    ]);
+
+    $this->putJson('/api/v1/pets/'.$pet->id, [
+        'name' => 'Hackeo',
+    ])->assertForbidden();
+
+    $this->assertDatabaseHas('pets', [
+        'id' => $pet->id,
+        'name' => 'Rocky',
+    ]);
+});
+
+// ── Eliminar mascota ──────────────────────────────────────────────────────
+
+test('un usuario puede eliminar su propia mascota', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+
+    $this->deleteJson('/api/v1/pets/'.$pet->id)->assertOk();
+
+    $this->assertDatabaseMissing('pets', ['id' => $pet->id]);
+});
+
+test('un usuario NO puede eliminar mascotas de otros usuarios', function () {
+    $owner = User::factory()->create();
+    $intruder = actingAsUser();
+
+    $pet = Pet::factory()->create(['user_id' => $owner->id]);
+
+    $this->deleteJson('/api/v1/pets/'.$pet->id)->assertForbidden();
+
+    $this->assertDatabaseHas('pets', ['id' => $pet->id]);
+});

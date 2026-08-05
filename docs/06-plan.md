@@ -328,21 +328,25 @@ tests/
 
   Métodos: `success($data, $message, $code = 200)` y `error($message, $code = 400)`.
 
-- [ ] **3.5** Configurar Scribe
+- [x] **3.5** Configurar Scribe
 
   ```bash
   php artisan vendor:publish --tag=scribe-config
   php artisan scribe:generate
   ```
 
-  Genera `/docs` con Swagger UI interactivo.
+  Expone la documentación interactiva en `/docs` y genera colección Postman + especificación OpenAPI.
 
-- [ ] **3.6** Escribir tests con Pest
+- [x] **3.6** Escribir tests con Pest
 
-  - `tests/Feature/AuthTest.php`
-  - `tests/Feature/PetTest.php`
-  - `tests/Feature/HealthTest.php`
-  - `tests/Feature/OrderTest.php`
+  - `tests/Feature/AuthTest.php` — 6 tests (registro, login, logout)
+  - `tests/Feature/PetTest.php` — 9 tests (CRUD, autorización, validaciones)
+  - `tests/Feature/HealthTest.php` — 12 tests (registros sanitarios)
+  - `tests/Feature/OrderTest.php` — 11 tests (pedidos y validaciones)
+
+  ```bash
+  php artisan test  # Ejecutar todos los tests
+  ```
 
 - [ ] **3.7** Configurar Rate Limiting
 

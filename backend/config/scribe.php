@@ -18,10 +18,9 @@ return [
 
     // Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
     'intro_text' => <<<'INTRO'
-            This documentation aims to provide all the information you need to work with our API.
+            Esta documentación describe los endpoints disponibles de PawConnect y cómo integrarse con ellos.
 
-            <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
-            You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+            <aside>La interfaz incluye ejemplos de petición y respuesta para cada endpoint, además de una colección Postman y una especificación OpenAPI generadas automáticamente.</aside>
         INTRO,
 
     // The base URL displayed in the docs.
@@ -105,17 +104,17 @@ return [
     // How is your API authenticated? This information will be used in the displayed docs, generated examples and response calls.
     'auth' => [
         // Set this to true if ANY endpoints in your API use authentication.
-        'enabled' => false,
+        'enabled' => true,
 
         // Set this to true if your API should be authenticated by default. If so, you must also set `enabled` (above) to true.
         // You can then use @unauthenticated or @authenticated on individual endpoints to change their status from the default.
-        'default' => false,
+        'default' => true,
 
         // Where is the auth value meant to be sent in a request?
         'in' => AuthIn::BEARER->value,
 
         // The name of the auth parameter (e.g. token, key, apiKey) or header (e.g. Authorization, Api-Key).
-        'name' => 'key',
+        'name' => 'Authorization',
 
         // The value of the parameter to be used by Scribe to authenticate response calls.
         // This will NOT be included in the generated documentation. If empty, Scribe will use a random value.
@@ -126,7 +125,7 @@ return [
         'placeholder' => '{YOUR_AUTH_KEY}',
 
         // Any extra authentication-related info for your users. Markdown and HTML are supported.
-        'extra_info' => 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.',
+        'extra_info' => 'Obtén un token Bearer autenticándote en <code>POST /api/v1/auth/login</code> o registrando un usuario en <code>POST /api/v1/auth/register</code>.',
     ],
 
     // Example requests for each endpoint will be shown in each of these languages.
@@ -197,7 +196,7 @@ return [
     // The format you pass to `date` will be passed to PHP's `date()` function.
     // The format you pass to `git` can be either "short" or "long".
     // Note: does not work for `external` docs types
-    'last_updated' => 'Last updated: {date:F j, Y}',
+    'last_updated' => 'Actualizado: {date:F j, Y}',
 
     'examples' => [
         // Set this to any number to generate the same example values for parameters on each run,

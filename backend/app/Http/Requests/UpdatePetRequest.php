@@ -35,4 +35,53 @@ class UpdatePetRequest extends FormRequest
             'photos.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
+
+    /**
+     * Descripción de los parámetros del cuerpo de la petición para Scribe.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'species' => [
+                'description' => 'Especie de la mascota. Todos los campos son opcionales en actualización.',
+                'example' => 'dog',
+            ],
+            'name' => [
+                'description' => 'Nombre de la mascota',
+                'example' => 'Max',
+            ],
+            'breed' => [
+                'description' => 'Raza de la mascota',
+                'example' => 'Golden Retriever',
+            ],
+            'age' => [
+                'description' => 'Edad de la mascota en años',
+                'example' => 4,
+            ],
+            'weight' => [
+                'description' => 'Peso de la mascota en kilogramos',
+                'example' => 28.0,
+            ],
+            'size' => [
+                'description' => 'Tamaño: small, medium, large, giant',
+                'example' => 'large',
+            ],
+            'energy_level' => [
+                'description' => 'Nivel de energía: low, moderate, high, very_high',
+                'example' => 'moderate',
+            ],
+            'personality' => [
+                'description' => 'Descripción de la personalidad',
+                'example' => 'Tranquilo y cariñoso con niños.',
+            ],
+            'available_for_walks' => [
+                'description' => 'Disponibilidad para paseos sociales',
+                'example' => false,
+            ],
+            'photos' => [
+                'description' => 'Array de nuevas imágenes (máximo 6, 4MB cada una)',
+                'example' => 'No documentable (tipo file)',
+            ],
+        ];
+    }
 }

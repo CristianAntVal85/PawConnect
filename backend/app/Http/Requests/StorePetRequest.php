@@ -36,4 +36,53 @@ class StorePetRequest extends FormRequest
             'photos.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
+
+    /**
+     * Descripción de los parámetros del cuerpo de la petición para Scribe.
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'species' => [
+                'description' => 'Especie de la mascota. Ejemplos: dog, cat, rabbit, bird, fish, etc.',
+                'example' => 'dog',
+            ],
+            'name' => [
+                'description' => 'Nombre de la mascota',
+                'example' => 'Max',
+            ],
+            'breed' => [
+                'description' => 'Raza de la mascota (opcional). Ejemplos: Labrador, Persa, Husky.',
+                'example' => 'Labrador Retriever',
+            ],
+            'age' => [
+                'description' => 'Edad de la mascota en años (0-35)',
+                'example' => 3,
+            ],
+            'weight' => [
+                'description' => 'Peso de la mascota en kilogramos',
+                'example' => 25.5,
+            ],
+            'size' => [
+                'description' => 'Tamaño de la mascota. Valores: small, medium, large, giant',
+                'example' => 'medium',
+            ],
+            'energy_level' => [
+                'description' => 'Nivel de energía de la mascota. Valores: low, moderate, high, very_high',
+                'example' => 'high',
+            ],
+            'personality' => [
+                'description' => 'Descripción libre de la personalidad y comportamiento de la mascota',
+                'example' => 'Muy sociable, le encanta jugar con otros perros y es muy obediente.',
+            ],
+            'available_for_walks' => [
+                'description' => 'Indica si la mascota está disponible para participar en paseos sociales (solo caninos)',
+                'example' => true,
+            ],
+            'photos' => [
+                'description' => 'Array de imágenes de la mascota (máximo 6). Formatos: jpg, jpeg, png, webp. Tamaño máximo por imagen: 4MB',
+                'example' => 'No documentable (tipo file)',
+            ],
+        ];
+    }
 }

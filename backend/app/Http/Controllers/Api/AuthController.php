@@ -17,6 +17,8 @@ class AuthController extends Controller
 {
     /**
      * Registrar un nuevo usuario y devolver token Sanctum.
+     *
+     * @unauthenticated
      */
     public function register(Request $request): JsonResponse
     {
@@ -48,6 +50,8 @@ class AuthController extends Controller
 
     /**
      * Autenticar usuario con email/contraseña y devolver token Sanctum.
+     *
+     * @unauthenticated
      */
     public function login(Request $request): JsonResponse
     {
@@ -92,6 +96,8 @@ class AuthController extends Controller
 
     /**
      * Enviar enlace de restablecimiento de contraseña al email indicado.
+     *
+     * @unauthenticated
      */
     public function forgotPassword(Request $request): JsonResponse
     {
@@ -110,6 +116,8 @@ class AuthController extends Controller
 
     /**
      * Restablecer la contraseña usando el token enviado por email.
+     *
+     * @unauthenticated
      */
     public function resetPassword(Request $request): JsonResponse
     {
