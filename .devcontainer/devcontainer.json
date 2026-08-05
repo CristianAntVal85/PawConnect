@@ -1,0 +1,28 @@
+{
+  "name": "PawConnect",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/workspaces/pawconnect",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/pawconnect,type=bind",
+  "remoteUser": "vscode",
+  "shutdownAction": "stopCompose",
+  "overrideCommand": false,
+  "forwardPorts": [
+    8000,
+    3306
+  ],
+  "postCreateCommand": "cd backend && composer install --no-interaction --prefer-dist && npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "onecentlin.laravel-blade",
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig"
+      ]
+    }
+  }
+}

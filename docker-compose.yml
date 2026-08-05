@@ -5,9 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: pawconnect-app
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /workspaces/pawconnect/backend
     volumes:
-      - ./backend:/var/www/html
+      - ./:/workspaces/pawconnect
     ports:
       - "8000:8000"
     environment:
