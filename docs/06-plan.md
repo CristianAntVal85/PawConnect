@@ -376,7 +376,7 @@ tests/
   - `layouts/admin.blade.php` — layout del panel admin
   - `layouts/auth.blade.php` — layout limpio para login/register
 
-- [ ] **4.3** Crear componentes Blade reutilizables
+- [x] **4.3** Crear componentes Blade reutilizables
   - `components/pet-card.blade.php`
   - `components/health-badge.blade.php`
   - `components/alert.blade.php`
