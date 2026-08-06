@@ -383,7 +383,7 @@ tests/
   - `components/modal.blade.php`
   - `components/map.blade.php` — componente Leaflet genérico
 
-- [ ] **4.4** Vistas a crear
+- [x] **4.4** Vistas a crear
   - `auth/login.blade.php`, `register.blade.php`, `forgot-password.blade.php`
   - `dashboard/index.blade.php`
   - `pets/index.blade.php`, `create.blade.php`, `show.blade.php`, `edit.blade.php`
