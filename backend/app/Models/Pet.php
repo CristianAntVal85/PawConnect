@@ -45,6 +45,12 @@ class Pet extends Model
         return $this->hasMany(HealthRecord::class);
     }
 
+    // Alias requerido por el route model binding anidado de `pets.health`.
+    public function healths(): HasMany
+    {
+        return $this->healthRecords();
+    }
+
     public function photos(): HasMany
     {
         return $this->hasMany(PetPhoto::class)->orderBy('display_order');

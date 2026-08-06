@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -37,7 +38,8 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return $this->success([
+        return response()->json([
+            'message' => 'Registro exitoso.',
             'token' => $token,
             'user' => [
                 'id' => $user->id,
@@ -45,7 +47,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role,
             ],
-        ], 'Registro exitoso.', 201);
+        ], 201);
     }
 
     /**
@@ -73,7 +75,8 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return $this->success([
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso.',
             'token' => $token,
             'user' => [
                 'id' => $user->id,
@@ -81,7 +84,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role,
             ],
-        ], 'Inicio de sesión exitoso.');
+        ]);
     }
 
     /**
@@ -89,7 +92,14 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        if ($request->user()->currentAccessToken()) {
+            $request->user()->currentAccessToken()->delete();
+        }
+
+        $request->user()->tokens()->delete();
+        Auth::forgetGuards();
+        auth()->shouldUse('web');
+        auth('web')->logout();
 
         return $this->success(null, 'Sesión cerrada correctamente.');
     }

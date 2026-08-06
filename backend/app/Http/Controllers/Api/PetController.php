@@ -33,7 +33,7 @@ class PetController extends Controller
             $query->where('user_id', $request->user()->id);
         }
 
-        $pets = $query->latest()->paginate(15);
+        $pets = $query->latest()->get();
 
         return response()->json([
             'message' => 'Mascotas obtenidas correctamente.',
