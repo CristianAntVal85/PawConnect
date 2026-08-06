@@ -371,7 +371,7 @@ tests/
   npm run dev
   ```
 
-- [ ] **4.2** Crear layouts Blade
+- [x] **4.2** Crear layouts Blade
   - `layouts/app.blade.php` — layout principal con nav y sidebar
   - `layouts/admin.blade.php` — layout del panel admin
   - `layouts/auth.blade.php` — layout limpio para login/register
