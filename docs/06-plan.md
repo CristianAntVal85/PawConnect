@@ -348,7 +348,7 @@ tests/
   php artisan test  # Ejecutar todos los tests
   ```
 
-- [ ] **3.7** Configurar Rate Limiting
+- [x] **3.7** Configurar Rate Limiting
 
   ```php
   RateLimiter::for('api', fn ($req) =>

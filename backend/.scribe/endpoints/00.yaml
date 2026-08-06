@@ -27,9 +27,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -38,9 +38,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -51,16 +51,16 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      password: architecto
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      password: consequatur
     fileParameters: []
     responses: []
     responseFields: []
@@ -94,9 +94,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: gbailey@example.net
+        example: qkunze@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -107,15 +107,15 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: '|]|{+-'
+        example: 'O[2UZ5ij-e/dl4m{o,'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: gbailey@example.net
-      password: '|]|{+-'
+      email: qkunze@example.com
+      password: 'O[2UZ5ij-e/dl4m{o,'
     fileParameters: []
     responses: []
     responseFields: []
@@ -149,16 +149,16 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: gbailey@example.net
+        example: qkunze@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: gbailey@example.net
+      email: qkunze@example.com
     fileParameters: []
     responses: []
     responseFields: []
@@ -194,7 +194,7 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -203,9 +203,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: zbailey@example.net
+        example: carolyne.luettgen@example.org
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -216,16 +216,16 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      token: architecto
-      email: zbailey@example.net
-      password: architecto
+      token: consequatur
+      email: carolyne.luettgen@example.org
+      password: consequatur
     fileParameters: []
     responses: []
     responseFields: []
@@ -264,7 +264,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -308,7 +308,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -339,9 +339,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -350,9 +350,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -372,9 +372,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: hfqcoynlazghdtqtqxbaj
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -383,9 +383,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
-        example: -90
+        example: -89
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -394,9 +394,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -405,9 +405,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: d
+        example: pilpmufinllwloauydlsm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -416,29 +416,29 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: l
+        example: sjuryvojcybzvrbyickzn
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      photo: i
-      lat: -90
-      lng: -179
-      address: d
-      billing_address: l
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      photo: hfqcoynlazghdtqtqxbaj
+      lat: -89
+      lng: -180
+      address: pilpmufinllwloauydlsm
+      billing_address: sjuryvojcybzvrbyickzn
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -473,7 +473,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -517,7 +517,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -550,7 +550,7 @@ endpoints:
         name: user_id
         description: 'Must match an existing stored value.'
         required: false
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -559,7 +559,7 @@ endpoints:
       species:
         custom: []
         name: species
-        description: 'Especie de la mascota. Ejemplos: dog, cat, rabbit, bird, fish, etc. validation.max.'
+        description: 'Especie de la mascota. Ejemplos: dog, cat, rabbit, bird, fish, etc. Must not be greater than 50 characters.'
         required: true
         example: dog
         type: string
@@ -570,7 +570,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Nombre de la mascota. validation.max.'
+        description: 'Nombre de la mascota. Must not be greater than 120 characters.'
         required: true
         example: Max
         type: string
@@ -581,7 +581,7 @@ endpoints:
       breed:
         custom: []
         name: breed
-        description: 'Raza de la mascota (opcional). Ejemplos: Labrador, Persa, Husky. validation.max.'
+        description: 'Raza de la mascota (opcional). Ejemplos: Labrador, Persa, Husky. Must not be greater than 120 characters.'
         required: false
         example: 'Labrador Retriever'
         type: string
@@ -592,7 +592,7 @@ endpoints:
       age:
         custom: []
         name: age
-        description: 'Edad de la mascota en años (0-35). validation.min validation.max.'
+        description: 'Edad de la mascota en años (0-35). Must be at least 0. Must not be greater than 35.'
         required: false
         example: 3
         type: integer
@@ -603,7 +603,7 @@ endpoints:
       weight:
         custom: []
         name: weight
-        description: 'Peso de la mascota en kilogramos. validation.min validation.max.'
+        description: 'Peso de la mascota en kilogramos. Must be at least 0. Must not be greater than 999.99.'
         required: false
         example: 25.5
         type: number
@@ -614,7 +614,7 @@ endpoints:
       size:
         custom: []
         name: size
-        description: 'Tamaño de la mascota. Valores: small, medium, large, giant. validation.max.'
+        description: 'Tamaño de la mascota. Valores: small, medium, large, giant. Must not be greater than 30 characters.'
         required: false
         example: medium
         type: string
@@ -625,7 +625,7 @@ endpoints:
       energy_level:
         custom: []
         name: energy_level
-        description: 'Nivel de energía de la mascota. Valores: low, moderate, high, very_high. validation.max.'
+        description: 'Nivel de energía de la mascota. Valores: low, moderate, high, very_high. Must not be greater than 30 characters.'
         required: false
         example: high
         type: string
@@ -636,7 +636,7 @@ endpoints:
       personality:
         custom: []
         name: personality
-        description: 'Descripción libre de la personalidad y comportamiento de la mascota. validation.max.'
+        description: 'Descripción libre de la personalidad y comportamiento de la mascota. Must not be greater than 2000 characters.'
         required: false
         example: 'Muy sociable, le encanta jugar con otros perros y es muy obediente.'
         type: string
@@ -658,7 +658,7 @@ endpoints:
       photos:
         custom: []
         name: photos
-        description: 'Must be a file. validation.image validation.max.'
+        description: 'Must be a file. Must be an image. Must not be greater than 4096 kilobytes.'
         required: false
         example:
           - null
@@ -668,7 +668,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      user_id: 16
+      user_id: 17
       species: dog
       name: Max
       breed: 'Labrador Retriever'
@@ -686,7 +686,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -715,14 +715,14 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -742,7 +742,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -772,21 +772,21 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       species:
         custom: []
         name: species
-        description: 'Especie de la mascota. Todos los campos son opcionales en actualización. validation.max.'
+        description: 'Especie de la mascota. Todos los campos son opcionales en actualización. Must not be greater than 50 characters.'
         required: false
         example: dog
         type: string
@@ -797,7 +797,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Nombre de la mascota. validation.max.'
+        description: 'Nombre de la mascota. Must not be greater than 120 characters.'
         required: false
         example: Max
         type: string
@@ -808,7 +808,7 @@ endpoints:
       breed:
         custom: []
         name: breed
-        description: 'Raza de la mascota. validation.max.'
+        description: 'Raza de la mascota. Must not be greater than 120 characters.'
         required: false
         example: 'Golden Retriever'
         type: string
@@ -819,7 +819,7 @@ endpoints:
       age:
         custom: []
         name: age
-        description: 'Edad de la mascota en años. validation.min validation.max.'
+        description: 'Edad de la mascota en años. Must be at least 0. Must not be greater than 35.'
         required: false
         example: 4
         type: integer
@@ -830,7 +830,7 @@ endpoints:
       weight:
         custom: []
         name: weight
-        description: 'Peso de la mascota en kilogramos. validation.min validation.max.'
+        description: 'Peso de la mascota en kilogramos. Must be at least 0. Must not be greater than 999.99.'
         required: false
         example: 28.0
         type: number
@@ -841,7 +841,7 @@ endpoints:
       size:
         custom: []
         name: size
-        description: 'Tamaño: small, medium, large, giant. validation.max.'
+        description: 'Tamaño: small, medium, large, giant. Must not be greater than 30 characters.'
         required: false
         example: large
         type: string
@@ -852,7 +852,7 @@ endpoints:
       energy_level:
         custom: []
         name: energy_level
-        description: 'Nivel de energía: low, moderate, high, very_high. validation.max.'
+        description: 'Nivel de energía: low, moderate, high, very_high. Must not be greater than 30 characters.'
         required: false
         example: moderate
         type: string
@@ -863,7 +863,7 @@ endpoints:
       personality:
         custom: []
         name: personality
-        description: 'Descripción de la personalidad. validation.max.'
+        description: 'Descripción de la personalidad. Must not be greater than 2000 characters.'
         required: false
         example: 'Tranquilo y cariñoso con niños.'
         type: string
@@ -885,7 +885,7 @@ endpoints:
       photos:
         custom: []
         name: photos
-        description: 'Must be a file. validation.image validation.max.'
+        description: 'Must be a file. Must be an image. Must not be greater than 4096 kilobytes.'
         required: false
         example:
           - null
@@ -912,7 +912,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -941,14 +941,14 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -959,7 +959,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -988,14 +988,14 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
+      pet_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1015,7 +1015,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1044,14 +1044,14 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
+      pet_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1062,7 +1062,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1091,7 +1091,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1102,15 +1102,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: architecto
+      pet_id: 17
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1130,7 +1130,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1160,7 +1160,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1171,15 +1171,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: architecto
+      pet_id: 17
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1190,7 +1190,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1219,7 +1219,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1230,15 +1230,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: architecto
+      pet_id: 17
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1249,7 +1249,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1293,7 +1293,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1328,7 +1328,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1357,14 +1357,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1384,7 +1384,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1414,14 +1414,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1432,7 +1432,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1461,14 +1461,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1479,7 +1479,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1508,14 +1508,14 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
+      match_id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1535,7 +1535,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1564,14 +1564,14 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
+      match_id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1582,7 +1582,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1611,7 +1611,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1622,15 +1622,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1650,7 +1650,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1680,7 +1680,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1691,15 +1691,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1710,7 +1710,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1739,7 +1739,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1750,15 +1750,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1769,7 +1769,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1813,7 +1813,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1848,7 +1848,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1877,14 +1877,14 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1904,7 +1904,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1934,14 +1934,14 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1952,7 +1952,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1981,14 +1981,14 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1999,7 +1999,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2043,7 +2043,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2072,14 +2072,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2099,7 +2099,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2143,7 +2143,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2178,7 +2178,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2207,14 +2207,14 @@ endpoints:
         name: id
         description: 'The ID of the order.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2234,7 +2234,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2278,7 +2278,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2313,7 +2313,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2342,14 +2342,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2369,7 +2369,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2399,14 +2399,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2417,7 +2417,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2446,14 +2446,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2464,7 +2464,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2508,7 +2508,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2537,14 +2537,14 @@ endpoints:
         name: petId
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      petId: architecto
+      petId: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2555,7 +2555,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2584,14 +2584,14 @@ endpoints:
         name: petId
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      petId: architecto
+      petId: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2602,7 +2602,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2631,14 +2631,14 @@ endpoints:
         name: walk
         description: 'The walk.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      walk: architecto
+      walk: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2649,7 +2649,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2678,14 +2678,14 @@ endpoints:
         name: walk
         description: 'The walk.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      walk: architecto
+      walk: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2696,7 +2696,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2725,14 +2725,14 @@ endpoints:
         name: petId
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      petId: architecto
+      petId: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2752,7 +2752,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2796,7 +2796,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2827,9 +2827,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2838,9 +2838,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2851,7 +2851,7 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2871,9 +2871,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: 'n'
+        example: mqeopfuudtdsufvyvddqa
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2882,7 +2882,7 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
         example: -90
         type: number
@@ -2893,7 +2893,7 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
         example: -179
         type: number
@@ -2904,9 +2904,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: m
+        example: iihfqcoynlazghdtqtqxb
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2915,30 +2915,30 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: ajwbpilpmufinllwloauy
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      password: architecto
-      photo: 'n'
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      password: consequatur
+      photo: mqeopfuudtdsufvyvddqa
       lat: -90
       lng: -179
-      address: m
-      billing_address: i
+      address: iihfqcoynlazghdtqtqxb
+      billing_address: ajwbpilpmufinllwloauy
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2967,14 +2967,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2994,7 +2994,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3024,23 +3024,23 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3049,9 +3049,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3082,9 +3082,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: hfqcoynlazghdtqtqxbaj
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3093,9 +3093,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
-        example: -90
+        example: -89
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3104,9 +3104,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3115,9 +3115,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: d
+        example: pilpmufinllwloauydlsm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3126,29 +3126,29 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: l
+        example: sjuryvojcybzvrbyickzn
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      photo: i
-      lat: -90
-      lng: -179
-      address: d
-      billing_address: l
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      photo: hfqcoynlazghdtqtqxbaj
+      lat: -89
+      lng: -180
+      address: pilpmufinllwloauydlsm
+      billing_address: sjuryvojcybzvrbyickzn
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3177,14 +3177,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3195,7 +3195,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3239,7 +3239,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3274,7 +3274,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3303,14 +3303,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3330,7 +3330,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3360,14 +3360,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3378,7 +3378,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3407,14 +3407,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3425,7 +3425,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3469,7 +3469,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3504,7 +3504,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3533,14 +3533,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3560,7 +3560,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3590,14 +3590,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3608,7 +3608,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3637,14 +3637,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3655,7 +3655,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
