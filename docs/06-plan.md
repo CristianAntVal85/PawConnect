@@ -364,7 +364,7 @@ tests/
 
 **Objetivo:** interfaz web usable, responsive, que consume la API.
 
-- [ ] **4.1** Configurar TailwindCSS con Vite
+- [x] **4.1** Configurar TailwindCSS con Vite
 
   ```bash
   npm install -D tailwindcss @tailwindcss/forms @tailwindcss/typography
