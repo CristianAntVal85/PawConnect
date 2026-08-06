@@ -397,7 +397,7 @@ tests/
   php artisan make:controller Web/ProfileController
   ```
 
-- [ ] **4.6** Formularios
+- [x] **4.6** Formularios
   - Validación server-side con Form Requests
   - Errores con `@error` en Blade
   - `@csrf` en todos los formularios
