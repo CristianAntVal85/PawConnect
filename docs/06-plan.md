@@ -389,7 +389,7 @@ tests/
   - `pets/index.blade.php`, `create.blade.php`, `show.blade.php`, `edit.blade.php`
   - `profile/edit.blade.php`
 
-- [ ] **4.5** Crear Web Controllers
+- [x] **4.5** Crear Web Controllers
 
   ```bash
   php artisan make:controller Web/DashboardController
