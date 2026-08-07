@@ -3,6 +3,7 @@
 use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
 
@@ -43,4 +44,41 @@ test('el endpoint devuelve candidatos compatibles y excluye mascotas propias y l
         ->assertJsonCount(1, 'data');
 
     expect($response->json('data.0.id'))->toBe($compatiblePet->id);
+});
+
+test('un like mutuo crea un match', function () {
+    $firstUser = actingAsUser();
+    $firstPet = Pet::factory()->create([
+        'user_id' => $firstUser->id,
+        'species' => 'dog',
+        'name' => 'Rex',
+        'size' => 'medium',
+        'energy_level' => 'high',
+        'available_for_walks' => true,
+    ]);
+
+    $secondUser = User::factory()->create();
+    $secondPet = Pet::factory()->create([
+        'user_id' => $secondUser->id,
+        'species' => 'dog',
+        'name' => 'Milo',
+        'size' => 'medium',
+        'energy_level' => 'high',
+        'available_for_walks' => true,
+    ]);
+
+    $this->postJson('/api/v1/matches/like/'.$secondPet->id)
+        ->assertOk()
+        ->assertJsonPath('data.swipe.action', 'like');
+
+    Sanctum::actingAs($secondUser);
+
+    $this->postJson('/api/v1/matches/like/'.$firstPet->id)
+        ->assertOk();
+
+    $this->assertDatabaseHas('matches', [
+        'pet_a_id' => $firstPet->id,
+        'pet_b_id' => $secondPet->id,
+        'status' => 'matched',
+    ]);
 });

@@ -434,7 +434,7 @@ tests/
   - Filtrar por distancia (Haversine con lat/lng)
   - Ordenar por tamaño compatible, nivel energía, disponibilidad
 
-- [ ] **5.2** Implementar acciones like/pass
+- [x] **5.2** Implementar acciones like/pass
   - Tabla `pet_swipes (swiper_pet_id, swiped_pet_id, action)`
   - Si ambas dan like → crear `matches` + evento `MatchCreated`
 

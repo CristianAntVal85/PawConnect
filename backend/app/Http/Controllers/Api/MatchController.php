@@ -37,9 +37,18 @@ class MatchController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $action = $request->route()->getName() === 'api.v1.matches.pass' ? 'pass' : 'like';
+        $currentPet = $request->user()->pets()->firstOrFail();
+        $targetPet = Pet::findOrFail($request->route('petId'));
+
+        $result = $this->matchService->registerInteraction($currentPet, $targetPet, $action);
+
         return response()->json([
-            'message' => 'Pendiente de implementación en el punto 5.2 (like/pass).',
-            'data' => null,
+            'message' => $result['match'] ? '¡Has hecho match!' : 'Interacción registrada.',
+            'data' => [
+                'swipe' => $result['swipe'],
+                'match' => $result['match'],
+            ],
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Pet;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class MatchService
 {
@@ -56,6 +57,60 @@ class MatchService
         return $candidates->sortByDesc(function (Pet $candidate) use ($currentPet): int {
             return $this->compatibilityScore($currentPet, $candidate);
         })->values();
+    }
+
+    public function registerInteraction(Pet $currentPet, Pet $targetPet, string $action): array
+    {
+        if (! in_array($action, ['like', 'pass'], true)) {
+            return [
+                'match' => null,
+                'swipe' => null,
+            ];
+        }
+
+        return DB::transaction(function () use ($currentPet, $targetPet, $action): array {
+            $existingSwipe = $currentPet->matchesAsPetA()
+                ->where('pet_b_id', $targetPet->id)
+                ->first();
+
+            if ($existingSwipe) {
+                return [
+                    'match' => $existingSwipe->status === 'matched' ? $existingSwipe : null,
+                    'swipe' => [
+                        'action' => $existingSwipe->status === 'liked' ? 'like' : 'pass',
+                        'pet_id' => $targetPet->id,
+                    ],
+                ];
+            }
+
+            $swipe = $currentPet->matchesAsPetA()->create([
+                'pet_b_id' => $targetPet->id,
+                'status' => $action === 'like' ? 'liked' : 'passed',
+            ]);
+
+            $match = null;
+
+            if ($action === 'like') {
+                $reverseSwipe = $targetPet->matchesAsPetA()
+                    ->where('pet_b_id', $currentPet->id)
+                    ->where('status', 'liked')
+                    ->first();
+
+                if ($reverseSwipe) {
+                    $reverseSwipe->update(['status' => 'matched']);
+                    $swipe->update(['status' => 'matched']);
+                    $match = $swipe->fresh();
+                }
+            }
+
+            return [
+                'match' => $match,
+                'swipe' => [
+                    'action' => $action,
+                    'pet_id' => $targetPet->id,
+                ],
+            ];
+        });
     }
 
     protected function getSeenPetIds(Pet $currentPet): array
