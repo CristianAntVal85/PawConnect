@@ -1,4 +1,4 @@
-{{-- 
+{{--
     Componente: Botón para unirse/abandonar paseo (sin recarga)
     Uso:
     <x-join-walk-button :walk-id="$walk->id" :pet-id="$userPet->id" :is-joined="$isUserInWalk" />

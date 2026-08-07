@@ -128,7 +128,7 @@ export async function getWalkParticipants(walkId) {
  */
 export async function updateParticipantCount(container, walkId) {
     const result = await getWalkParticipants(walkId);
-    
+
     if (result.success) {
         const count = result.data.walk_pet?.length || 0;
         const max = result.data.max_pets || '∞';

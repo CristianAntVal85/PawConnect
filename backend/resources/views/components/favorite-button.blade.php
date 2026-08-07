@@ -1,4 +1,4 @@
-{{-- 
+{{--
     Componente de ejemplo: Botón para guardar favorito (sin recarga)
     Uso:
     <x-favorite-button :place-id="$place->id" :is-favorited="$isFavorited" />

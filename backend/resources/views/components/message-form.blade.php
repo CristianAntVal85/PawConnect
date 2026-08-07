@@ -1,4 +1,4 @@
-{{-- 
+{{--
     Componente: Formulario para enviar mensajes (sin recarga)
     Uso:
     <x-message-form :match-id="$match->id" :user-id="auth()->id()" />
@@ -17,7 +17,7 @@
         class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
         required
     ></textarea>
-    
+
     <button
         type="submit"
         class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition"

@@ -55,7 +55,7 @@ export async function fetchMessages(matchId, options = {}) {
             },
         });
         const data = await response.json();
-        
+
         if (!response.ok) {
             throw new Error(data.message || 'Error al obtener mensajes');
         }
@@ -75,7 +75,7 @@ export async function fetchMessages(matchId, options = {}) {
 export async function handleMessageSubmit(form, matchId, messagesContainer = null) {
     const textarea = form.querySelector('textarea[name="body"]');
     const submitBtn = form.querySelector('button[type="submit"]');
-    
+
     if (!textarea || !textarea.value.trim()) {
         alert('El mensaje no puede estar vacío');
         return;
@@ -119,7 +119,7 @@ export async function handleMessageSubmit(form, matchId, messagesContainer = nul
 function appendMessageToUI(container, message) {
     const messageEl = document.createElement('div');
     messageEl.className = 'mb-4 flex gap-2';
-    
+
     // Alternancia derecha/izquierda basada en sender_id
     const isOwn = message.sender_id === parseInt(document.body.dataset.userId);
     if (isOwn) {
