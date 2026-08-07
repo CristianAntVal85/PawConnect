@@ -438,7 +438,7 @@ tests/
   - Tabla `pet_swipes (swiper_pet_id, swiped_pet_id, action)`
   - Si ambas dan like → crear `matches` + evento `MatchCreated`
 
-- [ ] **5.3** Vista swipe
+- [x] **5.3** Vista swipe
   - Tarjeta con fotos, nombre, raza, energía
   - Botones Like ❤️ y Pass ✗
   - Animación CSS de deslizamiento

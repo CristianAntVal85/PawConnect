@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,6 +16,9 @@ Route::view('/forgot-password', 'auth.forgot-password')->name('password.request'
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
+    Route::get('/matches/swipe', function () {
+        return view('matches.swipe');
+    })->name('web.matches.swipe');
 
     Route::get('/pets', [PetController::class, 'index'])->name('web.pets.index');
     Route::get('/pets/create', [PetController::class, 'create'])->name('web.pets.create');
