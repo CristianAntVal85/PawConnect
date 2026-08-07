@@ -410,11 +410,15 @@ tests/
   - Componentes Blade: `favorite-button`, `message-form`, `join-walk-button`
   - Documentación en `guia-fetch-api.md`
 
-- [ ] **4.8** Responsive design
+- [x] **4.8** Responsive design
   - Probar en 375px (móvil), 768px (tablet), 1280px (escritorio)
-  - Menú hamburguesa en móvil
+  - Menú hamburguesa en móvil (ya implementado en layout app)
+  - Componentes responsive: botones, formularios, layout
+  - Documentación en `guia-responsive-design.md`
+  - Mobile-First approach con TailwindCSS breakpoints
+  - Padding/gap/fuentes escalables en todas las vistas
 
-> ✅ **Criterio de aceptación:** flujo registro → login → crear mascota → ver dashboard. Sin errores JS. Responsive en móvil y escritorio.
+> ✅ **Criterio de aceptación:** flujo registro → login → crear mascota → ver dashboard. Sin errores JS. Responsive en móvil (375px) y escritorio (1280px). Menú hamburguesa funciona.
 
 ---
 
