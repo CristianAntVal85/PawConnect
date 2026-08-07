@@ -403,9 +403,12 @@ tests/
   - `@csrf` en todos los formularios
   - Previsualización de fotos antes de subir (JS puro)
 
-- [ ] **4.7** JavaScript (Fetch API)
+- [x] **4.7** JavaScript (Fetch API)
   - `resources/js/api.js` con wrapper para fetch + auth token
   - Sin recarga de página para: guardar favorito, enviar mensaje, unirse a paseo
+  - Módulos: `favorites.js`, `messages.js`, `walks.js`
+  - Componentes Blade: `favorite-button`, `message-form`, `join-walk-button`
+  - Documentación en `guia-fetch-api.md`
 
 - [ ] **4.8** Responsive design
   - Probar en 375px (móvil), 768px (tablet), 1280px (escritorio)

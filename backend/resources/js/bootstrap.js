@@ -1,4 +1,24 @@
 import axios from 'axios';
-window.axios = axios;
 
+// Configurar axios con valores por defecto
+window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// Agregar token de autenticación a axios si existe
+const token = localStorage.getItem('auth_token');
+if (token) {
+    window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+// Interceptor para manejar errores de autenticación
+window.axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401) {
+            // Token expirado o inválido
+            localStorage.removeItem('auth_token');
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
