@@ -40,6 +40,9 @@ Route::prefix('v1')->group(function () {
             ->except(['create', 'edit']);
 
         // Social: matches, messages y walks
+        Route::get('/matches/candidates', [MatchController::class, 'index'])->name('api.v1.matches.candidates');
+        Route::post('/matches/like/{petId}', [MatchController::class, 'store'])->name('api.v1.matches.like');
+        Route::post('/matches/pass/{petId}', [MatchController::class, 'store'])->name('api.v1.matches.pass');
         Route::apiResource('matches', MatchController::class)->except(['create', 'edit']);
         Route::apiResource('matches.messages', MessageController::class)
             ->scoped()
@@ -56,9 +59,6 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
 
         // Endpoints especiales que se implementarán en 3.x
-        Route::get('/matches/candidates', [MatchController::class, 'index']);
-        Route::post('/matches/like/{petId}', [MatchController::class, 'store']);
-        Route::post('/matches/pass/{petId}', [MatchController::class, 'store']);
         Route::post('/walks/{walk}/join', [WalkController::class, 'store']);
         Route::post('/walks/{walk}/leave', [WalkController::class, 'destroy']);
         Route::get('/products/recommended/{petId}', [ProductController::class, 'index']);

@@ -428,7 +428,7 @@ tests/
 
 ### Match
 
-- [ ] **5.1** Crear `MatchService` con algoritmo de candidatos
+- [x] **5.1** Crear `MatchService` con algoritmo de candidatos
   - Excluir mascotas caninas del propio usuario
   - Excluir candidatas ya vistas (likes + passes)
   - Filtrar por distancia (Haversine con lat/lng)

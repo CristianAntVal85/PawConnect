@@ -3,24 +3,44 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pet;
+use App\Services\MatchService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
+    public function __construct(private MatchService $matchService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        $petId = $request->query('pet_id');
+        $pet = $petId ? Pet::findOrFail($petId) : $request->user()->pets()->firstOrFail();
+
+        $this->authorize('view', $pet);
+
+        $candidates = $this->matchService->getCandidates($pet);
+
+        return response()->json([
+            'message' => 'Candidatos obtenidos correctamente.',
+            'data' => $candidates->values(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        return response()->json([
+            'message' => 'Pendiente de implementación en el punto 5.2 (like/pass).',
+            'data' => null,
+        ]);
     }
 
     /**
