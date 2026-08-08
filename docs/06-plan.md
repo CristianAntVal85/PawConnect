@@ -453,7 +453,7 @@ tests/
   npm install --save-dev laravel-echo pusher-js
   ```
 
-- [ ] **5.5** Canal privado `private-match.{matchId}` con evento `MessageSent`
+- [x] **5.5** Canal privado `private-match.{matchId}` con evento `MessageSent`
 
 - [ ] **5.6** Vista del chat
   - Lista de conversaciones en sidebar
