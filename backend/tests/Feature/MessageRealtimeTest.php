@@ -87,3 +87,45 @@ test('un usuario que no pertenece al match no puede enviar mensajes', function (
     $this->assertDatabaseCount('messages', 0);
     Event::assertNotDispatched(MessageSent::class);
 });
+
+test('al abrir una conversacion se marcan como leidos los mensajes recibidos', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $userPet = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+    ]);
+
+    $otherPet = Pet::factory()->create([
+        'user_id' => $otherUser->id,
+        'species' => 'dog',
+    ]);
+
+    $match = PetMatch::query()->create([
+        'pet_a_id' => $userPet->id,
+        'pet_b_id' => $otherPet->id,
+        'status' => 'matched',
+        'matched_at' => now(),
+    ]);
+
+    $incoming = $match->messages()->create([
+        'sender_id' => $otherUser->id,
+        'body' => 'Mensaje pendiente de lectura',
+    ]);
+
+    $own = $match->messages()->create([
+        'sender_id' => $user->id,
+        'body' => 'Mensaje propio',
+    ]);
+
+    Sanctum::actingAs($user);
+
+    $this->getJson('/api/v1/matches/'.$match->id.'/messages')
+        ->assertOk()
+        ->assertJsonPath('data.0.id', $incoming->id)
+        ->assertJsonPath('data.1.id', $own->id);
+
+    expect($incoming->fresh()->read_at)->not->toBeNull();
+    expect($own->fresh()->read_at)->toBeNull();
+});

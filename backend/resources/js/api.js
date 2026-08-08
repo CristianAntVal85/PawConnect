@@ -47,6 +47,7 @@ async function apiFetch(endpoint, options = {}) {
     }
 
     const config = {
+        credentials: 'same-origin',
         ...options,
         headers: {
             ...defaultHeaders,

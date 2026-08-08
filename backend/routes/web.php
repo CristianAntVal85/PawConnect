@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,9 @@ Route::view('/forgot-password', 'auth.forgot-password')->name('password.request'
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
+    Route::get('/chat/{match?}', [ChatController::class, 'index'])
+        ->whereNumber('match')
+        ->name('web.chat.index');
     Route::get('/matches/swipe', function () {
         return view('matches.swipe');
     })->name('web.matches.swipe');

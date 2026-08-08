@@ -455,7 +455,7 @@ tests/
 
 - [x] **5.5** Canal privado `private-match.{matchId}` con evento `MessageSent`
 
-- [ ] **5.6** Vista del chat
+- [x] **5.6** Vista del chat
   - Lista de conversaciones en sidebar
   - Scroll automático al último mensaje
   - Indicador "escribiendo…" (evento `client-typing`)

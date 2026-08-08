@@ -16,11 +16,18 @@ class MessageController extends Controller
      */
     public function index(PetMatch $match, Request $request): JsonResponse
     {
+        $userId = (int) $request->user()->id;
+
         abort_unless(
-            $this->userBelongsToMatch($match, (int) $request->user()->id),
+            $this->userBelongsToMatch($match, $userId),
             403,
             'No autorizado para acceder a este chat.'
         );
+
+        $match->messages()
+            ->whereNull('read_at')
+            ->where('sender_id', '!=', $userId)
+            ->update(['read_at' => now()]);
 
         $messages = $match->messages()
             ->with('sender:id,name')
