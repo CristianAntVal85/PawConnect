@@ -446,7 +446,7 @@ tests/
 
 ### Chat
 
-- [ ] **5.4** Instalar Laravel Reverb
+- [x] **5.4** Instalar Laravel Reverb
 
   ```bash
   php artisan install:broadcasting
