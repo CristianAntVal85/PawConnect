@@ -504,7 +504,7 @@ tests/
 
 ### Marketplace
 
-- [ ] **6.5** CRUD de productos (solo admin)
+- [x] **6.5** CRUD de productos (solo admin)
 
 - [ ] **6.6** `RecommendationService`
   - Input: `Pet $pet`

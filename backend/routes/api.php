@@ -23,6 +23,10 @@ Route::prefix('v1')->group(function () {
         Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     });
 
+    // ── Rutas públicas ──────────────────────────────────────────────────────────
+    Route::apiResource('products', ProductController::class)
+        ->only(['index', 'show']);
+
     // ── Rutas protegidas con Sanctum ─────────────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
 
@@ -61,8 +65,6 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('walks', WalkController::class)->except(['create', 'edit']);
 
         // Marketplace
-        Route::apiResource('products', ProductController::class)
-            ->only(['index', 'show']);
         Route::apiResource('orders', OrderController::class)
             ->only(['index', 'store', 'show']);
 
