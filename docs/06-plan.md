@@ -467,7 +467,7 @@ tests/
   - Crear paseo: título, descripción, ubicación, fecha, max mascotas caninas
   - Listar cercanos, unirse/abandonar, ver participantes
 
-- [ ] **5.8** Mapa con Leaflet.js
+- [x] **5.8** Mapa con Leaflet.js
   - Marcador por paseo, popup con botón "Unirse"
   - Geolocalización del usuario para centrar
 

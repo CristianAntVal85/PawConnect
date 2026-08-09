@@ -40,7 +40,7 @@
                     <a href="{{ route('web.pets.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Mascotas</a>
                     <a href="{{ route('web.matches.swipe') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Match</a>
                     <a href="{{ route('web.chat.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Chat</a>
-                    <a href="#" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Paseos</a>
+                    <a href="{{ route('web.walks.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Paseos</a>
                 </nav>
             </aside>
 

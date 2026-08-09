@@ -1,4 +1,5 @@
 @props([
+    'mapKey' => null,
     'height' => '400px',
     'markers' => [],
     'center' => ['lat' => 40.4168, 'lng' => -3.7038],
@@ -10,7 +11,7 @@
     $mapId = 'map-' . uniqid();
 @endphp
 
-<div {{ $attributes->merge(['class' => 'relative overflow-hidden rounded-lg border border-slate-200']) }}>
+<div {{ $attributes->merge(['class' => 'relative overflow-hidden rounded-lg border border-slate-200']) }} data-map-key="{{ $mapKey }}">
     <div id="{{ $mapId }}" style="height: {{ $height }}; width: 100%;"></div>
 </div>
 
@@ -18,7 +19,7 @@
     @push('scripts')
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     @endpush
@@ -28,6 +29,7 @@
 <script>
     (function() {
         const mapId = '{{ $mapId }}';
+        const mapKey = @json($mapKey);
         const center = @json($center);
         const zoom = {{ $zoom }};
         const markers = @json($markers);
@@ -62,11 +64,11 @@
             // Añadir marcadores
             markers.forEach(marker => {
                 const markerObj = L.marker([marker.lat, marker.lng]).addTo(map);
-                
+
                 if (marker.popup) {
                     markerObj.bindPopup(marker.popup);
                 }
-                
+
                 if (marker.tooltip) {
                     markerObj.bindTooltip(marker.tooltip);
                 }
@@ -76,7 +78,7 @@
             if (markers.length === 1) {
                 map.setView([markers[0].lat, markers[0].lng], zoom);
             }
-            
+
             // Si hay múltiples marcadores, ajustar bounds
             if (markers.length > 1) {
                 const bounds = L.latLngBounds(markers.map(m => [m.lat, m.lng]));
@@ -90,6 +92,9 @@
 
             // Exponer el mapa globalmente para poder manipularlo desde fuera
             window['leafletMap_' + mapId] = map;
+            window.dispatchEvent(new CustomEvent('leaflet-map:ready', {
+                detail: { mapId, mapKey, map }
+            }));
         }
 
         // Iniciar cuando el DOM esté listo

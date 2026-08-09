@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\WalkController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/matches/swipe', function () {
         return view('matches.swipe');
     })->name('web.matches.swipe');
+    Route::get('/walks', [WalkController::class, 'index'])->name('web.walks.index');
+    Route::post('/walks/{walk}/join', [WalkController::class, 'join'])->name('web.walks.join');
+    Route::delete('/walks/{walk}/leave', [WalkController::class, 'leave'])->name('web.walks.leave');
 
     Route::get('/pets', [PetController::class, 'index'])->name('web.pets.index');
     Route::get('/pets/create', [PetController::class, 'create'])->name('web.pets.create');
