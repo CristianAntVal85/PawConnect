@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreHealthRecordRequest;
+use App\Http\Requests\UpdateHealthRecordRequest;
 use App\Http\Resources\HealthRecordResource;
 use App\Models\HealthRecord;
 use App\Models\Pet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class HealthController extends Controller
 {
@@ -24,27 +25,18 @@ class HealthController extends Controller
         ]);
     }
 
-    public function store(Request $request, Pet $pet): JsonResponse
+    public function store(StoreHealthRecordRequest $request, Pet $pet): JsonResponse
     {
         $this->ensureCanManagePet($request, $pet);
 
-        $validated = $request->validate([
-            'type' => ['required', Rule::in(['vaccination', 'deworming', 'checkup', 'surgery', 'medication'])],
-            'last_date' => ['nullable', 'date'],
-            'periodicity_days' => ['nullable', 'integer', 'min:1'],
-            'notes' => ['nullable', 'string'],
-            'notifications_active' => ['nullable', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $record = new HealthRecord($validated);
         $record->pet_id = $pet->id;
-
-        if (! empty($validated['last_date']) && ! empty($validated['periodicity_days'])) {
-            $record->next_due_date = now()
-                ->parse($validated['last_date'])
-                ->addDays((int) $validated['periodicity_days'])
-                ->toDateString();
-        }
+        $record->next_due_date = $this->calculateNextDueDate(
+            $validated['last_date'] ?? null,
+            $validated['periodicity_days'] ?? null
+        );
 
         $record->save();
 
@@ -65,30 +57,19 @@ class HealthController extends Controller
         ]);
     }
 
-    public function update(Request $request, Pet $pet, HealthRecord $health): JsonResponse
+    public function update(UpdateHealthRecordRequest $request, Pet $pet, HealthRecord $health): JsonResponse
     {
         $this->ensureCanManagePet($request, $pet);
         $this->ensureRecordBelongsToPet($pet, $health);
 
-        $validated = $request->validate([
-            'type' => ['sometimes', Rule::in(['vaccination', 'deworming', 'checkup', 'surgery', 'medication'])],
-            'last_date' => ['sometimes', 'nullable', 'date'],
-            'periodicity_days' => ['sometimes', 'nullable', 'integer', 'min:1'],
-            'notes' => ['sometimes', 'nullable', 'string'],
-            'notifications_active' => ['sometimes', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $health->fill($validated);
 
         $lastDate = $validated['last_date'] ?? $health->last_date?->toDateString();
         $periodicityDays = $validated['periodicity_days'] ?? $health->periodicity_days;
 
-        if (! empty($lastDate) && ! empty($periodicityDays)) {
-            $health->next_due_date = now()
-                ->parse($lastDate)
-                ->addDays((int) $periodicityDays)
-                ->toDateString();
-        }
+        $health->next_due_date = $this->calculateNextDueDate($lastDate, $periodicityDays);
 
         $health->save();
 
@@ -122,5 +103,24 @@ class HealthController extends Controller
         if ((int) $health->pet_id !== (int) $pet->id) {
             abort(404);
         }
+    }
+
+    /**
+     * Calcula la próxima fecha de revisión sanitaria.
+     *
+     * @param  string|null  $lastDate  Fecha del último registro (formato YYYY-MM-DD)
+     * @param  int|null  $periodicityDays  Días de periodicidad
+     * @return string|null  Próxima fecha de revisión (formato YYYY-MM-DD) o null
+     */
+    private function calculateNextDueDate(?string $lastDate, ?int $periodicityDays): ?string
+    {
+        if (empty($lastDate) || empty($periodicityDays)) {
+            return null;
+        }
+
+        return now()
+            ->parse($lastDate)
+            ->addDays((int) $periodicityDays)
+            ->toDateString();
     }
 }
