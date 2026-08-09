@@ -6,11 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Pet;
 use App\Models\Product;
+use App\Services\RecommendationService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct(
+        protected RecommendationService $recommendationService
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -85,6 +92,41 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Producto eliminado correctamente.',
+        ]);
+    }
+
+    /**
+     * Obtiene productos recomendados para una mascota específica.
+     */
+    public function recommended(Request $request, Pet $pet): JsonResponse
+    {
+        // Verificar que la mascota pertenece al usuario autenticado
+        if ($request->user()->id !== $pet->user_id) {
+            return response()->json([
+                'message' => 'No tienes permiso para ver recomendaciones de esta mascota.',
+            ], 403);
+        }
+
+        $perPage = $request->input('per_page', 20);
+        $products = $this->recommendationService->recommendForPet($pet, $perPage);
+
+        return response()->json([
+            'message' => "Productos recomendados para {$pet->name}.",
+            'pet' => [
+                'id' => $pet->id,
+                'name' => $pet->name,
+                'species' => $pet->species,
+                'breed' => $pet->breed,
+                'age' => $pet->age,
+                'weight' => $pet->weight,
+            ],
+            'data' => ProductResource::collection($products->items())->resolve(),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ],
         ]);
     }
 }

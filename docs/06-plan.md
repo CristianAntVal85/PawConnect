@@ -506,7 +506,7 @@ tests/
 
 - [x] **6.5** CRUD de productos (solo admin)
 
-- [ ] **6.6** `RecommendationService`
+- [x] **6.6** `RecommendationService`
   - Input: `Pet $pet`
   - Filtra por especie, peso, raza, edad y cruza con historial sanitario
 

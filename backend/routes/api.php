@@ -65,13 +65,13 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('walks', WalkController::class)->except(['create', 'edit']);
 
         // Marketplace
+        Route::get('/products/recommended/{pet}', [ProductController::class, 'recommended'])
+            ->name('api.v1.products.recommended');
         Route::apiResource('orders', OrderController::class)
             ->only(['index', 'store', 'show']);
 
         // Pet-friendly places
         Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
-
-        Route::get('/products/recommended/{petId}', [ProductController::class, 'index']);
 
         Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {
             Route::apiResource('users', UserController::class)->except(['create', 'edit']);
