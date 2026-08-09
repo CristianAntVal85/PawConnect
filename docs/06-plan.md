@@ -498,7 +498,7 @@ tests/
   - Scheduler diario: `$schedule->command('health:reminders')->daily()`
   - Busca registros con `next_due_date <= now() + 3 días` y `notifications_active = true`
 
-- [ ] **6.4** Campana de notificaciones en navbar
+- [x] **6.4** Campana de notificaciones en navbar
   - `GET /api/v1/notifications` (no leídas)
   - Badge con contador
 

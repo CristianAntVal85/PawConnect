@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\MatchController;
 use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\PlaceController;
@@ -26,6 +27,11 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+        // Notifications
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('api.v1.notifications.index');
+        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('api.v1.notifications.unread-count');
+        Route::put('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('api.v1.notifications.mark-as-read');
 
         Route::get('/users/me', [UserController::class, 'me']);
         Route::put('/users/me', [UserController::class, 'updateMe']);

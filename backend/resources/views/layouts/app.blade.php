@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+    <meta name="api-token" content="{{ auth()->user()->tokens()->first()?->plainTextToken ?? '' }}">
+    @endauth
 
     <title>@yield('title', config('app.name', 'PawConnect'))</title>
 
@@ -62,8 +65,9 @@
                         </div>
 
                         <div class="flex items-center gap-3">
-                            <a href="#" class="hidden rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 sm:inline-flex">Mi perfil</a>
-                            <a href="#" class="inline-flex rounded-lg bg-emerald-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-600">Nueva mascota</a>
+                            <x-notification-bell class="mr-2" />
+                            <a href="{{ route('web.profile.edit') }}" class="hidden rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 sm:inline-flex">Mi perfil</a>
+                            <a href="{{ route('web.pets.create') }}" class="inline-flex rounded-lg bg-emerald-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-600">Nueva mascota</a>
                         </div>
                     </div>
                 </header>

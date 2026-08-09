@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\ChatController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\HealthController;
+use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\WalkController;
-use App\Http\Controllers\Web\HealthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ Route::view('/forgot-password', 'auth.forgot-password')->name('password.request'
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('web.notifications.index');
     Route::get('/chat/{match?}', [ChatController::class, 'index'])
         ->whereNumber('match')
         ->name('web.chat.index');
