@@ -38,6 +38,9 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('pets.health', HealthController::class)
             ->scoped()
             ->except(['create', 'edit']);
+        // Renovar registro sanitario
+        Route::post('/pets/{pet}/health/{health}/renew', [HealthController::class, 'renew'])
+            ->name('api.v1.pets.health.renew');
 
         // Social: matches, messages y walks
         Route::get('/matches/candidates', [MatchController::class, 'index'])->name('api.v1.matches.candidates');

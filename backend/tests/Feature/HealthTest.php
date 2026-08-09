@@ -140,3 +140,102 @@ test('el tipo de registro debe ser válido', function () {
     ])->assertUnprocessable()
       ->assertJsonValidationErrors(['type']);
 });
+
+// ── Renovar registro sanitario ──────────────────────────────────────────────────
+
+test('un usuario puede renovar un registro sanitario (actualizar last_date a hoy)', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+    $record = HealthRecord::factory()->create([
+        'pet_id' => $pet->id,
+        'type' => 'vaccination',
+        'last_date' => '2025-01-15',
+        'periodicity_days' => 365,
+    ]);
+
+    $response = $this->postJson("/api/v1/pets/{$pet->id}/health/{$record->id}/renew");
+
+    $response->assertOk()
+        ->assertJsonStructure([
+            'data' => ['id', 'last_date', 'next_due_date', 'health_status'],
+        ]);
+
+    // La última fecha debe ser hoy
+    expect($response->json('data.last_date'))->toBe(now()->toDateString());
+
+    // next_due_date debe recalcularse
+    $expectedNextDue = now()->addDays(365)->toDateString();
+    expect($response->json('data.next_due_date'))->toBe($expectedNextDue);
+});
+
+test('un usuario NO puede renovar registros en mascotas ajenas', function () {
+    $owner = \App\Models\User::factory()->create();
+    $intruder = actingAsUser();
+
+    $pet = Pet::factory()->create(['user_id' => $owner->id]);
+    $record = HealthRecord::factory()->create(['pet_id' => $pet->id]);
+
+    $this->postJson("/api/v1/pets/{$pet->id}/health/{$record->id}/renew")
+        ->assertForbidden();
+});
+
+// ── Estado sanitario (health_status) ────────────────────────────────────────────
+
+test('el recurso health incluye información de estado sanitario', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->postJson("/api/v1/pets/{$pet->id}/health", [
+        'type' => 'vaccination',
+        'last_date' => now()->toDateString(),
+        'periodicity_days' => 365,
+    ]);
+
+    $response->assertJsonStructure([
+        'data' => [
+            'health_status' => ['status', 'days_remaining', 'is_overdue', 'message'],
+        ],
+    ]);
+});
+
+test('el estado es verde cuando faltan más de 7 días', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->postJson("/api/v1/pets/{$pet->id}/health", [
+        'type' => 'vaccination',
+        'last_date' => now()->toDateString(),
+        'periodicity_days' => 365,
+    ]);
+
+    expect($response->json('data.health_status.status'))->toBe('green');
+    expect($response->json('data.health_status.is_overdue'))->toBe(false);
+});
+
+test('el estado es amarillo cuando faltan 0-7 días', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->postJson("/api/v1/pets/{$pet->id}/health", [
+        'type' => 'vaccination',
+        'last_date' => now()->subDays(358)->toDateString(),
+        'periodicity_days' => 365,
+    ]);
+
+    expect($response->json('data.health_status.status'))->toBe('yellow');
+    expect($response->json('data.health_status.is_overdue'))->toBe(false);
+});
+
+test('el estado es rojo cuando está vencido', function () {
+    $user = actingAsUser();
+    $pet = Pet::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->postJson("/api/v1/pets/{$pet->id}/health", [
+        'type' => 'vaccination',
+        'last_date' => now()->subDays(400)->toDateString(),
+        'periodicity_days' => 365,
+    ]);
+
+    expect($response->json('data.health_status.status'))->toBe('red');
+    expect($response->json('data.health_status.is_overdue'))->toBe(true);
+});

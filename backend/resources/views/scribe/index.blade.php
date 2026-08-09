@@ -125,6 +125,9 @@
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-v1-pets--pet_id--health--id-">
                                 <a href="#endpoints-DELETEapi-v1-pets--pet_id--health--id-">DELETE api/v1/pets/{pet_id}/health/{id}</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-v1-pets--pet_id--health--health_id--renew">
+                                <a href="#endpoints-POSTapi-v1-pets--pet_id--health--health_id--renew">Renovar un registro sanitario (actualizar last_date a hoy).</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-matches-candidates">
                                 <a href="#endpoints-GETapi-v1-matches-candidates">Display a listing of the resource.</a>
                             </li>
@@ -1704,7 +1707,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "energy_level=high"\
     --form "personality=Muy sociable, le encanta jugar con otros perros y es muy obediente."\
     --form "available_for_walks=1"\
-    --form "photos[]=@/tmp/php1ii3r421u8grfTf5mT6" </code></pre></div>
+    --form "photos[]=@/tmp/phpqhrjbj852rk4ek4sbkN" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -2153,7 +2156,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "energy_level=moderate"\
     --form "personality=Tranquilo y cariñoso con niños."\
     --form "available_for_walks="\
-    --form "photos[]=@/tmp/php8bta60l7mk5nd7vKSwk" </code></pre></div>
+    --form "photos[]=@/tmp/php7uji2t2i7jrg4udikeL" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3501,6 +3504,157 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-v1-pets--pet_id--health--id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the health. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-POSTapi-v1-pets--pet_id--health--health_id--renew">Renovar un registro sanitario (actualizar last_date a hoy).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-pets--pet_id--health--health_id--renew">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/v1/pets/16/health/16/renew" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/v1/pets/16/health/16/renew"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-pets--pet_id--health--health_id--renew">
+</span>
+<span id="execution-results-POSTapi-v1-pets--pet_id--health--health_id--renew" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-pets--pet_id--health--health_id--renew"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-pets--pet_id--health--health_id--renew"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-pets--pet_id--health--health_id--renew" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-pets--pet_id--health--health_id--renew">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-pets--pet_id--health--health_id--renew" data-method="POST"
+      data-path="api/v1/pets/{pet_id}/health/{health_id}/renew"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-pets--pet_id--health--health_id--renew', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-pets--pet_id--health--health_id--renew"
+                    onclick="tryItOut('POSTapi-v1-pets--pet_id--health--health_id--renew');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-pets--pet_id--health--health_id--renew"
+                    onclick="cancelTryOut('POSTapi-v1-pets--pet_id--health--health_id--renew');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-pets--pet_id--health--health_id--renew"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/pets/{pet_id}/health/{health_id}/renew</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-v1-pets--pet_id--health--health_id--renew"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-pets--pet_id--health--health_id--renew"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-pets--pet_id--health--health_id--renew"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>pet_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="pet_id"                data-endpoint="POSTapi-v1-pets--pet_id--health--health_id--renew"
+               value="16"
+               data-component="url">
+    <br>
+<p>The ID of the pet. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>health_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="health_id"                data-endpoint="POSTapi-v1-pets--pet_id--health--health_id--renew"
                value="16"
                data-component="url">
     <br>
@@ -5763,7 +5917,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"lat\": -89,
     \"lng\": -179,
     \"radius_km\": 7,
-    \"date_from\": \"2026-08-09T10:47:10\"
+    \"date_from\": \"2026-08-09T12:49:12\"
 }"
 </code></pre></div>
 
@@ -5783,7 +5937,7 @@ let body = {
     "lat": -89,
     "lng": -179,
     "radius_km": 7,
-    "date_from": "2026-08-09T10:47:10"
+    "date_from": "2026-08-09T12:49:12"
 };
 
 fetch(url, {
@@ -5939,10 +6093,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="date_from"                data-endpoint="GETapi-v1-walks"
-               value="2026-08-09T10:47:10"
+               value="2026-08-09T12:49:12"
                data-component="body">
     <br>
-<p>validation.date. Example: <code>2026-08-09T10:47:10</code></p>
+<p>validation.date. Example: <code>2026-08-09T12:49:12</code></p>
         </div>
         </form>
 
@@ -5969,7 +6123,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"description\": \"Et animi quos velit et fugiat.\",
     \"lat\": -89,
     \"lng\": -179,
-    \"scheduled_at\": \"2052-09-01\",
+    \"scheduled_at\": \"2052-09-02\",
     \"max_pets\": 22
 }"
 </code></pre></div>
@@ -5991,7 +6145,7 @@ let body = {
     "description": "Et animi quos velit et fugiat.",
     "lat": -89,
     "lng": -179,
-    "scheduled_at": "2052-09-01",
+    "scheduled_at": "2052-09-02",
     "max_pets": 22
 };
 
@@ -6144,10 +6298,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="scheduled_at"                data-endpoint="POSTapi-v1-walks"
-               value="2052-09-01"
+               value="2052-09-02"
                data-component="body">
     <br>
-<p>validation.date validation.after. Example: <code>2052-09-01</code></p>
+<p>validation.date validation.after. Example: <code>2052-09-02</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>max_pets</code></b>&nbsp;&nbsp;
@@ -6341,7 +6495,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"description\": \"Et animi quos velit et fugiat.\",
     \"lat\": -89,
     \"lng\": -179,
-    \"scheduled_at\": \"2052-09-01\",
+    \"scheduled_at\": \"2052-09-02\",
     \"max_pets\": 22
 }"
 </code></pre></div>
@@ -6363,7 +6517,7 @@ let body = {
     "description": "Et animi quos velit et fugiat.",
     "lat": -89,
     "lng": -179,
-    "scheduled_at": "2052-09-01",
+    "scheduled_at": "2052-09-02",
     "max_pets": 22
 };
 
@@ -6533,10 +6687,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="scheduled_at"                data-endpoint="PUTapi-v1-walks--id-"
-               value="2052-09-01"
+               value="2052-09-02"
                data-component="body">
     <br>
-<p>validation.date validation.after. Example: <code>2052-09-01</code></p>
+<p>validation.date validation.after. Example: <code>2052-09-02</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>max_pets</code></b>&nbsp;&nbsp;

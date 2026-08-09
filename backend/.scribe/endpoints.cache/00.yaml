@@ -1388,6 +1388,65 @@ endpoints:
   -
     custom: []
     httpMethods:
+      - POST
+    uri: 'api/v1/pets/{pet_id}/health/{health_id}/renew'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Renovar un registro sanitario (actualizar last_date a hoy).'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      pet_id:
+        custom: []
+        name: pet_id
+        description: 'The ID of the pet.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      health_id:
+        custom: []
+        name: health_id
+        description: 'The ID of the health.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      pet_id: 16
+      health_id: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
       - GET
     uri: api/v1/matches/candidates
     metadata:
@@ -2235,7 +2294,7 @@ endpoints:
         name: date_from
         description: validation.date.
         required: false
-        example: '2026-08-09T10:47:10'
+        example: '2026-08-09T12:49:12'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2245,7 +2304,7 @@ endpoints:
       lat: -89
       lng: -179
       radius_km: 7
-      date_from: '2026-08-09T10:47:10'
+      date_from: '2026-08-09T12:49:12'
     fileParameters: []
     responses:
       -
@@ -2338,7 +2397,7 @@ endpoints:
         name: scheduled_at
         description: 'validation.date validation.after.'
         required: true
-        example: '2052-09-01'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2360,7 +2419,7 @@ endpoints:
       description: 'Et animi quos velit et fugiat.'
       lat: -89
       lng: -179
-      scheduled_at: '2052-09-01'
+      scheduled_at: '2052-09-02'
       max_pets: 22
     fileParameters: []
     responses: []
@@ -2514,7 +2573,7 @@ endpoints:
         name: scheduled_at
         description: 'validation.date validation.after.'
         required: false
-        example: '2052-09-01'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2536,7 +2595,7 @@ endpoints:
       description: 'Et animi quos velit et fugiat.'
       lat: -89
       lng: -179
-      scheduled_at: '2052-09-01'
+      scheduled_at: '2052-09-02'
       max_pets: 22
     fileParameters: []
     responses: []

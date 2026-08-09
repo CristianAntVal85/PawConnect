@@ -91,6 +91,33 @@ class HealthController extends Controller
         ]);
     }
 
+    /**
+     * Renovar un registro sanitario (actualizar last_date a hoy).
+     *
+     * @param  Request  $request
+     * @param  Pet  $pet
+     * @param  HealthRecord  $health
+     * @return JsonResponse
+     */
+    public function renew(Request $request, Pet $pet, HealthRecord $health): JsonResponse
+    {
+        $this->ensureCanManagePet($request, $pet);
+        $this->ensureRecordBelongsToPet($pet, $health);
+
+        $health->last_date = now()->toDateString();
+        $health->next_due_date = $this->calculateNextDueDate(
+            $health->last_date,
+            $health->periodicity_days
+        );
+
+        $health->save();
+
+        return response()->json([
+            'message' => 'Registro sanitario renovado correctamente.',
+            'data' => (new HealthRecordResource($health->fresh()))->resolve(),
+        ]);
+    }
+
     private function ensureCanManagePet(Request $request, Pet $pet): void
     {
         if (! $request->user()->isAdmin() && $pet->user_id !== $request->user()->id) {

@@ -479,10 +479,10 @@ tests/
 
 ### Sanitario
 
-- [ ] **6.1** CRUD sanitario (`HealthController`)
+- [x] **6.1** CRUD sanitario (`HealthController`)
   - `next_due_date = last_date + periodicity_days`
 
-- [ ] **6.2** Vista historial sanitario
+- [x] **6.2** Vista historial sanitario
   - Timeline por mascota
   - Semáforo verde / amarillo / rojo
   - Botón "Renovar" → `last_date = hoy`

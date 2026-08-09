@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\WalkController;
+use App\Http\Controllers\Web\HealthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/pets/{pet}', [PetController::class, 'show'])->name('web.pets.show');
     Route::get('/pets/{pet}/edit', [PetController::class, 'edit'])->name('web.pets.edit');
     Route::put('/pets/{pet}', [PetController::class, 'update'])->name('web.pets.update');
+
+    // Health records
+    Route::get('/pets/{pet}/health', [HealthController::class, 'timeline'])->name('web.pets.health.timeline');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('web.profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('web.profile.update');
