@@ -47,6 +47,8 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('matches.messages', MessageController::class)
             ->scoped()
             ->except(['create', 'edit']);
+        Route::post('/walks/{walk}/join', [WalkController::class, 'join']);
+        Route::delete('/walks/{walk}/leave', [WalkController::class, 'leave']);
         Route::apiResource('walks', WalkController::class)->except(['create', 'edit']);
 
         // Marketplace
@@ -58,9 +60,6 @@ Route::prefix('v1')->group(function () {
         // Pet-friendly places
         Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
 
-        // Endpoints especiales que se implementarán en 3.x
-        Route::post('/walks/{walk}/join', [WalkController::class, 'store']);
-        Route::post('/walks/{walk}/leave', [WalkController::class, 'destroy']);
         Route::get('/products/recommended/{petId}', [ProductController::class, 'index']);
 
         Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {

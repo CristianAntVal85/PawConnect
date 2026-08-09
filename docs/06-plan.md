@@ -463,7 +463,7 @@ tests/
 
 ### Paseos
 
-- [ ] **5.7** CRUD de paseos (`WalkController`)
+- [x] **5.7** CRUD de paseos (`WalkController`)
   - Crear paseo: título, descripción, ubicación, fecha, max mascotas caninas
   - Listar cercanos, unirse/abandonar, ver participantes
 
