@@ -487,7 +487,7 @@ tests/
   - Semáforo verde / amarillo / rojo
   - Botón "Renovar" → `last_date = hoy`
 
-- [ ] **6.3** Notificaciones automáticas con Scheduler
+- [x] **6.3** Notificaciones automáticas con Scheduler
 
   ```bash
   php artisan make:command SendHealthReminders
