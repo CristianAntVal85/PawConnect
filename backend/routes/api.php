@@ -26,6 +26,12 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     // ── Rutas públicas ──────────────────────────────────────────────────────────
     Route::apiResource('products', ProductController::class)
         ->only(['index', 'show']);
+    
+    // Lugares pet-friendly (solo listado y detalles son públicos)
+    Route::get('/places', [\App\Http\Controllers\Api\PlaceController::class, 'index'])
+        ->name('places.index');
+    Route::get('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'show'])
+        ->name('places.show');
 
     // ── Rutas protegidas con Sanctum ─────────────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
@@ -72,8 +78,20 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::apiResource('orders', OrderController::class)
             ->only(['index', 'store', 'show', 'update']);
 
-        // Pet-friendly places
-        Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
+        // Pet-friendly places (CRUD protegido)
+        Route::post('/places', [\App\Http\Controllers\Api\PlaceController::class, 'store'])
+            ->name('places.store');
+        Route::put('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'update'])
+            ->name('places.update');
+        Route::delete('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'destroy'])
+            ->name('places.destroy');
+        
+        Route::get('/places/favorites', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'index'])
+            ->name('places.favorites.index');
+        Route::post('/places/{place}/favorite', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'store'])
+            ->name('places.favorite');
+        Route::delete('/places/{place}/favorite', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'destroy'])
+            ->name('places.favorite.destroy');
 
         Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {
             Route::apiResource('users', UserController::class)->except(['create', 'edit']);
@@ -81,6 +99,10 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             // CRUD administrativos
             Route::apiResource('products', ProductController::class)->except(['create', 'edit']);
             Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
+            
+            // Aprobar/rechazar lugares
+            Route::post('/places/{place}/approve', [PlaceController::class, 'approve'])
+                ->name('places.approve');
         });
 
         // Aquí irán el resto de rutas (users, pets, health, matches, etc.)
