@@ -534,11 +534,11 @@ tests/
 
 ## Fase 7 — Módulo Pet-Friendly *(Semanas 16–17)*
 
-- [ ] **7.1** CRUD de lugares
+- [x] **7.1** CRUD de lugares
   - Categorías: `pipican, beach, park, vet, shop, restaurant, hotel`
   - Usuarios sugieren → status: `pending` → admin aprueba/rechaza
 
-- [ ] **7.2** Mapa interactivo con Leaflet.js
+- [x] **7.2** Mapa interactivo con Leaflet.js ✅
   - Icono diferente por categoría
   - Popup con botones "Ver detalle" y "Guardar favorito"
   - Geolocalización del usuario

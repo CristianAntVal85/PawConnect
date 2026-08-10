@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\MarketplaceController;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PetController;
+use App\Http\Controllers\Web\PlaceController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\WalkController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,10 @@ Route::get('/', function () {
 Route::view('/login', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
 Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
+
+// Rutas públicas de lugares
+Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
+Route::get('/places/{id}', [PlaceController::class, 'show'])->name('places.show');
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
@@ -46,6 +51,11 @@ Route::middleware('auth')->group(function (): void {
     // Marketplace
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('web.marketplace.index');
     Route::get('/marketplace/{product}', [MarketplaceController::class, 'show'])->name('web.marketplace.show');
+
+    // Lugares Pet-Friendly
+    Route::get('/places/create', [PlaceController::class, 'create'])->name('places.create');
+    Route::post('/places', [PlaceController::class, 'store'])->name('places.store');
+    Route::get('/places/favorites', [PlaceController::class, 'favorites'])->name('places.favorites');
 
     // Pedidos
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('web.checkout');
