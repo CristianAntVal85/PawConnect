@@ -194,12 +194,15 @@ test('usuario obtiene recomendaciones para su mascota perro', function () {
         'user_id' => $user->id,
         'species' => 'dog',
         'weight' => 20,
+        'breed'  => null,
     ]);
 
     Product::factory()->count(3)->create([
-        'provider_id' => $provider->id,
-        'category' => 'dog alimento',
-        'stock' => 10,
+        'provider_id'  => $provider->id,
+        'category'     => 'dog alimento',
+        'stock'        => 10,
+        'min_weight_kg' => null,
+        'max_weight_kg' => null,
     ]);
 
     $response = $this->getJson("/api/v1/products/recommended/{$dog->id}");
@@ -245,12 +248,14 @@ test('recomendaciones respetan paginación', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
     
-    $dog = Pet::factory()->create(['user_id' => $user->id, 'species' => 'dog']);
+    $dog = Pet::factory()->create(['user_id' => $user->id, 'species' => 'dog', 'breed' => null, 'weight' => 20]);
 
     Product::factory()->count(25)->create([
-        'provider_id' => $provider->id,
-        'category' => 'dog comida',
-        'stock' => 10,
+        'provider_id'   => $provider->id,
+        'category'      => 'dog comida',
+        'stock'         => 10,
+        'min_weight_kg' => null,
+        'max_weight_kg' => null,
     ]);
 
     $response = $this->getJson("/api/v1/products/recommended/{$dog->id}?page=2");

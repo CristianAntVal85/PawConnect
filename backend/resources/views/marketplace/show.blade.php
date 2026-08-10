@@ -209,7 +209,7 @@ async function loadRelatedProducts(category) {
 }
 
 function addToCart(productId) {
-    alert(`Producto ${productId} agregado al carrito (implementar en 6.8 - Flujo de compra)`);
+    window.location.href = `/checkout?product_id=${productId}`;
 }
 
 // Cargar cuando el DOM está listo

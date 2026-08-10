@@ -44,6 +44,8 @@
                     <a href="{{ route('web.matches.swipe') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Match</a>
                     <a href="{{ route('web.chat.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Chat</a>
                     <a href="{{ route('web.walks.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Paseos</a>
+                    <a href="{{ route('web.marketplace.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Marketplace</a>
+                    <a href="{{ route('web.orders.index') }}" class="block rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700">Mis Pedidos</a>
                 </nav>
             </aside>
 

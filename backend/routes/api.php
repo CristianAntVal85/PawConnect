@@ -67,6 +67,8 @@ Route::prefix('v1')->group(function () {
         // Marketplace
         Route::get('/products/recommended/{pet}', [ProductController::class, 'recommended'])
             ->name('api.v1.products.recommended');
+        Route::post('/orders/payment-intent', [OrderController::class, 'createPaymentIntent'])
+            ->name('api.v1.orders.payment-intent');
         Route::apiResource('orders', OrderController::class)
             ->only(['index', 'store', 'show']);
 

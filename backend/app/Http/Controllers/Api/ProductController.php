@@ -21,10 +21,27 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $products = Product::with('provider')
-            ->paginate(20);
+        $query = Product::with('provider');
+
+        if ($category = $request->query('category')) {
+            $query->where('category', 'like', "%{$category}%");
+        }
+
+        if ($maxPrice = $request->query('max_price')) {
+            $query->where('price', '<=', (float) $maxPrice);
+        }
+
+        if ($breed = $request->query('breed')) {
+            $query->whereJsonContains('recommended_breeds', $breed);
+        }
+
+        if ($request->query('in_stock') === 'true') {
+            $query->where('stock', '>', 0);
+        }
+
+        $products = $query->paginate(20);
 
         return response()->json([
             'message' => 'Productos obtenidos correctamente.',

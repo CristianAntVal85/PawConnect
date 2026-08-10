@@ -514,7 +514,7 @@ tests/
   - Sección "Recomendado para {mascota}"
   - Filtros: categoría, precio, raza
 
-- [ ] **6.8** Flujo de compra
+- [x] **6.8** Flujo de compra
 
   ```json
   POST /api/v1/orders

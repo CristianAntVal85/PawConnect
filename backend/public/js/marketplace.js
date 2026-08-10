@@ -376,8 +376,7 @@ function showError(message, containerId) {
 }
 
 function addToCart(productId) {
-    // Implementar lógica de carrito (puede ser localStorage o redirigir a checkout)
-    alert(`Producto ${productId} agregado al carrito (a implementar en 6.8)`);
+    window.location.href = `/checkout?product_id=${productId}`;
 }
 
 // ────────────────────────────────────────────────────────────────
