@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HealthController;
+use App\Http\Controllers\Web\MarketplaceController;
 use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\ProfileController;
@@ -40,6 +41,10 @@ Route::middleware('auth')->group(function (): void {
 
     // Health records
     Route::get('/pets/{pet}/health', [HealthController::class, 'timeline'])->name('web.pets.health.timeline');
+
+    // Marketplace
+    Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('web.marketplace.index');
+    Route::get('/marketplace/{product}', [MarketplaceController::class, 'show'])->name('web.marketplace.show');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('web.profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('web.profile.update');

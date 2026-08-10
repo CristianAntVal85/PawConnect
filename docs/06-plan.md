@@ -510,7 +510,7 @@ tests/
   - Input: `Pet $pet`
   - Filtra por especie, peso, raza, edad y cruza con historial sanitario
 
-- [ ] **6.7** Vista marketplace
+- [x] **6.7** Vista marketplace
   - Sección "Recomendado para {mascota}"
   - Filtros: categoría, precio, raza
 
