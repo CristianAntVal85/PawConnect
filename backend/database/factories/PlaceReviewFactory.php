@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\PetFriendlyPlace;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class PlaceReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id'   => User::factory(),
+            'place_id'  => PetFriendlyPlace::factory(),
+            'rating'    => $this->faker->numberBetween(1, 5),
+            'body'      => $this->faker->text(200),
         ];
     }
 }

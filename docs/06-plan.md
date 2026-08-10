@@ -543,7 +543,7 @@ tests/
   - Popup con botones "Ver detalle" y "Guardar favorito"
   - Geolocalización del usuario
 
-- [ ] **7.3** Ficha del lugar
+- [x] **7.3** Ficha del lugar ✅
   - Galería, descripción, contacto, mapa embebido
   - Reseñas (rating 1–5 + comentario)
 

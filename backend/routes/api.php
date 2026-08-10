@@ -32,6 +32,12 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         ->name('places.index');
     Route::get('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'show'])
         ->name('places.show');
+    
+    // Reseñas de lugares (lectura pública)
+    Route::get('/places/{place}/reviews', [\App\Http\Controllers\Api\PlaceReviewController::class, 'index'])
+        ->name('places.reviews.index');
+    Route::get('/places/{place}/reviews/{review}', [\App\Http\Controllers\Api\PlaceReviewController::class, 'show'])
+        ->name('places.reviews.show');
 
     // ── Rutas protegidas con Sanctum ─────────────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
@@ -92,6 +98,14 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('places.favorite');
         Route::delete('/places/{place}/favorite', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'destroy'])
             ->name('places.favorite.destroy');
+
+        // Reseñas de lugares
+        Route::post('/places/{place}/reviews', [\App\Http\Controllers\Api\PlaceReviewController::class, 'store'])
+            ->name('places.reviews.store');
+        Route::put('/places/{place}/reviews/{review}', [\App\Http\Controllers\Api\PlaceReviewController::class, 'update'])
+            ->name('places.reviews.update');
+        Route::delete('/places/{place}/reviews/{review}', [\App\Http\Controllers\Api\PlaceReviewController::class, 'destroy'])
+            ->name('places.reviews.destroy');
 
         Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {
             Route::apiResource('users', UserController::class)->except(['create', 'edit']);
