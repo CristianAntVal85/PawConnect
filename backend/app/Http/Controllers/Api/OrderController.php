@@ -9,6 +9,8 @@ use App\Models\OrderStatusHistory;
 use App\Models\Pet;
 use App\Models\Product;
 use App\Services\PaymentService;
+use App\Events\OrderStatusChanged;
+use App\Notifications\OrderStatusNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -175,6 +177,61 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'Pedido obtenido correctamente.',
+            'data'    => (new OrderResource($order))->resolve(),
+        ]);
+    }
+
+    /**
+     * Actualiza el estado de un pedido (solo admin).
+     */
+    public function update(Request $request, Order $order): JsonResponse
+    {
+        if (! $request->user()->isAdmin()) {
+            abort(403, 'Solo administradores pueden cambiar el estado de pedidos.');
+        }
+
+        $validated = $request->validate([
+            'status' => ['required', 'string', 'in:pending,confirmed,shipped,delivered,cancelled'],
+            'note'   => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $oldStatus = $order->status;
+        $newStatus = $validated['status'];
+        $note      = $validated['note'] ?? null;
+
+        // Si es el mismo estado, no hacer nada
+        if ($oldStatus === $newStatus) {
+            return response()->json([
+                'message' => 'El pedido ya tiene ese estado.',
+                'data'    => (new OrderResource($order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory'])))->resolve(),
+            ]);
+        }
+
+        // Cargar relaciones necesarias para la notificación
+        $order->load(['product', 'pet', 'user']);
+
+        DB::transaction(function () use ($order, $oldStatus, $newStatus, $note) {
+            // Actualizar estado del pedido
+            $order->update(['status' => $newStatus]);
+
+            // Registrar en historial
+            OrderStatusHistory::query()->create([
+                'order_id' => $order->id,
+                'status'   => $newStatus,
+                'note'     => $note,
+            ]);
+
+            // Disparar evento de cambio de estado (para WebSocket)
+            OrderStatusChanged::dispatch($order, $oldStatus, $newStatus, $note);
+        });
+
+        // Enviar notificación al usuario fuera de la transacción
+        $order->user->notify(new OrderStatusNotification($order, $oldStatus, $newStatus, $note));
+
+        $order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory']);
+
+        return response()->json([
+            'message' => 'Estado del pedido actualizado correctamente.',
             'data'    => (new OrderResource($order))->resolve(),
         ]);
     }

@@ -1,0 +1,87 @@
+@extends('layouts.app')
+
+@section('title', 'Gestión de Pedidos')
+
+@section('page-title', 'Admin')
+@section('page-subtitle', 'Gestión de pedidos')
+
+@section('content')
+<div class="max-w-6xl mx-auto py-4">
+
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-slate-900">Pedidos Recientes</h2>
+        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+            Total: {{ $orders->total() }}
+        </span>
+    </div>
+
+    @if ($orders->count())
+        <div class="overflow-x-auto">
+            <table class="w-full bg-white rounded-lg shadow">
+                <thead class="bg-slate-100 border-b border-slate-200">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">ID</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Cliente</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Producto</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Cantidad</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Total</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Estado</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Fecha</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($orders as $order)
+                        <tr class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-bold text-blue-600">#{{ $order->id }}</td>
+                            <td class="px-6 py-4 text-sm text-slate-900">{{ $order->user->name }}</td>
+                            <td class="px-6 py-4 text-sm text-slate-900">{{ $order->product->name }}</td>
+                            <td class="px-6 py-4 text-sm text-slate-700">{{ $order->quantity }} ud.</td>
+                            <td class="px-6 py-4 text-sm font-semibold text-blue-600">${{ number_format($order->total_price, 2) }}</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold
+                                    @switch($order->status)
+                                        @case('pending')
+                                            bg-amber-100 text-amber-800
+                                            @break
+                                        @case('confirmed')
+                                            bg-blue-100 text-blue-800
+                                            @break
+                                        @case('shipped')
+                                            bg-indigo-100 text-indigo-800
+                                            @break
+                                        @case('delivered')
+                                            bg-green-100 text-green-800
+                                            @break
+                                        @case('cancelled')
+                                            bg-red-100 text-red-800
+                                            @break
+                                    @endswitch
+                                ">
+                                    {{ ucfirst($order->status) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">{{ $order->created_at->format('d M Y') }}</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="{{ route('admin.orders.show', $order->id) }}"
+                                   class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
+                                    Ver detalles
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6">
+            {{ $orders->links() }}
+        </div>
+    @else
+        <div class="bg-white rounded-lg shadow p-12 text-center">
+            <p class="text-slate-500 text-lg">No hay pedidos registrados aún.</p>
+        </div>
+    @endif
+
+</div>
+@endsection

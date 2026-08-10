@@ -55,4 +55,11 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('web.profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('web.profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('web.profile.password.update');
+
+    // Admin routes
+    Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {
+        Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
+        Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
+    });
 });

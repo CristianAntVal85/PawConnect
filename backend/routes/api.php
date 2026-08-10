@@ -13,7 +13,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalkController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->name('api.v1.')->group(function () {
 
     // ── Autenticación (pública) ──────────────────────────────────────────────
     Route::prefix('auth')->group(function () {
@@ -70,7 +70,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/orders/payment-intent', [OrderController::class, 'createPaymentIntent'])
             ->name('api.v1.orders.payment-intent');
         Route::apiResource('orders', OrderController::class)
-            ->only(['index', 'store', 'show']);
+            ->only(['index', 'store', 'show', 'update']);
 
         // Pet-friendly places
         Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);

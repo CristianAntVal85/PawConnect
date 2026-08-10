@@ -526,7 +526,7 @@ tests/
   2. Confirmar pago desde frontend (Stripe.js)
   3. Si OK → crear `Order` + `OrderStatusHistory('pending')`
 
-- [ ] **6.9** Página "Mis Pedidos" con timeline de estado y tracking
+- [x] **6.9** Página "Mis Pedidos" con timeline de estado y tracking
 
 > ✅ **Criterio de aceptación:** Scheduler genera notificaciones, recomendación relevante, pago Stripe en modo test.
 
