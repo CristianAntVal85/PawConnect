@@ -245,6 +245,11 @@
                                             data-pet-id="{{ $pet->id }}" data-health-id="{{ $record['id'] }}">
                                             🔄 Renovar
                                         </button>
+                                        <button type="button" class="products-btn px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium"
+                                            data-pet-id="{{ $pet->id }}" data-service-type="{{ $record['type'] }}"
+                                            title="Ver productos relacionados con este servicio">
+                                            🛍️ Productos
+                                        </button>
                                         <a href="{{ route('pets.show', $pet) }}"
                                             class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium text-center">
                                             ✏️ Editar
@@ -288,6 +293,33 @@
                 <button type="button" id="cancelRenew"
                     class="flex-1 px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium">
                     Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de productos relacionados -->
+    <div id="productsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-xl p-6 max-w-4xl mx-4 my-8 w-full">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900" id="productsTitle">Productos relacionados</h2>
+                    <p class="text-gray-600 text-sm mt-1" id="productsSubtitle">Recomendados para tu mascota</p>
+                </div>
+                <button type="button" id="closeProducts"
+                    class="text-2xl text-gray-500 hover:text-gray-700">
+                    ✕
+                </button>
+            </div>
+
+            <div id="productsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto mb-6">
+                <!-- Productos cargados via AJAX -->
+            </div>
+
+            <div class="border-t pt-4">
+                <button type="button" id="visitMarketplace"
+                    class="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+                    🛒 Ver todos en marketplace
                 </button>
             </div>
         </div>
@@ -372,6 +404,93 @@
                     alert('Error al actualizar favorito');
                 });
             });
+        });
+
+        // Productos relacionados por tipo de servicio
+        let currentPetId = null;
+        let currentServiceType = null;
+
+        document.querySelectorAll('.products-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentPetId = this.dataset.petId;
+                currentServiceType = this.dataset.serviceType;
+                loadRelatedProducts();
+            });
+        });
+
+        async function loadRelatedProducts() {
+            const url = `/api/v1/products/by-service/${currentServiceType}/${currentPetId}?per_page=6`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${AUTH_TOKEN}`,
+                        'Accept': 'application/json',
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al cargar productos');
+
+                const data = await response.json();
+                const service = data.service;
+                const products = data.data;
+
+                // Actualizar títulos
+                document.getElementById('productsTitle').textContent = `${service.emoji} ${service.label}`;
+                document.getElementById('productsSubtitle').textContent = `Productos recomendados para ${data.pet.name}`;
+
+                // Limpiar y llenar contenedor
+                const container = document.getElementById('productsContainer');
+                container.innerHTML = '';
+
+                if (products.length === 0) {
+                    container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No hay productos disponibles en este momento.</p>';
+                } else {
+                    products.forEach(product => {
+                        const card = document.createElement('div');
+                        card.className = 'border rounded-lg overflow-hidden hover:shadow-lg transition';
+                        card.innerHTML = `
+                            <div class="bg-gray-200 h-32 flex items-center justify-center">
+                                ${product.photo ? `<img src="${product.photo}" alt="${product.name}" class="w-full h-full object-cover">` : '<span class="text-4xl">📦</span>'}
+                            </div>
+                            <div class="p-3">
+                                <h4 class="font-bold text-gray-900 text-sm line-clamp-2">${product.name}</h4>
+                                <p class="text-xs text-gray-600 mt-1">${product.category}</p>
+                                <div class="flex items-center justify-between mt-3">
+                                    <span class="text-lg font-bold text-blue-600">$${parseFloat(product.price).toFixed(2)}</span>
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded">${product.stock} en stock</span>
+                                </div>
+                                <a href="/marketplace/${product.id}" class="block mt-2 text-center text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                                    Ver detalle
+                                </a>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+
+                // Mostrar modal
+                document.getElementById('productsModal').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar productos');
+            }
+        }
+
+        // Cerrar modal de productos
+        document.getElementById('closeProducts').addEventListener('click', () => {
+            document.getElementById('productsModal').classList.add('hidden');
+        });
+
+        document.getElementById('visitMarketplace').addEventListener('click', () => {
+            window.location.href = '/marketplace?recommended_for=' + currentPetId;
+        });
+
+        // Cerrar modal al hacer click fuera
+        document.getElementById('productsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('productsModal')) {
+                document.getElementById('productsModal').classList.add('hidden');
+            }
         });
     </script>
 @endsection

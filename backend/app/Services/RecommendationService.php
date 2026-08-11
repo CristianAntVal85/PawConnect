@@ -106,7 +106,137 @@ class RecommendationService
     }
 
     /**
-     * Obtiene productos recomendados por edad de la mascota.
+     * Obtiene productos relacionados con un tipo de servicio específico.
+     * Utilizado cuando el usuario pregunta "¿Qué comprar?" en contexto de:
+     * - Tipo de registro sanitario (vacunación, desparasitación, etc.)
+     * - Visita a veterinario (cirugía, medicinas, etc.)
+     * - Tipo de lugar (parque, playa, etc.)
+     */
+    public function getProductsByServiceType(Pet $pet, string $serviceType, int $perPage = 6): LengthAwarePaginator
+    {
+        $query = Product::query()->with('provider');
+
+        // Filtrar por especie
+        $query->where(function (Builder $q) use ($pet) {
+            $q->where('category', 'like', "%{$pet->species}%")
+              ->orWhere('category', 'general')
+              ->orWhere('category', 'multiespecie');
+        });
+
+        // Filtrar por peso
+        if ($pet->weight) {
+            $query->where(function (Builder $q) use ($pet) {
+                $q->where(function (Builder $noRestriction) {
+                    $noRestriction->whereNull('min_weight_kg')
+                                  ->whereNull('max_weight_kg');
+                })
+                ->orWhere(function (Builder $inRange) use ($pet) {
+                    $inRange->where('min_weight_kg', '<=', $pet->weight)
+                            ->where(function (Builder $maxQ) use ($pet) {
+                                $maxQ->whereNull('max_weight_kg')
+                                     ->orWhere('max_weight_kg', '>=', $pet->weight);
+                            });
+                })
+                ->orWhere(function (Builder $onlyMin) use ($pet) {
+                    $onlyMin->where('min_weight_kg', '<=', $pet->weight)
+                            ->whereNull('max_weight_kg');
+                })
+                ->orWhere(function (Builder $onlyMax) use ($pet) {
+                    $onlyMax->whereNull('min_weight_kg')
+                            ->where('max_weight_kg', '>=', $pet->weight);
+                });
+            });
+        }
+
+        // Mapeo de tipos de servicio a categorías de productos
+        $serviceTypeToCategoryMap = [
+            'vaccination'   => ['salud', 'veterinaria', 'medicinas', 'jeringas'],
+            'deworming'     => ['salud', 'veterinaria', 'medicinas', 'antiparasitarios'],
+            'checkup'       => ['salud', 'veterinaria', 'accesorios', 'transportines'],
+            'surgery'       => ['salud', 'veterinaria', 'vendajes', 'recuperación', 'conos'],
+            'medication'    => ['salud', 'medicinas', 'veterinaria'],
+            'dental'        => ['salud', 'higiene', 'dental'],
+            'grooming'      => ['higiene', 'estetica', 'accesorios'],
+            // Lugares
+            'park'          => ['juguetes', 'correas', 'accesorios', 'deportes'],
+            'beach'         => ['protección', 'toallas', 'accesorios', 'deportes'],
+            'pipican'       => ['juguetes', 'bolsas', 'accesorios', 'higiene'],
+            'shop'          => ['general', 'multiespecie'],
+            'restaurant'    => ['accesorios', 'transportines'],
+            'vet'           => ['salud', 'veterinaria', 'medicinas', 'transportines'],
+            'hotel'         => ['camas', 'mantas', 'accesorios'],
+        ];
+
+        // Priorizar productos por categoría relacionada al servicio
+        $relatedCategories = $serviceTypeToCategoryMap[$serviceType] ?? [];
+        
+        if (!empty($relatedCategories)) {
+            $placeholders = implode(',', array_fill(0, count($relatedCategories), '?'));
+            $query->orderByRaw(
+                "CASE WHEN category IN ({$placeholders}) THEN 0 ELSE 1 END",
+                $relatedCategories
+            );
+        }
+
+        // Stock disponible
+        $query->where('stock', '>', 0)
+              ->orderBy('stock', 'desc');
+
+        return $query->paginate($perPage);
+    }
+
+    /**
+     * Obtiene una descripción legible del tipo de servicio.
+     */
+    public function getServiceTypeLabel(string $serviceType): string
+    {
+        $labels = [
+            'vaccination'   => 'Vacunación',
+            'deworming'     => 'Desparasitación',
+            'checkup'       => 'Chequeo',
+            'surgery'       => 'Cirugía',
+            'medication'    => 'Medicamento',
+            'dental'        => 'Limpieza dental',
+            'grooming'      => 'Aseo',
+            'park'          => 'Parque',
+            'beach'         => 'Playa',
+            'pipican'       => 'Pipicán',
+            'shop'          => 'Tienda',
+            'restaurant'    => 'Restaurante',
+            'vet'           => 'Veterinario',
+            'hotel'         => 'Hotel',
+        ];
+
+        return $labels[$serviceType] ?? ucfirst($serviceType);
+    }
+
+    /**
+     * Obtiene un emoji descriptivo del tipo de servicio.
+     */
+    public function getServiceTypeEmoji(string $serviceType): string
+    {
+        $emojis = [
+            'vaccination'   => '💉',
+            'deworming'     => '🩺',
+            'checkup'       => '👨‍⚕️',
+            'surgery'       => '🏥',
+            'medication'    => '💊',
+            'dental'        => '🦷',
+            'grooming'      => '✂️',
+            'park'          => '🌳',
+            'beach'         => '🏖️',
+            'pipican'       => '🐕',
+            'shop'          => '🛒',
+            'restaurant'    => '🍽️',
+            'vet'           => '🏥',
+            'hotel'         => '🏨',
+        ];
+
+        return $emojis[$serviceType] ?? '🛍️';
+    }
+
+    /**
+     * Obtiene productos por edad de la mascota.
      * 
      * Cachorro (< 1 año), Adulto (1-7 años), Senior (> 7 años)
      */

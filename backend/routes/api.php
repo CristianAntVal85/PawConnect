@@ -85,6 +85,9 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         // Marketplace
         Route::get('/products/recommended/{pet}', [ProductController::class, 'recommended'])
             ->name('api.v1.products.recommended');
+        Route::get('/products/by-service/{serviceType}/{petId}', [ProductController::class, 'byServiceType'])
+            ->name('api.v1.products.by-service')
+            ->where('petId', '[0-9]+');
         Route::post('/orders/payment-intent', [OrderController::class, 'createPaymentIntent'])
             ->name('api.v1.orders.payment-intent');
         Route::apiResource('orders', OrderController::class)

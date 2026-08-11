@@ -550,11 +550,19 @@ tests/
 - [x] **7.4** Favoritos
   - Botón corazón + vista "Mis Lugares Favoritos"
 
-- [ ] **7.5** Integración con módulo sanitario
+- [x] **7.5** Integración con módulo sanitario
   - En registro próximo a vencer → mostrar veterinarios cercanos
 
 - [ ] **7.6** Integración con marketplace
-  - En ficha de producto → mostrar "Dónde comprarlo cerca"
+  - Identificar necesidades del usuario en contexto (registros sanitarios, visita a vet, etc.)
+  - Ofrecer productos ideales del marketplace de forma contextual
+  - Widget en:
+    - Historial sanitario: botón "Productos relacionados" junto a cada registro sanitario
+    - Ficha de veterinario: sección "Prepárate para tu cita" con productos recomendados
+    - Detalles de lugar: "Accesorios y productos" si aplica por categoría
+  - Solo mostrar si usuario lo solicita explícitamente (botón/link)
+  - Foco: priorizar productos propios del marketplace, no externos
+  - Datos a pasar: tipo de servicio/registro → filtrar por recomendación sanitaria
 
 > ✅ **Criterio de aceptación:** mapa con filtros, reseña visible, veterinarios cercanos en sanitario.
 

@@ -146,4 +146,57 @@ class ProductController extends Controller
             ],
         ]);
     }
+
+    /**
+     * Obtiene productos relacionados con un tipo de servicio específico.
+     * 
+     * Utilizado en contexto de:
+     * - Registros sanitarios (vacunación, cirugía, etc.)
+     * - Visitas a veterinarios
+     * - Tipos de lugares (parque, playa, etc.)
+     */
+    public function byServiceType(Request $request, string $serviceType, int $petId): JsonResponse
+    {
+        // Buscar la mascota
+        $pet = Pet::find($petId);
+        if (!$pet) {
+            return response()->json([
+                'message' => 'Mascota no encontrada.',
+            ], 404);
+        }
+
+        // Verificar que la mascota pertenece al usuario autenticado
+        if ($request->user()->id !== $pet->user_id) {
+            return response()->json([
+                'message' => 'No tienes permiso para ver recomendaciones de esta mascota.',
+            ], 403);
+        }
+
+        $perPage = $request->input('per_page', 6);
+        $products = $this->recommendationService->getProductsByServiceType($pet, $serviceType, $perPage);
+
+        $serviceLabel = $this->recommendationService->getServiceTypeLabel($serviceType);
+        $emoji = $this->recommendationService->getServiceTypeEmoji($serviceType);
+
+        return response()->json([
+            'message' => "Productos relacionados con {$serviceLabel} para {$pet->name}.",
+            'service' => [
+                'type' => $serviceType,
+                'label' => $serviceLabel,
+                'emoji' => $emoji,
+            ],
+            'pet' => [
+                'id' => $pet->id,
+                'name' => $pet->name,
+                'species' => $pet->species,
+            ],
+            'data' => ProductResource::collection($products->items())->resolve(),
+            'pagination' => [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ],
+        ]);
+    }
 }
