@@ -3,31 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PlaceResource;
 use App\Models\PetFriendlyPlace;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PlaceFavoriteController extends Controller
 {
     /**
      * Obtener lugares favoritos del usuario.
+     *
+     * @return ResourceCollection
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ResourceCollection
     {
         $favorites = $request->user()
             ->favoritePlaces()
             ->paginate(20);
 
-        return response()->json([
-            'message' => 'Lugares favoritos obtenidos correctamente.',
-            'data'    => $favorites->items(),
-            'pagination' => [
-                'total'        => $favorites->total(),
-                'per_page'     => $favorites->perPage(),
-                'current_page' => $favorites->currentPage(),
-                'last_page'    => $favorites->lastPage(),
-            ],
-        ]);
+        return PlaceResource::collection($favorites);
     }
 
     /**
@@ -37,21 +32,21 @@ class PlaceFavoriteController extends Controller
     {
         if ($place->status !== 'approved') {
             return response()->json([
-                'message' => 'No puede agregar a favoritos un lugar no aprobado.',
-            ], 422);
+                'message' => 'No puedes agregar a favoritos un lugar no aprobado',
+            ], 403);
         }
 
         if ($request->user()->favoritePlaces()->where('place_id', $place->id)->exists()) {
             return response()->json([
-                'message' => 'Este lugar ya está en tus favoritos.',
-            ], 422);
+                'message' => 'Este lugar ya está en tus favoritos',
+            ], 409);
         }
 
         $request->user()->favoritePlaces()->attach($place->id);
 
         return response()->json([
-            'message' => 'Lugar agregado a favoritos.',
-        ]);
+            'message' => 'Lugar agregado a favoritos correctamente',
+        ], 201);
     }
 
     /**
@@ -59,10 +54,16 @@ class PlaceFavoriteController extends Controller
      */
     public function destroy(Request $request, PetFriendlyPlace $place): JsonResponse
     {
+        if (!$request->user()->favoritePlaces()->where('place_id', $place->id)->exists()) {
+            return response()->json([
+                'message' => 'Este lugar no está en tus favoritos',
+            ], 404);
+        }
+
         $request->user()->favoritePlaces()->detach($place->id);
 
         return response()->json([
-            'message' => 'Lugar eliminado de favoritos.',
+            'message' => 'Lugar removido de favoritos correctamente',
         ]);
     }
 }

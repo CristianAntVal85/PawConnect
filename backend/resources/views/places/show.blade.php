@@ -63,9 +63,9 @@
                     </div>
                     @auth
                         <button 
-                            class="favorite-toggle-btn px-6 py-3 rounded-lg text-lg font-semibold transition"
+                            class="favorite-toggle-btn px-6 py-3 rounded-lg text-lg font-semibold transition {{ $isFavorite ? 'bg-red-100 text-red-600 hover:bg-red-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}"
                             data-place-id="{{ $place['id'] }}"
-                            :class="isFavorite ? 'bg-red-100 text-red-600 hover:bg-red-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                            data-is-favorite="{{ $isFavorite ? 'true' : 'false' }}"
                         >
                             <span class="favorite-icon">{{ $isFavorite ? '❤️' : '🤍' }}</span>
                             <span class="ml-2">{{ $isFavorite ? 'Guardado' : 'Guardar' }}</span>
@@ -329,7 +329,7 @@
     }
 
     function toggleFavorite(placeId, btn) {
-        const isFavorite = btn.classList.contains('bg-red-100');
+        const isFavorite = btn.getAttribute('data-is-favorite') === 'true';
         const method = isFavorite ? 'DELETE' : 'POST';
         const url = `/api/v1/places/${placeId}/favorite`;
 
@@ -348,10 +348,12 @@
                     btn.classList.remove('bg-red-100', 'text-red-600', 'hover:bg-red-200');
                     btn.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
                     btn.innerHTML = '<span class="favorite-icon">🤍</span><span class="ml-2">Guardar</span>';
+                    btn.setAttribute('data-is-favorite', 'false');
                 } else {
                     btn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
                     btn.classList.add('bg-red-100', 'text-red-600', 'hover:bg-red-200');
                     btn.innerHTML = '<span class="favorite-icon">❤️</span><span class="ml-2">Guardado</span>';
+                    btn.setAttribute('data-is-favorite', 'true');
                 }
             }
         })

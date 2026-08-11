@@ -547,7 +547,7 @@ tests/
   - Galería, descripción, contacto, mapa embebido
   - Reseñas (rating 1–5 + comentario)
 
-- [ ] **7.4** Favoritos
+- [x] **7.4** Favoritos
   - Botón corazón + vista "Mis Lugares Favoritos"
 
 - [ ] **7.5** Integración con módulo sanitario

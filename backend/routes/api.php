@@ -31,6 +31,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     Route::get('/places', [\App\Http\Controllers\Api\PlaceController::class, 'index'])
         ->name('places.index');
     Route::get('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'show'])
+        ->where('place', '[0-9]+')
         ->name('places.show');
     
     // Reseñas de lugares (lectura pública)
