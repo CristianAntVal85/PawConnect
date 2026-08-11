@@ -54,8 +54,114 @@
                 </div>
             </div>
 
+            <!-- Veterinarios Recomendados (si hay registros críticos) -->
+            @if ($recommendedVeterinarians->isNotEmpty())
+                <div class="mt-8">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-600 rounded-lg shadow-md p-6">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="text-3xl">🏥</div>
+                            <div class="flex-1">
+                                <h2 class="text-2xl font-bold text-gray-900">Veterinarios Cercanos Recomendados</h2>
+                                <p class="text-gray-700 mt-1">
+                                    Encontramos veterinarios cercanos que pueden ayudarte con los registros próximos a vencer o vencidos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            @foreach ($recommendedVeterinarians as $vet)
+                                @php
+                                    $place = $vet->place;
+                                    $urgencyEmoji = $veterinarianService->getUrgencyEmoji($vet->urgency);
+                                    $servicesDesc = $veterinarianService->getServicesDescription($vet->needed_services);
+                                @endphp
+                                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden group">
+                                    <!-- Imagen o icono -->
+                                    @if ($place->photo)
+                                        <div class="w-full h-32 overflow-hidden bg-gray-200 group-hover:opacity-90 transition">
+                                            <img src="{{ $place->photo }}" alt="{{ $place->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                        </div>
+                                    @else
+                                        <div class="w-full h-32 bg-gradient-to-br from-blue-300 to-blue-500 flex items-center justify-center group-hover:from-blue-400 group-hover:to-blue-600 transition">
+                                            <span class="text-5xl">🏥</span>
+                                        </div>
+                                    @endif
+
+                                    <!-- Contenido -->
+                                    <div class="p-4">
+                                        <!-- Nombre y urgencia -->
+                                        <div class="flex items-start justify-between gap-2 mb-2">
+                                            <div class="flex-1">
+                                                <h3 class="text-lg font-bold text-gray-900 line-clamp-2">{{ $place->name }}</h3>
+                                                <p class="text-xs text-blue-600 font-semibold mt-1">
+                                                    {{ number_format($vet->distance, 1) }} km de distancia
+                                                </p>
+                                            </div>
+                                            <div class="text-2xl flex-shrink-0">{{ $urgencyEmoji }}</div>
+                                        </div>
+
+                                        <!-- Servicios necesarios -->
+                                        <div class="mb-3 p-2 bg-blue-50 rounded">
+                                            <p class="text-xs text-gray-600 uppercase tracking-wide font-semibold">Servicios Necesarios</p>
+                                            <p class="text-sm text-gray-900 mt-1">{{ $servicesDesc }}</p>
+                                        </div>
+
+                                        <!-- Descripción -->
+                                        <p class="text-sm text-gray-600 line-clamp-2 mb-3">{{ $place->description }}</p>
+
+                                        <!-- Contacto -->
+                                        <div class="space-y-2 mb-4 text-sm">
+                                            @if ($place->phone)
+                                                <div class="flex items-center gap-2 text-gray-700">
+                                                    <span>📱</span>
+                                                    <a href="tel:{{ $place->phone }}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                                                        {{ $place->phone }}
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            @if ($place->website)
+                                                <div class="flex items-center gap-2 text-gray-700">
+                                                    <span>🌐</span>
+                                                    <a href="{{ $place->website }}" target="_blank" class="text-blue-600 hover:text-blue-700 font-semibold truncate">
+                                                        Sitio web
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            <div class="flex items-center gap-2 text-gray-700">
+                                                <span>📍</span>
+                                                <span class="text-sm">{{ $place->address }}</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Botones -->
+                                        <div class="flex gap-2">
+                                            <a href="{{ route('places.show', $place) }}"
+                                                class="flex-1 text-center text-sm px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+                                                Ver detalles
+                                            </a>
+                                            <button type="button"
+                                                class="favorite-toggle-btn text-2xl hover:scale-110 transition"
+                                                data-place-id="{{ $place->id }}">
+                                                🤍
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Nota de información -->
+                        <div class="mt-6 p-4 bg-white bg-opacity-70 rounded-lg">
+                            <p class="text-sm text-gray-700">
+                                <span class="font-semibold">💡 Consejo:</span> Puedes guardar estos veterinarios en favoritos para acceder a ellos fácilmente más adelante.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Timeline de registros -->
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="mt-8">
                 @if ($records->isEmpty())
                     <div class="p-8 text-center">
                         <p class="text-gray-500 text-lg">
@@ -236,6 +342,36 @@
             }
 
             document.getElementById('renewModal').classList.add('hidden');
+        });
+
+        // Toggle favoritos de veterinarios
+        const AUTH_TOKEN = localStorage.getItem('auth_token');
+        document.querySelectorAll('.favorite-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const placeId = this.dataset.placeId;
+                const isFavorite = this.textContent === '❤️';
+                const method = isFavorite ? 'DELETE' : 'POST';
+                const url = `/api/v1/places/${placeId}/favorite`;
+
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'Authorization': `Bearer ${AUTH_TOKEN}`,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.message) {
+                        this.textContent = isFavorite ? '🤍' : '❤️';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error al actualizar favorito');
+                });
+            });
         });
     </script>
 @endsection

@@ -118,6 +118,27 @@ class HealthController extends Controller
         ]);
     }
 
+    /**
+     * Obtener veterinarios cercanos recomendados basado en registros sanitarios críticos.
+     */
+    public function recommendedVeterinarians(Request $request, Pet $pet)
+    {
+        $this->ensureCanManagePet($request, $pet);
+
+        $veterinarianService = app(\App\Services\HealthVeterinarianService::class);
+        $vets = $veterinarianService->getRecommendedVeterinarians(
+            $pet,
+            $request->user(),
+            radiusKm: 15
+        );
+
+        return response()->json([
+            'message' => 'Veterinarios recomendados obtenidos correctamente.',
+            'data' => \App\Http\Resources\RecommendedVeterinarianResource::collection($vets)->resolve(),
+            'count' => $vets->count(),
+        ]);
+    }
+
     private function ensureCanManagePet(Request $request, Pet $pet): void
     {
         if (! $request->user()->isAdmin() && $pet->user_id !== $request->user()->id) {

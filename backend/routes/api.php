@@ -58,6 +58,11 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::apiResource('pets', PetController::class);
 
         // Health records (anidados por mascota)
+        // Veterinarios recomendados (debe ir ANTES de apiResource para evitar conflictos)
+        Route::get('/pets/{pet}/health/veterinarians', [HealthController::class, 'recommendedVeterinarians'])
+            ->name('api.v1.pets.health.veterinarians')
+            ->where('pet', '[0-9]+');
+        
         Route::apiResource('pets.health', HealthController::class)
             ->scoped()
             ->except(['create', 'edit']);
