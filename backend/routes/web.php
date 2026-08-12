@@ -80,8 +80,10 @@ Route::middleware('auth')->group(function (): void {
         // Gestión de Mascotas
         Route::get('/pets', [\App\Http\Controllers\Web\Admin\PetController::class, 'index'])->name('pets.index');
         Route::get('/pets/{pet}', [\App\Http\Controllers\Web\Admin\PetController::class, 'show'])->name('pets.show');
-        
-        Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
+                // Gestión de Proveedores y Productos
+        Route::resource('providers', \App\Http\Controllers\Web\Admin\ProviderController::class, ['as' => 'admin']);
+        Route::resource('products', \App\Http\Controllers\Web\Admin\ProductController::class, ['as' => 'admin']);
+                Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
     });

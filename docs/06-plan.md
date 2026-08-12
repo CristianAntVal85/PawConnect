@@ -589,7 +589,13 @@ tests/
   - Tabla con fotos, datos de mascota y dueño
   - Vista detallada con historiales sanitarios y actividad
 
-- [ ] **8.4** Gestión de Productos y Proveedores — CRUD completo
+- [x] **8.4** Gestión de Productos y Proveedores — CRUD completo
+  - Listado de proveedores con búsqueda
+  - Crear, editar, eliminar proveedores
+  - Listado de productos con búsqueda y filtros (proveedor, categoría, precio, stock)
+  - Crear, editar, eliminar productos con gestión de fotos
+  - Vista detallada de producto con información del proveedor
+  - Vista detallada de proveedor con sus productos
 
 - [ ] **8.5** Gestión de Pedidos — cambiar estado + historial + URL tracking
 
