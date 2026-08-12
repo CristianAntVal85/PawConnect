@@ -77,6 +77,10 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/users/{user}/block', [\App\Http\Controllers\Web\Admin\UserController::class, 'block'])->name('users.block');
         Route::post('/users/{user}/unblock', [\App\Http\Controllers\Web\Admin\UserController::class, 'unblock'])->name('users.unblock');
         
+        // Gestión de Mascotas
+        Route::get('/pets', [\App\Http\Controllers\Web\Admin\PetController::class, 'index'])->name('pets.index');
+        Route::get('/pets/{pet}', [\App\Http\Controllers\Web\Admin\PetController::class, 'show'])->name('pets.show');
+        
         Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');

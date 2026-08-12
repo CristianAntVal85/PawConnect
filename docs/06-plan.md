@@ -583,7 +583,11 @@ tests/
   - Vista de detalles con información completa
   - Protección: no permitir bloquear al único admin
 
-- [ ] **8.3** Gestión de Mascotas — buscar por nombre/especie/raza/dueño
+- [x] **8.3** Gestión de Mascotas — buscar por nombre/especie/raza/dueño
+  - Búsqueda en nombre, especie, raza y dueño
+  - Filtros: especie, disponibilidad para paseos, tamaño
+  - Tabla con fotos, datos de mascota y dueño
+  - Vista detallada con historiales sanitarios y actividad
 
 - [ ] **8.4** Gestión de Productos y Proveedores — CRUD completo
 
