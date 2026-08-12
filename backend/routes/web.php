@@ -69,6 +69,14 @@ Route::middleware('auth')->group(function (): void {
     // Admin routes
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        
+        // Gestión de Usuarios
+        Route::get('/users', [\App\Http\Controllers\Web\Admin\UserController::class, 'index'])->name('users.index');
+        Route::get('/users/{user}', [\App\Http\Controllers\Web\Admin\UserController::class, 'show'])->name('users.show');
+        Route::post('/users/{user}/role', [\App\Http\Controllers\Web\Admin\UserController::class, 'updateRole'])->name('users.updateRole');
+        Route::post('/users/{user}/block', [\App\Http\Controllers\Web\Admin\UserController::class, 'block'])->name('users.block');
+        Route::post('/users/{user}/unblock', [\App\Http\Controllers\Web\Admin\UserController::class, 'unblock'])->name('users.unblock');
+        
         Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');

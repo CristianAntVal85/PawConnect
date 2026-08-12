@@ -576,7 +576,12 @@ tests/
   - Total usuarios, mascotas, matches, pedidos, ingresos
   - Gráficas con Chart.js
 
-- [ ] **8.2** Gestión de Usuarios — listar, editar rol, bloquear
+- [x] **8.2** Gestión de Usuarios — listar, editar rol, bloquear
+  - Listado con búsqueda, filtros por estado y rol
+  - Cambiar rol (user/admin)
+  - Bloquear/desbloquear usuarios
+  - Vista de detalles con información completa
+  - Protección: no permitir bloquear al único admin
 
 - [ ] **8.3** Gestión de Mascotas — buscar por nombre/especie/raza/dueño
 

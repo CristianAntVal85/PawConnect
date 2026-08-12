@@ -33,6 +33,7 @@ class User extends Authenticatable
         'lng',
         'address',
         'billing_address',
+        'blocked_at',
     ];
 
     /**
@@ -57,6 +58,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'lat' => 'decimal:7',
             'lng' => 'decimal:7',
+            'blocked_at' => 'datetime',
         ];
     }
 
@@ -99,5 +101,20 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->blocked_at !== null;
+    }
+
+    public function block(): bool
+    {
+        return $this->update(['blocked_at' => now()]);
+    }
+
+    public function unblock(): bool
+    {
+        return $this->update(['blocked_at' => null]);
     }
 }
