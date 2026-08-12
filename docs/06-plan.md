@@ -572,7 +572,7 @@ tests/
 
 ## Fase 8 — Panel de Administración *(Semana 18)*
 
-- [ ] **8.1** Dashboard de estadísticas
+- [x] **8.1** Dashboard de estadísticas
   - Total usuarios, mascotas, matches, pedidos, ingresos
   - Gráficas con Chart.js
 

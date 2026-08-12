@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\PlaceController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\StatsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalkController;
 use Illuminate\Support\Facades\Route;
@@ -120,6 +121,8 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('places.reviews.destroy');
 
         Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {
+            Route::get('/dashboard/stats', [StatsController::class, 'dashboard'])
+                ->name('stats.dashboard');
             Route::apiResource('users', UserController::class)->except(['create', 'edit']);
 
             // CRUD administrativos

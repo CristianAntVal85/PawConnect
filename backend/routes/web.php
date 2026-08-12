@@ -10,7 +10,7 @@ use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\PlaceController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\WalkController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function (): void {
 
     // Admin routes
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
