@@ -246,9 +246,11 @@
                                             🔄 Renovar
                                         </button>
                                         <button type="button" class="products-btn px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium"
-                                            data-pet-id="{{ $pet->id }}" data-service-type="{{ $record['type'] }}"
-                                            title="Ver productos relacionados con este servicio">
-                                            🛍️ Productos
+                                            data-pet-id="{{ $pet->id }}"
+                                            data-service-type="{{ $record['type'] }}"
+                                            data-is-deworming="{{ $record['type'] === 'deworming' ? 'true' : 'false' }}"
+                                            title="{{ $record['type'] === 'deworming' ? 'Ver combo de pastillas antiparasitarias para el peso de ' . $pet->name : 'Ver productos relacionados con este servicio' }}">
+                                            {{ $record['type'] === 'deworming' ? '💊 Combo pastillas' : '🛍️ Productos' }}
                                         </button>
                                         <a href="{{ route('pets.show', $pet) }}"
                                             class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium text-center">
@@ -409,14 +411,94 @@
         // Productos relacionados por tipo de servicio
         let currentPetId = null;
         let currentServiceType = null;
+        let currentIsDeworming = false;
 
         document.querySelectorAll('.products-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 currentPetId = this.dataset.petId;
                 currentServiceType = this.dataset.serviceType;
-                loadRelatedProducts();
+                currentIsDeworming = this.dataset.isDeworming === 'true';
+                if (currentIsDeworming) {
+                    loadDewormingCombo();
+                } else {
+                    loadRelatedProducts();
+                }
             });
         });
+
+        async function loadDewormingCombo() {
+            const url = `/api/v1/products/deworming-combo/${currentPetId}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${AUTH_TOKEN}`,
+                        'Accept': 'application/json',
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al cargar combo');
+
+                const data = await response.json();
+                const pet = data.pet;
+                const items = data.combination;
+
+                document.getElementById('productsTitle').textContent = `💊 Combo antiparasitario para ${pet.name}`;
+                document.getElementById('productsSubtitle').textContent =
+                    `Peso: ${pet.weight_kg} kg — Dosis total cubierta: ${data.total_dosage_kg} kg`;
+
+                const container = document.getElementById('productsContainer');
+                container.innerHTML = '';
+                container.className = 'space-y-3 max-h-96 overflow-y-auto mb-6';
+
+                if (items.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-500 py-8">No hay pastillas antiparasitarias disponibles para el peso de tu mascota.<br>Visita el marketplace para más opciones.</p>';
+                } else {
+                    // Cabecera explicativa
+                    const intro = document.createElement('div');
+                    intro.className = 'bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800';
+                    intro.innerHTML = data.covered
+                        ? `✅ Combinación óptima para cubrir los <strong>${pet.weight_kg} kg</strong> de ${pet.name}. Cada pastilla cubre una fracción del peso total.`
+                        : `⚠️ No se encontraron suficientes pastillas para cubrir los ${pet.weight_kg} kg de ${pet.name}. Te mostramos lo disponible.`;
+                    container.appendChild(intro);
+
+                    let totalPrice = 0;
+                    items.forEach(item => {
+                        const product = item.product;
+                        totalPrice += item.subtotal;
+                        const row = document.createElement('div');
+                        row.className = 'flex items-center gap-4 border rounded-lg p-3 hover:bg-gray-50';
+                        row.innerHTML = `
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl flex-shrink-0">💊</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-900 text-sm truncate">${product.name}</p>
+                                <p class="text-xs text-gray-500">Cubre <strong>${product.dosage_kg} kg</strong> de peso corporal por pastilla</p>
+                            </div>
+                            <div class="text-center flex-shrink-0">
+                                <span class="block text-xl font-bold text-green-700">×${item.quantity}</span>
+                                <span class="text-xs text-gray-500">uds.</span>
+                            </div>
+                            <div class="text-right flex-shrink-0">
+                                <span class="block font-bold text-blue-600">${parseFloat(item.subtotal).toFixed(2)}€</span>
+                                <a href="/marketplace/${product.id}" class="text-xs text-blue-500 hover:underline">Ver</a>
+                            </div>
+                        `;
+                        container.appendChild(row);
+                    });
+
+                    // Línea de total
+                    const total = document.createElement('div');
+                    total.className = 'flex justify-between items-center border-t pt-3 font-semibold text-gray-900';
+                    total.innerHTML = `<span>Total estimado</span><span class="text-blue-700 text-lg">${totalPrice.toFixed(2)}€</span>`;
+                    container.appendChild(total);
+                }
+
+                document.getElementById('productsModal').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar el combo de pastillas');
+            }
+        }
 
         async function loadRelatedProducts() {
             const url = `/api/v1/products/by-service/${currentServiceType}/${currentPetId}?per_page=6`;
@@ -435,13 +517,12 @@
                 const service = data.service;
                 const products = data.data;
 
-                // Actualizar títulos
                 document.getElementById('productsTitle').textContent = `${service.emoji} ${service.label}`;
                 document.getElementById('productsSubtitle').textContent = `Productos recomendados para ${data.pet.name}`;
 
-                // Limpiar y llenar contenedor
                 const container = document.getElementById('productsContainer');
                 container.innerHTML = '';
+                container.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto mb-6';
 
                 if (products.length === 0) {
                     container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No hay productos disponibles en este momento.</p>';
@@ -457,7 +538,7 @@
                                 <h4 class="font-bold text-gray-900 text-sm line-clamp-2">${product.name}</h4>
                                 <p class="text-xs text-gray-600 mt-1">${product.category}</p>
                                 <div class="flex items-center justify-between mt-3">
-                                    <span class="text-lg font-bold text-blue-600">$${parseFloat(product.price).toFixed(2)}</span>
+                                    <span class="text-lg font-bold text-blue-600">${parseFloat(product.price).toFixed(2)}€</span>
                                     <span class="text-xs bg-gray-100 px-2 py-1 rounded">${product.stock} en stock</span>
                                 </div>
                                 <a href="/marketplace/${product.id}" class="block mt-2 text-center text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
@@ -469,7 +550,6 @@
                     });
                 }
 
-                // Mostrar modal
                 document.getElementById('productsModal').classList.remove('hidden');
             } catch (error) {
                 console.error('Error:', error);

@@ -14,7 +14,7 @@ uses(RefreshDatabase::class);
 test('recomienda productos basados en la especie de la mascota', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $dog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -48,7 +48,7 @@ test('recomienda productos basados en la especie de la mascota', function () {
 test('filtra productos por rango de peso', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $smallDog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -77,7 +77,7 @@ test('filtra productos por rango de peso', function () {
     $recommendations = $service->recommendForPet($smallDog);
 
     expect($recommendations->total())->toBeGreaterThanOrEqual(1);
-    
+
     $ids = collect($recommendations->items())->pluck('id')->toArray();
     expect($ids)->toContain($smallProduct->id);
 });
@@ -85,7 +85,7 @@ test('filtra productos por rango de peso', function () {
 test('incluye productos sin restricción de peso', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $dog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -110,7 +110,7 @@ test('incluye productos sin restricción de peso', function () {
 test('prioriza productos con raza recomendada', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $labrador = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -148,7 +148,7 @@ test('prioriza productos con raza recomendada', function () {
 test('excluye productos sin stock', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $dog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -182,7 +182,7 @@ test('excluye productos sin stock', function () {
 test('prioriza productos de salud si hay registros sanitarios próximos', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $dog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -226,7 +226,7 @@ test('prioriza productos de salud si hay registros sanitarios próximos', functi
 test('la paginación funciona correctamente', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $dog = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -254,7 +254,7 @@ test('la paginación funciona correctamente', function () {
 test('un usuario puede obtener recomendaciones para su mascota', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $pet = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -289,7 +289,7 @@ test('un usuario puede obtener recomendaciones para su mascota', function () {
 test('un usuario NO puede obtener recomendaciones de mascotas ajenas', function () {
     $owner = \App\Models\User::factory()->create();
     $intruder = actingAsUser();
-    
+
     $pet = Pet::factory()->create(['user_id' => $owner->id]);
 
     $response = $this->getJson("/api/v1/products/recommended/{$pet->id}");
@@ -320,7 +320,7 @@ test('el endpoint retorna 404 si la mascota no existe', function () {
 test('el parámetro per_page funciona en el endpoint', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $pet = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'dog',
@@ -344,7 +344,7 @@ test('el parámetro per_page funciona en el endpoint', function () {
 test('recomienda productos multiespecie para cualquier mascota', function () {
     $user = actingAsUser();
     $provider = Provider::factory()->create();
-    
+
     $rabbit = Pet::factory()->create([
         'user_id' => $user->id,
         'species' => 'rabbit',
@@ -373,4 +373,207 @@ test('recomienda productos multiespecie para cualquier mascota', function () {
     $recommendations = $service->recommendForPet($rabbit);
 
     expect($recommendations->total())->toBeGreaterThanOrEqual(2);
+});
+
+// ── Combinación antiparasitaria por peso (deworming combo) ─────────────────────
+
+test('calcula combo de pastillas antiparasitarias para un perro de 35 kg', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 35,
+    ]);
+
+    // Pastillas disponibles: 20 kg, 10 kg, 5 kg
+    Product::factory()->dewormingPill(20, 'dog')->create(['provider_id' => $provider->id]);
+    Product::factory()->dewormingPill(10, 'dog')->create(['provider_id' => $provider->id]);
+    Product::factory()->dewormingPill(5, 'dog')->create(['provider_id' => $provider->id]);
+
+    $service = new RecommendationService();
+    $result = $service->getDewormingCombination($dog);
+
+    expect($result['covered'])->toBeTrue()
+        ->and($result['total_dosage_kg'])->toBe(35.0)
+        ->and($result['pet_weight_kg'])->toBe(35.0)
+        ->and($result['items'])->toHaveCount(3);
+
+    $quantities = collect($result['items'])->mapWithKeys(
+        fn ($item) => [(float) $item['product']->dosage_kg => $item['quantity']]
+    );
+    expect($quantities[20.0])->toBe(1)
+        ->and($quantities[10.0])->toBe(1)
+        ->and($quantities[5.0])->toBe(1);
+});
+
+test('calcula combo con múltiples unidades: perro 40 kg con pastillas de 20 kg', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 40,
+    ]);
+
+    Product::factory()->dewormingPill(20, 'dog')->create(['provider_id' => $provider->id]);
+
+    $service = new RecommendationService();
+    $result = $service->getDewormingCombination($dog);
+
+    expect($result['covered'])->toBeTrue()
+        ->and($result['items'][0]['quantity'])->toBe(2)
+        ->and($result['total_dosage_kg'])->toBe(40.0);
+});
+
+test('cubre el peso aunque no sea exacto (resto con pastilla más pequeña)', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 27,
+    ]);
+
+    Product::factory()->dewormingPill(20, 'dog')->create(['provider_id' => $provider->id]);
+    Product::factory()->dewormingPill(10, 'dog')->create(['provider_id' => $provider->id]);
+
+    $service = new RecommendationService();
+    $result = $service->getDewormingCombination($dog);
+
+    // 1×20 + 1×10 = 30, que cubre 27 kg
+    expect($result['covered'])->toBeTrue()
+        ->and($result['total_dosage_kg'])->toBe(30.0);
+});
+
+test('devuelve covered=false si no hay pastillas disponibles', function () {
+    $user = actingAsUser();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 10,
+    ]);
+
+    $service = new RecommendationService();
+    $result = $service->getDewormingCombination($dog);
+
+    expect($result['covered'])->toBeFalse()
+        ->and($result['items'])->toBeEmpty();
+});
+
+test('devuelve covered=false si la mascota no tiene peso registrado', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => null,
+    ]);
+
+    Product::factory()->dewormingPill(10, 'dog')->create(['provider_id' => $provider->id]);
+
+    $service = new RecommendationService();
+    $result = $service->getDewormingCombination($dog);
+
+    expect($result['covered'])->toBeFalse();
+});
+
+test('endpoint deworming-combo devuelve la combinacion correcta via API', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 15,
+    ]);
+
+    Product::factory()->dewormingPill(10, 'dog')->create(['provider_id' => $provider->id]);
+    Product::factory()->dewormingPill(5, 'dog')->create(['provider_id' => $provider->id]);
+
+    $response = $this->getJson("/api/v1/products/deworming-combo/{$dog->id}");
+
+    $response->assertOk()
+        ->assertJsonPath('covered', true)
+        ->assertJsonFragment(['weight_kg' => (float) $dog->weight])
+        ->assertJsonStructure([
+            'pet' => ['id', 'name', 'species', 'weight_kg'],
+            'combination' => [['product', 'quantity', 'subtotal']],
+            'total_dosage_kg',
+            'covered',
+        ]);
+});
+
+test('endpoint deworming-combo devuelve 403 para mascota ajena', function () {
+    $user = actingAsUser();
+    $other = \App\Models\User::factory()->create();
+    $provider = Provider::factory()->create();
+
+    $otherDog = Pet::factory()->create([
+        'user_id' => $other->id,
+        'species' => 'dog',
+        'weight' => 20,
+    ]);
+
+    Product::factory()->dewormingPill(20, 'dog')->create(['provider_id' => $provider->id]);
+
+    $response = $this->getJson("/api/v1/products/deworming-combo/{$otherDog->id}");
+
+    $response->assertForbidden();
+});
+
+test('notificacion de desparasitacion incluye producto_recommendations con el combo', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 10,
+    ]);
+
+    Product::factory()->dewormingPill(10, 'dog')->create(['provider_id' => $provider->id]);
+
+    $record = HealthRecord::factory()->create([
+        'pet_id' => $dog->id,
+        'type' => 'deworming',
+        'next_due_date' => now()->addDays(5),
+    ]);
+
+    $notification = new \App\Notifications\HealthReminderNotification($record);
+    $data = $notification->toArray($user);
+
+    expect($data['type'])->toBe('deworming')
+        ->and($data['product_recommendations'])->not->toBeNull()
+        ->and($data['product_recommendations']['type'])->toBe('deworming_combo')
+        ->and($data['product_recommendations']['covered'])->toBeTrue()
+        ->and($data['product_recommendations']['items'])->not->toBeEmpty();
+});
+
+test('notificacion de vacunacion no incluye combo de pastillas', function () {
+    $user = actingAsUser();
+    $provider = Provider::factory()->create();
+
+    $dog = Pet::factory()->create([
+        'user_id' => $user->id,
+        'species' => 'dog',
+        'weight' => 10,
+    ]);
+
+    $record = HealthRecord::factory()->create([
+        'pet_id' => $dog->id,
+        'type' => 'vaccination',
+        'next_due_date' => now()->addDays(5),
+    ]);
+
+    $notification = new \App\Notifications\HealthReminderNotification($record);
+    $data = $notification->toArray($user);
+
+    expect($data['type'])->toBe('vaccination')
+        ->and($data['product_recommendations'])->toBeNull();
 });

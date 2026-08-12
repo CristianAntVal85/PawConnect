@@ -73,7 +73,7 @@ class RecommendationService
 
     /**
      * Aplica filtros basados en el historial sanitario de la mascota.
-     * 
+     *
      * Por ejemplo, si tiene registros de vacunación pendientes,
      * prioriza productos relacionados con salud/vacunas.
      */
@@ -169,7 +169,7 @@ class RecommendationService
 
         // Priorizar productos por categoría relacionada al servicio
         $relatedCategories = $serviceTypeToCategoryMap[$serviceType] ?? [];
-        
+
         if (!empty($relatedCategories)) {
             $placeholders = implode(',', array_fill(0, count($relatedCategories), '?'));
             $query->orderByRaw(
@@ -237,7 +237,7 @@ class RecommendationService
 
     /**
      * Obtiene productos por edad de la mascota.
-     * 
+     *
      * Cachorro (< 1 año), Adulto (1-7 años), Senior (> 7 años)
      */
     public function recommendByAge(Pet $pet, int $perPage = 20): LengthAwarePaginator
@@ -308,5 +308,93 @@ class RecommendationService
         return $query->where('stock', '>', 0)
                      ->orderBy('stock', 'desc')
                      ->paginate($perPage);
+    }
+
+    /**
+     * Calcula la combinación óptima de pastillas antiparasitarias para cubrir el peso del animal.
+     *
+     * Algoritmo greedy: ordena las pastillas disponibles por dosage_kg descendente
+     * y va acumulando unidades hasta cubrir el peso total.
+     *
+     * Ejemplo: perro 35 kg, pastillas de 20/10/5 kg → [1×20kg, 1×10kg, 1×5kg]
+     *
+     * @return array{
+     *   items: array<array{product: Product, quantity: int}>,
+     *   total_dosage_kg: float,
+     *   pet_weight_kg: float,
+     *   covered: bool
+     * }
+     */
+    public function getDewormingCombination(Pet $pet): array
+    {
+        if (!$pet->weight || $pet->weight <= 0) {
+            return ['items' => [], 'total_dosage_kg' => 0, 'pet_weight_kg' => 0, 'covered' => false];
+        }
+
+        // Obtener todas las pastillas antiparasitarias con dosage_kg definido, con stock, para la especie
+        $pills = Product::query()
+            ->whereNotNull('dosage_kg')
+            ->where('dosage_kg', '>', 0)
+            ->where('stock', '>', 0)
+            ->where(function (Builder $q) use ($pet) {
+                $q->where('category', 'like', "%{$pet->species}%")
+                  ->orWhere('category', 'like', '%antiparasitario%')
+                  ->orWhere('category', 'like', '%deworming%')
+                  ->orWhere('category', 'general')
+                  ->orWhere('category', 'multiespecie');
+            })
+            ->orderByDesc('dosage_kg')
+            ->get();
+
+        if ($pills->isEmpty()) {
+            return ['items' => [], 'total_dosage_kg' => 0, 'pet_weight_kg' => (float) $pet->weight, 'covered' => false];
+        }
+
+        $remaining = (float) $pet->weight;
+        $combination = [];
+
+        foreach ($pills as $pill) {
+            $dosage = (float) $pill->dosage_kg;
+            if ($dosage <= 0 || $remaining <= 0) {
+                continue;
+            }
+
+            $quantity = (int) floor($remaining / $dosage);
+            if ($quantity > 0) {
+                $combination[] = ['product' => $pill, 'quantity' => $quantity];
+                $remaining -= $quantity * $dosage;
+            }
+        }
+
+        // Si queda resto, buscar la pastilla más pequeña disponible para cubrirlo
+        if ($remaining > 0.001) {
+            $smallestPill = $pills->last();
+            if ($smallestPill) {
+                $exists = collect($combination)->firstWhere('product.id', $smallestPill->id);
+                if ($exists) {
+                    foreach ($combination as &$item) {
+                        if ($item['product']->id === $smallestPill->id) {
+                            $item['quantity']++;
+                            break;
+                        }
+                    }
+                    unset($item);
+                } else {
+                    $combination[] = ['product' => $smallestPill, 'quantity' => 1];
+                }
+                $remaining = max(0, $remaining - (float) $smallestPill->dosage_kg);
+            }
+        }
+
+        $totalDosage = collect($combination)->sum(
+            fn ($item) => $item['quantity'] * (float) $item['product']->dosage_kg
+        );
+
+        return [
+            'items' => $combination,
+            'total_dosage_kg' => $totalDosage,
+            'pet_weight_kg' => (float) $pet->weight,
+            'covered' => $totalDosage >= (float) $pet->weight,
+        ];
     }
 }

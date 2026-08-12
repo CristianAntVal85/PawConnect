@@ -553,18 +553,20 @@ tests/
 - [x] **7.5** Integración con módulo sanitario
   - En registro próximo a vencer → mostrar veterinarios cercanos
 
-- [ ] **7.6** Integración con marketplace
-  - Identificar necesidades del usuario en contexto (registros sanitarios, visita a vet, etc.)
-  - Ofrecer productos ideales del marketplace de forma contextual
-  - Widget en:
-    - Historial sanitario: botón "Productos relacionados" junto a cada registro sanitario
-    - Ficha de veterinario: sección "Prepárate para tu cita" con productos recomendados
-    - Detalles de lugar: "Accesorios y productos" si aplica por categoría
-  - Solo mostrar si usuario lo solicita explícitamente (botón/link)
+- [x] **7.6** Integración con marketplace ✅
+  - Botón "🛍️ Productos" en cada registro sanitario del historial → modal AJAX con productos filtrados
+  - Filtrado contextual por tipo de servicio (`vaccination`, `deworming`, `checkup`, etc.) y perfil de la mascota (especie, peso, raza)
+  - **Lógica de combinación de dosis para desparasitación externa:**
+    - Campo `dosage_kg` en productos: indica los kg de peso corporal que cubre cada pastilla
+    - Si el perro pesa 35 kg y las pastillas disponibles son de 20 kg, 10 kg y 5 kg → el sistema calcula automáticamente: 1×20 kg + 1×10 kg + 1×5 kg
+    - Algoritmo greedy: ordena pastillas por `dosage_kg` descendente y acumula hasta cubrir el peso
+    - Endpoint dedicado: `GET /api/v1/products/deworming-combo/{petId}`
+  - **Notificación enriquecida:** cuando vence en ≤ 7 días un registro de tipo `deworming`, la notificación incluye automáticamente la combinación de pastillas idónea (en base de datos y en email)
+  - Para otros tipos sanitarios: notificación incluye los 3 primeros productos relacionados por tipo
+  - Solo mostrar si usuario lo solicita explícitamente (botón/link) — o bien enriquecido en la notificación
   - Foco: priorizar productos propios del marketplace, no externos
-  - Datos a pasar: tipo de servicio/registro → filtrar por recomendación sanitaria
 
-> ✅ **Criterio de aceptación:** mapa con filtros, reseña visible, veterinarios cercanos en sanitario.
+> ✅ **Criterio de aceptación:** botón "Productos" en historial sanitario, modal con productos filtrados por tipo, endpoint de combinación de dosis operativo, notificación de desparasitación incluye combo de pastillas según peso.
 
 ---
 

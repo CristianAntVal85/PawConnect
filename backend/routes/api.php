@@ -26,14 +26,14 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     // ── Rutas públicas ──────────────────────────────────────────────────────────
     Route::apiResource('products', ProductController::class)
         ->only(['index', 'show']);
-    
+
     // Lugares pet-friendly (solo listado y detalles son públicos)
     Route::get('/places', [\App\Http\Controllers\Api\PlaceController::class, 'index'])
         ->name('places.index');
     Route::get('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'show'])
         ->where('place', '[0-9]+')
         ->name('places.show');
-    
+
     // Reseñas de lugares (lectura pública)
     Route::get('/places/{place}/reviews', [\App\Http\Controllers\Api\PlaceReviewController::class, 'index'])
         ->name('places.reviews.index');
@@ -62,7 +62,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::get('/pets/{pet}/health/veterinarians', [HealthController::class, 'recommendedVeterinarians'])
             ->name('api.v1.pets.health.veterinarians')
             ->where('pet', '[0-9]+');
-        
+
         Route::apiResource('pets.health', HealthController::class)
             ->scoped()
             ->except(['create', 'edit']);
@@ -88,6 +88,9 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::get('/products/by-service/{serviceType}/{petId}', [ProductController::class, 'byServiceType'])
             ->name('api.v1.products.by-service')
             ->where('petId', '[0-9]+');
+        Route::get('/products/deworming-combo/{petId}', [ProductController::class, 'dewormingCombo'])
+            ->name('api.v1.products.deworming-combo')
+            ->where('petId', '[0-9]+');
         Route::post('/orders/payment-intent', [OrderController::class, 'createPaymentIntent'])
             ->name('api.v1.orders.payment-intent');
         Route::apiResource('orders', OrderController::class)
@@ -100,7 +103,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             ->name('places.update');
         Route::delete('/places/{place}', [\App\Http\Controllers\Api\PlaceController::class, 'destroy'])
             ->name('places.destroy');
-        
+
         Route::get('/places/favorites', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'index'])
             ->name('places.favorites.index');
         Route::post('/places/{place}/favorite', [\App\Http\Controllers\Api\PlaceFavoriteController::class, 'store'])
@@ -122,7 +125,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             // CRUD administrativos
             Route::apiResource('products', ProductController::class)->except(['create', 'edit']);
             Route::apiResource('places', PlaceController::class)->except(['create', 'edit']);
-            
+
             // Aprobar/rechazar lugares
             Route::post('/places/{place}/approve', [PlaceController::class, 'approve'])
                 ->name('places.approve');

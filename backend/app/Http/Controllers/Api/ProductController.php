@@ -149,7 +149,7 @@ class ProductController extends Controller
 
     /**
      * Obtiene productos relacionados con un tipo de servicio específico.
-     * 
+     *
      * Utilizado en contexto de:
      * - Registros sanitarios (vacunación, cirugía, etc.)
      * - Visitas a veterinarios
@@ -197,6 +197,47 @@ class ProductController extends Controller
                 'current_page' => $products->currentPage(),
                 'last_page' => $products->lastPage(),
             ],
+        ]);
+    }
+
+    /**
+     * Devuelve la combinación óptima de pastillas antiparasitarias para cubrir el peso del animal.
+     *
+     * Útil cuando al usuario se le notifica que la desparasitación vence en 7 días:
+     * si el perro pesa 35 kg y hay pastillas de 20/10/5 kg, devuelve [1×20kg, 1×10kg, 1×5kg].
+     */
+    public function dewormingCombo(Request $request, int $petId): JsonResponse
+    {
+        $pet = Pet::find($petId);
+        if (!$pet) {
+            return response()->json(['message' => 'Mascota no encontrada.'], 404);
+        }
+
+        if ($request->user()->id !== $pet->user_id) {
+            return response()->json(['message' => 'No tienes permiso para ver recomendaciones de esta mascota.'], 403);
+        }
+
+        $result = $this->recommendationService->getDewormingCombination($pet);
+
+        $items = collect($result['items'])->map(fn ($item) => [
+            'product' => (new ProductResource($item['product']))->resolve(),
+            'quantity' => $item['quantity'],
+            'subtotal' => round($item['quantity'] * (float) $item['product']->price, 2),
+        ])->values()->all();
+
+        return response()->json([
+            'message' => $result['covered']
+                ? "Combinación de pastillas para {$pet->name} ({$pet->weight} kg)."
+                : "No se encontraron pastillas suficientes para cubrir el peso de {$pet->name}.",
+            'pet' => [
+                'id' => $pet->id,
+                'name' => $pet->name,
+                'species' => $pet->species,
+                'weight_kg' => (float) $pet->weight,
+            ],
+            'combination' => $items,
+            'total_dosage_kg' => $result['total_dosage_kg'],
+            'covered' => $result['covered'],
         ]);
     }
 }

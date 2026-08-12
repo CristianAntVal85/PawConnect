@@ -21,6 +21,7 @@ class Product extends Model
         'stock',
         'min_weight_kg',
         'max_weight_kg',
+        'dosage_kg',
         'recommended_breeds',
         'photo',
     ];
@@ -32,6 +33,7 @@ class Product extends Model
             'stock' => 'integer',
             'min_weight_kg' => 'decimal:2',
             'max_weight_kg' => 'decimal:2',
+            'dosage_kg' => 'decimal:2',
             'recommended_breeds' => 'array',
         ];
     }

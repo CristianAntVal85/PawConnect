@@ -31,6 +31,7 @@ class ProductFactory extends Factory
             'stock' => fake()->numberBetween(0, 250),
             'min_weight_kg' => $minWeight,
             'max_weight_kg' => $maxWeight,
+            'dosage_kg' => null,
             'recommended_breeds' => fake()->optional()->randomElements(
                 ['Labrador', 'Golden', 'Bulldog', 'Poodle', 'Criollo', 'Pastor Aleman'],
                 fake()->numberBetween(1, 3)
@@ -41,5 +42,22 @@ class ProductFactory extends Factory
                 'products/sample-3.jpg',
             ]),
         ];
+    }
+
+    /**
+     * Pastilla antiparasitaria externa con dosificación por peso.
+     * dosage_kg indica los kg de peso corporal que cubre cada unidad.
+     */
+    public function dewormingPill(float $dosageKg, string $species = 'dog'): static
+    {
+        return $this->state(fn () => [
+            'name' => "Antiparasitario {$dosageKg}kg",
+            'category' => "antiparasitarios {$species}",
+            'dosage_kg' => $dosageKg,
+            'min_weight_kg' => null,
+            'max_weight_kg' => null,
+            'price' => round($dosageKg * 1.5 + 3, 2),
+            'stock' => fake()->numberBetween(10, 100),
+        ]);
     }
 }
