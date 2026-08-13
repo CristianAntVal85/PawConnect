@@ -650,8 +650,13 @@ tests/
   - ✅ `APP_DEBUG=false` documentado para producción (archivo `SECURITY.md`)
   - **Tests:** 8 tests de seguridad pasando (headers, rate limit, CSRF, expiración tokens, debug, XSS). Total: 275 tests ✅
 
-- [ ] **9.3** Configurar CORS
-  - `config/cors.php` → `allowed_origins` para cliente móvil
+- [x] **9.3** Configurar CORS
+  - ✅ Archivo [backend/config/cors.php](backend/config/cors.php) creado con `paths` para `api/*` y `sanctum/csrf-cookie`
+  - ✅ `allowed_origins` configurable por entorno con `CORS_ALLOWED_ORIGINS`
+  - ✅ Orígenes móviles incluidos por defecto: `capacitor://localhost`, `ionic://localhost`, `http://10.0.2.2:3000`
+  - ✅ Soporte para patrones opcionales con `CORS_ALLOWED_ORIGIN_PATTERNS`
+  - ✅ Variables añadidas en [backend/.env.example](backend/.env.example)
+  - ✅ Tests de CORS añadidos en [backend/tests/Feature/CorsTest.php](backend/tests/Feature/CorsTest.php)
 
 - [ ] **9.4** Documentación final
 
