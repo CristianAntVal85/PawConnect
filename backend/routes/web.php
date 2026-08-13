@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HealthController;
+use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MarketplaceController;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\NotificationController;
@@ -18,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::view('/login', 'auth.login')->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::view('/register', 'auth.register')->name('register');
 Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
 

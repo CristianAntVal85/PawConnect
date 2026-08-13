@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Accede para gestionar tus mascotas y actividades')
 
 @section('content')
-    <form method="POST" action="#" class="space-y-4 sm:space-y-5">
+    <form method="POST" action="{{ route('login.store') }}" class="space-y-4 sm:space-y-5">
         @csrf
 
         <div>
