@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -39,6 +41,11 @@ class UserController extends Controller
             ->paginate(15);
 
         return view('admin.users.index', compact('users'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport(), 'usuarios_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     public function show(User $user)

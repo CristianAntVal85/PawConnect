@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\PlacesExport;
 use App\Http\Controllers\Controller;
 use App\Models\PetFriendlyPlace;
 use App\Notifications\PlaceStatusNotification;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PlaceController extends Controller
 {
@@ -54,6 +56,11 @@ class PlaceController extends Controller
         $categories = ['pipican', 'beach', 'park', 'vet', 'shop', 'restaurant', 'hotel'];
 
         return view('admin.places.index', compact('places', 'statuses', 'categories'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new PlacesExport(), 'lugares_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     /**

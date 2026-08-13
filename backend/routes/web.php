@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function (): void {
 
         // Gestión de Usuarios
         Route::get('/users', [\App\Http\Controllers\Web\Admin\UserController::class, 'index'])->name('users.index');
+        Route::get('/users/export', [\App\Http\Controllers\Web\Admin\UserController::class, 'export'])->name('users.export');
         Route::get('/users/{user}', [\App\Http\Controllers\Web\Admin\UserController::class, 'show'])->name('users.show');
         Route::post('/users/{user}/role', [\App\Http\Controllers\Web\Admin\UserController::class, 'updateRole'])->name('users.updateRole');
         Route::post('/users/{user}/block', [\App\Http\Controllers\Web\Admin\UserController::class, 'block'])->name('users.block');
@@ -79,22 +80,27 @@ Route::middleware('auth')->group(function (): void {
 
         // Gestión de Mascotas
         Route::get('/pets', [\App\Http\Controllers\Web\Admin\PetController::class, 'index'])->name('pets.index');
+        Route::get('/pets/export', [\App\Http\Controllers\Web\Admin\PetController::class, 'export'])->name('pets.export');
         Route::get('/pets/{pet}', [\App\Http\Controllers\Web\Admin\PetController::class, 'show'])->name('pets.show');
                 // Gestión de Proveedores y Productos
+        Route::get('/products/export', [\App\Http\Controllers\Web\Admin\ProductController::class, 'export'])->name('products.export');
         Route::resource('providers', \App\Http\Controllers\Web\Admin\ProviderController::class, ['as' => 'admin']);
         Route::resource('products', \App\Http\Controllers\Web\Admin\ProductController::class, ['as' => 'admin']);
                 Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/export', [\App\Http\Controllers\Web\Admin\OrderController::class, 'export'])->name('orders.export');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
 
         // Gestión de Lugares
         Route::get('/places', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'index'])->name('places.index');
+        Route::get('/places/export', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'export'])->name('places.export');
         Route::get('/places/{place}', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'show'])->name('places.show');
         Route::post('/places/{place}/approve', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'approve'])->name('places.approve');
         Route::post('/places/{place}/reject', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'reject'])->name('places.reject');
 
         // Gestión de Reseñas
         Route::get('/reviews', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'index'])->name('reviews.index');
+        Route::get('/reviews/export', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'export'])->name('reviews.export');
         Route::get('/reviews/{review}', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'show'])->name('reviews.show');
         Route::post('/reviews/{review}/approve', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'approve'])->name('reviews.approve');
         Route::post('/reviews/{review}/reject', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'reject'])->name('reviews.reject');

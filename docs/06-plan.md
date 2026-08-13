@@ -618,11 +618,14 @@ tests/
   - Validaciones: no permitir cambio de estado si ya está en ese estado
   - 10 tests validando acceso admin y cambios de estado
 
-- [ ] **8.8** Exportar datos a CSV
-
-  ```bash
-  composer require maatwebsite/excel
-  ```
+- [x] **8.8** Exportar datos a CSV
+  - Maatwebsite/Excel v3.1.69 instalado (phpoffice/phpspreadsheet)
+  - 6 Export classes creadas: Users, Pets, Products, Orders, Places, Reviews
+  - Métodos export() añadidos a 6 admin controllers (con formateo de datos y relaciones)
+  - Rutas GET `/admin/{resource}/export` para cada entity type
+  - Botones "Descargar CSV" con icono en todas las vistas de admin index (TailwindCSS)
+  - Validación: solo admins pueden descargar, datos con timestamp en nombre de archivo
+  - 11 tests validando descarga, protección de acceso y estructura de datos
 
 > ✅ **Criterio de aceptación:** admin gestiona todo sin BBDD directa, cambio de estado registrado, CSV descargable.
 

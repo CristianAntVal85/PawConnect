@@ -34,7 +34,7 @@
             <form method="GET" action="{{ route('admin.products.index') }}" class="space-y-4">
                 <!-- Search -->
                 <div>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar producto..." 
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar producto..."
                         class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
@@ -61,9 +61,9 @@
                     </select>
 
                     <!-- Price Range -->
-                    <input type="number" name="min_price" step="0.01" value="{{ request('min_price') }}" placeholder="Precio mín." 
+                    <input type="number" name="min_price" step="0.01" value="{{ request('min_price') }}" placeholder="Precio mín."
                         class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="number" name="max_price" step="0.01" value="{{ request('max_price') }}" placeholder="Precio máx." 
+                    <input type="number" name="max_price" step="0.01" value="{{ request('max_price') }}" placeholder="Precio máx."
                         class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
 
                     <!-- Availability Filter -->
@@ -85,6 +85,12 @@
                             Limpiar
                         </a>
                     @endif
+                    <a href="{{ route('admin.products.export') }}" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar CSV
+                    </a>
                 </div>
             </form>
         </div>

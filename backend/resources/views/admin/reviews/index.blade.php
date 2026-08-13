@@ -49,10 +49,23 @@
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Lugar o usuario..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <div class="flex items-end">
-                <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <div class="flex items-end gap-2">
+                <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                     Filtrar
                 </button>
+
+                @if (request()->hasAny(['status', 'rating', 'search', 'date_from', 'date_to']))
+                    <a href="{{ route('admin.reviews.index') }}" class="flex-1 px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 text-center transition">
+                        Limpiar
+                    </a>
+                @endif
+
+                <a href="{{ route('admin.reviews.export') }}" class="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-center transition flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Descargar CSV
+                </a>
             </div>
         </form>
     </div>

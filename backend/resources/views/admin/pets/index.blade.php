@@ -11,9 +11,9 @@
             <!-- Búsqueda Principal -->
             <div class="flex-1">
                 <label class="block text-sm font-medium text-slate-300 mb-2">Buscar mascota</label>
-                <input 
-                    type="text" 
-                    name="search" 
+                <input
+                    type="text"
+                    name="search"
                     value="{{ request('search') }}"
                     placeholder="Nombre, especie, raza, dueño..."
                     class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none"
@@ -56,21 +56,31 @@
                 </div>
 
                 <div class="flex items-end gap-2">
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         class="flex-1 px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition"
                     >
                         Filtrar
                     </button>
 
                     @if(request()->filled('search') || request()->filled('species') || request()->filled('available') || request()->filled('size'))
-                        <a 
+                        <a
                             href="{{ route('admin.pets.index') }}"
                             class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium rounded-lg transition border border-slate-700"
                         >
                             Limpiar
                         </a>
                     @endif
+
+                    <a
+                        href="{{ route('admin.pets.export') }}"
+                        class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition flex items-center gap-2"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar CSV
+                    </a>
                 </div>
             </div>
         </form>
@@ -104,9 +114,9 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     @if($pet->photos->isNotEmpty())
-                                        <img 
-                                            src="{{ asset('storage/' . $pet->photos->first()->path) }}" 
-                                            alt="{{ $pet->name }}" 
+                                        <img
+                                            src="{{ asset('storage/' . $pet->photos->first()->path) }}"
+                                            alt="{{ $pet->name }}"
                                             class="w-8 h-8 rounded object-cover"
                                         >
                                     @else
@@ -120,7 +130,7 @@
                             <td class="px-6 py-4 text-slate-300">{{ ucfirst($pet->species) }}</td>
                             <td class="px-6 py-4 text-slate-400">{{ $pet->breed ?? 'N/A' }}</td>
                             <td class="px-6 py-4">
-                                <a 
+                                <a
                                     href="{{ route('admin.users.show', $pet->user->id) }}"
                                     class="text-sky-400 hover:text-sky-300 font-medium"
                                 >
@@ -165,7 +175,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <a 
+                                <a
                                     href="{{ route('admin.pets.show', $pet->id) }}"
                                     class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white text-xs font-medium rounded transition"
                                 >

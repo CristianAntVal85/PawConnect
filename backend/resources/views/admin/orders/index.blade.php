@@ -58,6 +58,12 @@
                 <a href="{{ route('admin.orders.index') }}" class="flex-1 py-2 bg-slate-200 hover:bg-slate-300 text-center text-slate-900 font-semibold rounded-lg text-sm transition-colors">
                     Limpiar
                 </a>
+                <a href="{{ route('admin.orders.export') }}" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-center text-white font-semibold rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Descargar CSV
+                </a>
             </div>
         </form>
     </div>

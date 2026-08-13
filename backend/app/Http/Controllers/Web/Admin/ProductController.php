@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\ProductsExport;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -61,6 +63,11 @@ class ProductController extends Controller
         $categories = Product::distinct()->pluck('category')->sort()->values();
 
         return view('admin.products.index', compact('products', 'providers', 'categories'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductsExport(), 'productos_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     public function create(): View

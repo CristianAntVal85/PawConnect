@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -47,6 +49,11 @@ class OrderController extends Controller
         $statuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 
         return view('admin.orders.index', compact('orders', 'statuses'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrdersExport(), 'pedidos_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     public function show(Order $order): View

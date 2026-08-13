@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\ReviewsExport;
 use App\Http\Controllers\Controller;
 use App\Models\PlaceReview;
 use App\Notifications\ReviewStatusNotification;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReviewController extends Controller
 {
@@ -54,6 +56,11 @@ class ReviewController extends Controller
         $statuses = ['pending' => 'Pendiente', 'approved' => 'Aprobada', 'rejected' => 'Rechazada'];
 
         return view('admin.reviews.index', compact('reviews', 'statuses'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReviewsExport(), 'reseñas_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     /**

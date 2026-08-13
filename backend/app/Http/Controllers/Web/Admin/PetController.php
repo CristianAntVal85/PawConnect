@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Exports\PetsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Pet;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PetController extends Controller
 {
@@ -47,6 +49,11 @@ class PetController extends Controller
         $sizes = Pet::distinct()->pluck('size')->sort();
 
         return view('admin.pets.index', compact('pets', 'species', 'sizes'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new PetsExport(), 'mascotas_' . now()->format('Y-m-d_H-i-s') . '.csv');
     }
 
     public function show(Pet $pet)

@@ -10,9 +10,9 @@
         <form method="GET" class="flex flex-col lg:flex-row gap-4 items-end">
             <div class="flex-1 min-w-0">
                 <label class="block text-sm font-medium text-slate-300 mb-2">Buscar usuario</label>
-                <input 
-                    type="text" 
-                    name="search" 
+                <input
+                    type="text"
+                    name="search"
                     value="{{ request('search') }}"
                     placeholder="Nombre, email..."
                     class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none"
@@ -37,21 +37,31 @@
                 </select>
             </div>
 
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 class="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition"
             >
                 Filtrar
             </button>
 
             @if(request()->filled('search') || request()->filled('status') || request()->filled('role'))
-                <a 
+                <a
                     href="{{ route('admin.users.index') }}"
                     class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium rounded-lg transition border border-slate-700"
                 >
                     Limpiar
                 </a>
             @endif
+
+            <a
+                href="{{ route('admin.users.export') }}"
+                class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition flex items-center gap-2"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Descargar CSV
+            </a>
         </form>
     </div>
 
@@ -131,13 +141,13 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
-                                    <a 
+                                    <a
                                         href="{{ route('admin.users.show', $user->id) }}"
                                         class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white text-xs font-medium rounded transition"
                                     >
                                         Ver
                                     </a>
-                                    
+
                                     <div class="relative inline-block group">
                                         <button class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-medium rounded transition">
                                             ⋮
@@ -152,8 +162,8 @@
                                                     </button>
                                                 @else
                                                     <input type="hidden" name="role" value="user">
-                                                    <button 
-                                                        type="submit" 
+                                                    <button
+                                                        type="submit"
                                                         @if(User::where('role', 'admin')->count() === 1) disabled @endif
                                                         class="w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-slate-100 transition text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
@@ -165,8 +175,8 @@
                                             @if(!$user->isBlocked())
                                                 <form method="POST" action="{{ route('admin.users.block', $user->id) }}" class="border-b border-slate-700 last:border-0">
                                                     @csrf
-                                                    <button 
-                                                        type="submit" 
+                                                    <button
+                                                        type="submit"
                                                         @if(User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
                                                         class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-700 transition text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
