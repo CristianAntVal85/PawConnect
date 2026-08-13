@@ -48,9 +48,12 @@ return [
     | considered expired. This will override any values set in the token's
     | "expires_at" attribute, but first-party sessions are not affected.
     |
+    | Para seguridad OWASP: tokens expiran en 60 días (87600 minutos).
+    | Esto obliga a los clientes móviles a renovar autenticación periódicamente.
+    |
     */
 
-    'expiration' => null,
+    'expiration' => env('SANCTUM_EXPIRATION', 87600), // 60 días
 
     /*
     |--------------------------------------------------------------------------

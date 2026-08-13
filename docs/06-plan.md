@@ -639,12 +639,16 @@ tests/
   - Sin stack traces en producción (manejado por trait `error()`)
   - **Implementación:** Estandarizados 14 controladores API (Place, Product, Order, Auth, Pet, User, PlaceReview, PlaceFavorite, Notification, Health, Match, Message, Stats, Walk). Todos devuelven estructura uniforme `{success, message, data}` con paginación consistente. 267 tests verdes ✅
 
-- [ ] **9.2** Checklist OWASP
-  - CSRF activo en `web.php`
-  - Headers de seguridad (`Content-Security-Policy`, `X-Frame-Options`)
-  - Rate limiting configurado
-  - Tokens Sanctum con expiración
-  - `APP_DEBUG=false` en producción
+- [x] **9.2** Checklist OWASP
+  - ✅ CSRF activo en `web.php` (Sanctum middleware `ValidateCsrfToken`)
+  - ✅ Headers de seguridad implementados (middleware `SecurityHeaders`)
+    - `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`
+    - `X-XSS-Protection: 1; mode=block`, `Content-Security-Policy` restrictivo
+    - `Strict-Transport-Security` en producción, `Referrer-Policy`, `Permissions-Policy`
+  - ✅ Rate limiting configurado (60 req/min vía `$middleware->throttleApi()`)
+  - ✅ Tokens Sanctum con expiración de 60 días (87,600 minutos en `config/sanctum.php`)
+  - ✅ `APP_DEBUG=false` documentado para producción (archivo `SECURITY.md`)
+  - **Tests:** 8 tests de seguridad pasando (headers, rate limit, CSRF, expiración tokens, debug, XSS). Total: 275 tests ✅
 
 - [ ] **9.3** Configurar CORS
   - `config/cors.php` → `allowed_origins` para cliente móvil

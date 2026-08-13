@@ -18,6 +18,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // Forzar respuestas JSON para todas las rutas API
         $middleware->statefulApi();
 
+        // Headers de seguridad en todas las respuestas
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
+        // Rate limiting para rutas API
+        $middleware->throttleApi();
+
         $middleware->alias([
             'is_admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
