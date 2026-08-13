@@ -69,14 +69,14 @@ Route::middleware('auth')->group(function (): void {
     // Admin routes
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        
+
         // Gestión de Usuarios
         Route::get('/users', [\App\Http\Controllers\Web\Admin\UserController::class, 'index'])->name('users.index');
         Route::get('/users/{user}', [\App\Http\Controllers\Web\Admin\UserController::class, 'show'])->name('users.show');
         Route::post('/users/{user}/role', [\App\Http\Controllers\Web\Admin\UserController::class, 'updateRole'])->name('users.updateRole');
         Route::post('/users/{user}/block', [\App\Http\Controllers\Web\Admin\UserController::class, 'block'])->name('users.block');
         Route::post('/users/{user}/unblock', [\App\Http\Controllers\Web\Admin\UserController::class, 'unblock'])->name('users.unblock');
-        
+
         // Gestión de Mascotas
         Route::get('/pets', [\App\Http\Controllers\Web\Admin\PetController::class, 'index'])->name('pets.index');
         Route::get('/pets/{pet}', [\App\Http\Controllers\Web\Admin\PetController::class, 'show'])->name('pets.show');
@@ -86,5 +86,11 @@ Route::middleware('auth')->group(function (): void {
                 Route::get('/orders', [\App\Http\Controllers\Web\Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [\App\Http\Controllers\Web\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{order}/status', [\App\Http\Controllers\Web\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
+
+        // Gestión de Lugares
+        Route::get('/places', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'index'])->name('places.index');
+        Route::get('/places/{place}', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'show'])->name('places.show');
+        Route::post('/places/{place}/approve', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'approve'])->name('places.approve');
+        Route::post('/places/{place}/reject', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'reject'])->name('places.reject');
     });
 });

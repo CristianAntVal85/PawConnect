@@ -132,6 +132,8 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             // Aprobar/rechazar lugares
             Route::post('/places/{place}/approve', [PlaceController::class, 'approve'])
                 ->name('places.approve');
+            Route::post('/places/{place}/reject', [PlaceController::class, 'reject'])
+                ->name('places.reject');
         });
 
         // Aquí irán el resto de rutas (users, pets, health, matches, etc.)

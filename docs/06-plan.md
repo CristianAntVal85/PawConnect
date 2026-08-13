@@ -597,9 +597,9 @@ tests/
   - Vista detallada de producto con información del proveedor
   - Vista detallada de proveedor con sus productos
 
-- [ ] **8.5** Gestión de Pedidos — cambiar estado + historial + URL tracking
+- [x] **8.5** Gestión de Pedidos — cambiar estado + historial + URL tracking
 
-- [ ] **8.6** Gestión de Lugares — aprobar/rechazar sugerencias
+- [x] **8.6** Gestión de Lugares — aprobar/rechazar sugerencias
 
 - [ ] **8.7** Moderación de Reseñas
 

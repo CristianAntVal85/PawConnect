@@ -186,10 +186,42 @@ class PlaceController extends Controller
         $status = $validated['approved'] ? 'approved' : 'rejected';
         $place->update(['status' => $status]);
 
-        // TODO: Enviar notificación al creador
+        if ($place->creator) {
+            $place->creator->notify(new \App\Notifications\PlaceStatusNotification(
+                $place,
+                $status,
+                $validated['reason'] ?? null
+            ));
+        }
 
         return response()->json([
             'message' => "Lugar {$status} correctamente.",
+            'data'    => (new PlaceResource($place->load('creator:id,name')))->resolve(),
+        ]);
+    }
+
+    public function reject(Request $request, PetFriendlyPlace $place): JsonResponse
+    {
+        if (! $request->user()->isAdmin()) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'reason' => ['required', 'string', 'max:500'],
+        ]);
+
+        $place->update(['status' => 'rejected']);
+
+        if ($place->creator) {
+            $place->creator->notify(new \App\Notifications\PlaceStatusNotification(
+                $place,
+                'rejected',
+                $validated['reason']
+            ));
+        }
+
+        return response()->json([
+            'message' => 'Lugar rechazado correctamente.',
             'data'    => (new PlaceResource($place->load('creator:id,name')))->resolve(),
         ]);
     }
