@@ -658,14 +658,16 @@ tests/
   - ✅ Variables añadidas en [backend/.env.example](backend/.env.example)
   - ✅ Tests de CORS añadidos en [backend/tests/Feature/CorsTest.php](backend/tests/Feature/CorsTest.php)
 
-- [ ] **9.4** Documentación final
+- [x] **9.4** Documentación final
 
   ```bash
   php artisan scribe:generate
   ```
 
-  - Exportar Postman Collection
-  - `README.md` con requisitos, instalación, `.env`, comandos artisan
+  - ✅ Documentación API regenerada y publicada en `/docs`
+  - ✅ Postman Collection exportada en `backend/storage/app/private/scribe/collection.json`
+  - ✅ OpenAPI exportado en `backend/storage/app/private/scribe/openapi.yaml`
+  - ✅ `backend/README.md` actualizado con requisitos, instalación, `.env` y comandos artisan
 
 - [ ] **9.5** Propuesta técnica para app móvil (Flutter / React Native)
 

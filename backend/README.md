@@ -11,6 +11,7 @@
 - Composer
 - Node.js 18+
 - MySQL 8.0+
+- Extensiones PHP: mbstring, xml, curl, zip, pdo_mysql
 
 ### Instalación
 
@@ -27,6 +28,32 @@ php artisan key:generate
 
 # Base de datos
 php artisan migrate --seed
+
+# Cache recomendada para entorno local
+php artisan config:clear
+php artisan cache:clear
+```
+
+### Configuración de .env (mínima)
+
+```env
+APP_NAME=PawConnect
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pawconnect
+DB_USERNAME=pawconnect
+DB_PASSWORD=pawconnect
+
+SANCTUM_STATEFUL_DOMAINS=localhost:8000,127.0.0.1:8000
+SANCTUM_EXPIRATION=87600
+
+# CORS (web + móvil)
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://10.0.2.2:3000,capacitor://localhost,ionic://localhost
 ```
 
 ### Desarrollo
@@ -75,6 +102,14 @@ php artisan scribe:generate
 php artisan migrate:fresh --seed   # resetear BBDD con datos
 php artisan db:seed                # solo seeders
 
+# Colas y scheduler
+php artisan queue:work
+php artisan schedule:work
+
+# Utilidades
+php artisan route:list
+php artisan optimize:clear
+
 # Control de código
 php artisan tinker                 # REPL interactivo
 ```
@@ -114,3 +149,10 @@ tests/
 - **Endpoints API:** ver `../docs/05-API_endpoints.md`
 - **Diseño ER:** ver `../docs/03-ER_diagrama.md`
 - **Tests:** ver `../docs/guia-tests-pest.md`
+
+### Artefactos generados por Scribe
+
+- Documentación web: `/docs`
+- Vista Blade generada: `resources/views/scribe/index.blade.php`
+- Postman Collection: `storage/app/private/scribe/collection.json`
+- OpenAPI Spec: `storage/app/private/scribe/openapi.yaml`

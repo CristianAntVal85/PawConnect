@@ -29,9 +29,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -40,9 +40,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -53,16 +53,16 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      password: architecto
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      password: consequatur
     fileParameters: []
     responses: []
     responseFields: []
@@ -96,9 +96,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: gbailey@example.net
+        example: qkunze@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -109,15 +109,15 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: '|]|{+-'
+        example: 'O[2UZ5ij-e/dl4m{o,'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: gbailey@example.net
-      password: '|]|{+-'
+      email: qkunze@example.com
+      password: 'O[2UZ5ij-e/dl4m{o,'
     fileParameters: []
     responses: []
     responseFields: []
@@ -151,16 +151,16 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: gbailey@example.net
+        example: qkunze@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: gbailey@example.net
+      email: qkunze@example.com
     fileParameters: []
     responses: []
     responseFields: []
@@ -196,7 +196,7 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -205,9 +205,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: validation.email.
+        description: 'Must be a valid email address.'
         required: true
-        example: zbailey@example.net
+        example: carolyne.luettgen@example.org
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -218,20 +218,392 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      token: architecto
-      email: zbailey@example.net
-      password: architecto
+      token: consequatur
+      email: carolyne.luettgen@example.org
+      password: consequatur
     fileParameters: []
     responses: []
     responseFields: []
     auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/products
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Productos obtenidos correctamente.","data":[{"id":198,"provider_id":66,"provider":{"id":66,"name":"Jones, Christiansen and Bernhard","email":"birdie74@runolfsson.com","phone":null,"address":"874 Elwyn Park","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Aliquid qui id","category":"hygiene","description":null,"price":80.86,"stock":100,"min_weight_kg":null,"max_weight_kg":6.83,"recommended_breeds":[],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":199,"provider_id":67,"provider":{"id":67,"name":"Lubowitz and Sons","email":"kunde.rosie@considine.com","phone":"+1 (909) 334-4213","address":"28426 Myrl Glens","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Eaque eius sed","category":"toys","description":null,"price":303.83,"stock":100,"min_weight_kg":22.58,"max_weight_kg":40.37,"recommended_breeds":[],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":200,"provider_id":68,"provider":{"id":68,"name":"Bruen, Feest and Lindgren","email":"annamae.jacobi@morissette.org","phone":"(802) 500-9184","address":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Qui vel voluptatem","category":"accessories","description":"Similique dolorem est voluptas. Reiciendis recusandae labore laudantium aut ut qui dolor praesentium.","price":243.87,"stock":100,"min_weight_kg":6.87,"max_weight_kg":40.24,"recommended_breeds":[],"photo":"products\/sample-1.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":201,"provider_id":69,"provider":{"id":69,"name":"Bailey-Deckow","email":"norberto12@hessel.com","phone":"248.912.1607","address":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Cum veritatis cum","category":"accessories","description":null,"price":86.54,"stock":100,"min_weight_kg":null,"max_weight_kg":null,"recommended_breeds":[],"photo":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":202,"provider_id":70,"provider":{"id":70,"name":"Fritsch-Frami","email":"bhuel@stracke.net","phone":null,"address":"41694 Gutmann Forest","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Aut distinctio eligendi","category":"toys","description":null,"price":144.49,"stock":100,"min_weight_kg":24.25,"max_weight_kg":39.92,"recommended_breeds":["Pastor Aleman","Poodle"],"photo":"products\/sample-3.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":203,"provider_id":71,"provider":{"id":71,"name":"Jacobson Group","email":"cheyanne.sauer@hermiston.com","phone":null,"address":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Necessitatibus officiis saepe","category":"hygiene","description":null,"price":305.78,"stock":100,"min_weight_kg":2.11,"max_weight_kg":8,"recommended_breeds":["Golden","Bulldog"],"photo":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":204,"provider_id":72,"provider":{"id":72,"name":"Leannon-Adams","email":"larkin.ramon@schumm.com","phone":null,"address":"82908 Cruickshank Locks","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Voluptas qui natus","category":"accessories","description":null,"price":270.86,"stock":100,"min_weight_kg":20.76,"max_weight_kg":45.37,"recommended_breeds":[],"photo":"products\/sample-1.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":205,"provider_id":73,"provider":{"id":73,"name":"Breitenberg-Howe","email":"archibald18@mcclure.com","phone":null,"address":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Labore consequuntur et","category":"hygiene","description":null,"price":289.42,"stock":100,"min_weight_kg":null,"max_weight_kg":null,"recommended_breeds":["Pastor Aleman","Bulldog"],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":206,"provider_id":74,"provider":{"id":74,"name":"West, Ankunding and Jerde","email":"wtorp@renner.biz","phone":"(561) 622-1788","address":"8972 Lelia Spur Apt. 734","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Rem temporibus velit","category":"toys","description":null,"price":134.25,"stock":100,"min_weight_kg":6.59,"max_weight_kg":38.11,"recommended_breeds":["Labrador"],"photo":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":207,"provider_id":75,"provider":{"id":75,"name":"Schulist, Bruen and Pagac","email":"qfriesen@macejkovic.com","phone":null,"address":null,"created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Qui maxime voluptatem","category":"toys","description":null,"price":209.95,"stock":100,"min_weight_kg":null,"max_weight_kg":null,"recommended_breeds":[],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":208,"provider_id":76,"provider":{"id":76,"name":"Nienow-Swaniawski","email":"marlene77@breitenberg.com","phone":"617-723-1075","address":"724 Fisher Heights Suite 061","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Alias officiis sint","category":"accessories","description":null,"price":53.93,"stock":100,"min_weight_kg":null,"max_weight_kg":null,"recommended_breeds":["Bulldog","Golden","Pastor Aleman"],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":209,"provider_id":77,"provider":{"id":77,"name":"Thiel PLC","email":"kirlin.deborah@wintheiser.com","phone":"(870) 869-0523","address":"882 Kenyatta Crossroad","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Recusandae ipsam non","category":"food","description":null,"price":21.54,"stock":100,"min_weight_kg":14.06,"max_weight_kg":14.96,"recommended_breeds":["Labrador"],"photo":"products\/sample-3.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},{"id":210,"provider_id":78,"provider":{"id":78,"name":"Rath-Nader","email":"webster.ankunding@oberbrunner.com","phone":"1-845-495-1904","address":null,"created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Voluptate accusamus adipisci","category":"toys","description":"Necessitatibus architecto in iure ut molestiae tempore. Et deleniti placeat aut aut quo eius. Error maiores autem qui culpa officiis culpa rerum.","price":77.5,"stock":100,"min_weight_kg":16.03,"max_weight_kg":41.07,"recommended_breeds":[],"photo":null,"created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},{"id":211,"provider_id":79,"provider":{"id":79,"name":"Greenholt Ltd","email":"molly73@botsford.biz","phone":"(475) 866-1702","address":null,"created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Necessitatibus vero qui","category":"health","description":"Dolor quo autem sapiente ut. Et nulla delectus consequuntur delectus assumenda. Non nihil ullam quis. Doloremque tempore unde consequatur. Exercitationem voluptas qui inventore autem quod molestiae sed.","price":227.15,"stock":100,"min_weight_kg":13.48,"max_weight_kg":36.36,"recommended_breeds":["Poodle","Labrador","Pastor Aleman"],"photo":"products\/sample-1.jpg","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},{"id":212,"provider_id":80,"provider":{"id":80,"name":"Glover-Wisoky","email":"maritza75@maggio.com","phone":null,"address":"48583 Considine Springs Suite 601","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Dolorum minus nobis","category":"hygiene","description":"Nihil voluptatem necessitatibus illum aliquam tempore earum. Voluptas aut enim aspernatur quis.","price":319.21,"stock":100,"min_weight_kg":6.44,"max_weight_kg":58.85,"recommended_breeds":[],"photo":null,"created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},{"id":213,"provider_id":81,"provider":{"id":81,"name":"Jaskolski-Ledner","email":"lowe.bertha@nitzsche.biz","phone":null,"address":null,"created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Molestias qui rerum","category":"health","description":"Praesentium mollitia est aut accusamus maiores occaecati. Saepe officiis et et aspernatur.","price":24.68,"stock":100,"min_weight_kg":5.43,"max_weight_kg":17.29,"recommended_breeds":["Golden","Labrador","Pastor Aleman"],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},{"id":214,"provider_id":82,"provider":{"id":82,"name":"Gottlieb LLC","email":"wilber.torphy@pfeffer.com","phone":null,"address":"12560 Tyson Rapids","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Iste officiis recusandae","category":"toys","description":"Fuga dolorem sint sed aliquam. Quisquam sint unde quia non enim dolor. Omnis ut sunt nihil natus cupiditate.","price":67.63,"stock":100,"min_weight_kg":8.7,"max_weight_kg":33.61,"recommended_breeds":[],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},{"id":215,"provider_id":83,"provider":{"id":83,"name":"Kuvalis Inc","email":"alvah.altenwerth@morar.com","phone":"575-582-4053","address":"983 Bernice Forge Apt. 975","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"},"name":"Et est occaecati","category":"food","description":"Occaecati suscipit quis et dignissimos. Quia expedita quos dolorum ipsum voluptatibus explicabo. Dignissimos sit error quod nihil nulla recusandae minima. Id aliquid beatae id et sunt repellendus.","price":146.7,"stock":100,"min_weight_kg":5.71,"max_weight_kg":33.64,"recommended_breeds":[],"photo":"products\/sample-3.jpg","created_at":"2026-08-13T13:39:01+00:00","updated_at":"2026-08-13T13:39:01+00:00"}],"pagination":{"total":18,"per_page":20,"current_page":1,"last_page":1}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '59'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/products/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the product.'
+        required: true
+        example: 198
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 198
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Producto obtenido correctamente.","data":{"id":198,"provider_id":66,"provider":{"id":66,"name":"Jones, Christiansen and Bernhard","email":"birdie74@runolfsson.com","phone":null,"address":"874 Elwyn Park","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"},"name":"Aliquid qui id","category":"hygiene","description":null,"price":80.86,"stock":100,"min_weight_kg":null,"max_weight_kg":6.83,"recommended_breeds":[],"photo":"products\/sample-2.jpg","created_at":"2026-08-13T13:39:00+00:00","updated_at":"2026-08-13T13:39:00+00:00"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '58'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/places
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listado de lugares aprobados + lugares pendientes del usuario (si es admin).'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Lugares obtenidos correctamente.","data":[{"id":181,"name":"Et consequatur","category":"pipican","description":"A et rerum ab maxime sequi quo molestiae consequuntur. Dolor nam adipisci veritatis numquam accusantium ea enim. Omnis vitae labore libero non sed. Voluptas maxime quia aut ab quia sunt consectetur.","lat":"13.9648440","lng":"-68.2542980","address":null,"phone":null,"website":"http:\/\/padberg.biz\/facere-labore-recusandae-et-veritatis-fuga-tempore-quod-modi","photo":null,"status":"approved","created_by":461,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":461,"name":"Keagan Larkin"}},{"id":180,"name":"Laboriosam aut","category":"shop","description":null,"lat":"-8.7990710","lng":"-40.3571510","address":"748 Shemar Route","phone":"930-365-1685","website":null,"photo":"places\/sample-3.jpg","status":"approved","created_by":459,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":459,"name":"Mrs. Eulalia Daugherty"}},{"id":179,"name":"Cupiditate minus","category":"pipican","description":null,"lat":"-29.6514750","lng":"-63.6323270","address":"803 Odessa Expressway Suite 173","phone":"469-876-0704","website":null,"photo":null,"status":"approved","created_by":457,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":457,"name":"Cora Schowalter"}},{"id":178,"name":"Commodi est","category":"pipican","description":"Eaque saepe atque quos enim sit. Fugiat ipsam esse qui pariatur quo nulla. Eum reprehenderit quasi eum rerum. Iste animi vel occaecati hic et et et libero. Eum ex non est excepturi.","lat":"4.6179410","lng":"-56.4269020","address":"91885 Lessie Square","phone":"+1 (434) 875-1409","website":"http:\/\/www.waelchi.com\/voluptatum-molestiae-tempore-qui-et-dolores.html","photo":null,"status":"approved","created_by":455,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":455,"name":"Daphne Kling III"}},{"id":177,"name":"Fugit maiores","category":"shop","description":null,"lat":"-31.4485690","lng":"-73.0699020","address":null,"phone":null,"website":"http:\/\/www.mcclure.com\/sit-ut-veritatis-natus-in-sit-optio-omnis.html","photo":null,"status":"approved","created_by":453,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":453,"name":"Cora Huels"}},{"id":176,"name":"Voluptas quos","category":"park","description":"Velit tempore voluptas sunt numquam culpa vitae. Ut sed et quis sit. Enim asperiores maxime ipsa magnam possimus aut sit animi. Voluptatum alias doloremque ex consequatur consequuntur voluptatem.","lat":"11.8123260","lng":"-35.8877170","address":null,"phone":"+1-470-937-1382","website":null,"photo":null,"status":"approved","created_by":451,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":451,"name":"Haylie Braun"}},{"id":175,"name":"Sit odit","category":"park","description":null,"lat":"-6.4310480","lng":"-65.8699070","address":null,"phone":null,"website":null,"photo":null,"status":"approved","created_by":449,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":449,"name":"Samson Gaylord"}},{"id":174,"name":"Ut omnis","category":"pipican","description":"Sed ut soluta soluta itaque suscipit. Tenetur non quia quos quia.","lat":"8.4384750","lng":"-51.3707650","address":"8552 Mikayla Falls Apt. 316","phone":"(283) 237-4444","website":"http:\/\/mante.com\/deserunt-culpa-et-qui-ut","photo":null,"status":"approved","created_by":447,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":447,"name":"Antonietta Turcotte"}},{"id":173,"name":"Quaerat tempore","category":"vet","description":"Ad eos et rerum eum sit quia sunt. Exercitationem hic voluptatem consequuntur consequatur non nostrum. Pariatur unde necessitatibus optio molestiae aut.","lat":"23.3735660","lng":"-35.1432310","address":null,"phone":"1-669-590-4372","website":null,"photo":null,"status":"approved","created_by":445,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":445,"name":"Eleanore Bartell MD"}},{"id":172,"name":"Assumenda maiores","category":"beach","description":null,"lat":"-28.0065030","lng":"-48.6167240","address":null,"phone":null,"website":null,"photo":"places\/sample-2.jpg","status":"approved","created_by":443,"created_at":"2026-08-13T13:39:07.000000Z","updated_at":"2026-08-13T13:39:07.000000Z","creator":{"id":443,"name":"Ines Brakus"}},{"id":171,"name":"Et voluptas","category":"beach","description":"Quidem labore eligendi vitae libero. Culpa excepturi similique fuga fugiat doloremque eum aut. Nisi in velit sint temporibus et ipsa quas nesciunt. Nisi velit et quia voluptas fuga suscipit sit ab.","lat":"-8.8269070","lng":"-42.6123800","address":"8438 Schamberger Estate Apt. 388","phone":"(734) 254-7272","website":"http:\/\/www.koepp.com\/velit-rem-est-omnis-porro-corporis.html","photo":"places\/sample-3.jpg","status":"approved","created_by":404,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":404,"name":"Dr. Ardith Feeney V"}},{"id":170,"name":"Animi magnam","category":"pipican","description":"Libero voluptatibus delectus sit voluptas sint. Ipsum voluptatem ipsa praesentium delectus sequi sint. Laudantium omnis quia a cumque.","lat":"12.8110280","lng":"-45.3387950","address":null,"phone":"+1.267.579.5342","website":"http:\/\/cole.com\/dolores-optio-non-dolores-repellat-alias","photo":null,"status":"approved","created_by":403,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":403,"name":"Sharon Harvey"}},{"id":169,"name":"Hic dolores","category":"restaurant","description":"Dolorum rerum et aut id non excepturi in. Eius at possimus ducimus perferendis a molestiae. Reprehenderit occaecati quo aut enim et.","lat":"2.8879480","lng":"-48.0149950","address":null,"phone":"+1-269-754-2035","website":"http:\/\/ritchie.biz\/","photo":"places\/sample-1.jpg","status":"approved","created_by":402,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":402,"name":"Sabrina Lowe"}},{"id":168,"name":"Praesentium cupiditate","category":"park","description":"Dolores qui repudiandae et et dolores quidem. Minus maxime voluptate quo dicta et laudantium quibusdam. A enim nobis sit minus molestiae vel.","lat":"6.5149530","lng":"-69.8973600","address":"6472 Fisher Well","phone":null,"website":"http:\/\/nikolaus.com\/vel-aut-iure-est-quidem-voluptas-eum-aut-non.html","photo":null,"status":"approved","created_by":401,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":401,"name":"Dr. Gerald Mayer"}},{"id":167,"name":"Quos neque","category":"restaurant","description":"Exercitationem aut sequi velit quia maiores aut. Nostrum est harum accusantium temporibus.","lat":"-11.8651590","lng":"-73.0933610","address":"70701 Donnelly Knoll Suite 806","phone":"+1-248-428-5914","website":null,"photo":null,"status":"approved","created_by":400,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":400,"name":"Colleen Waters"}},{"id":166,"name":"Quis voluptas","category":"hotel","description":"Animi esse pariatur rerum accusantium aspernatur ut cupiditate consequatur. Non placeat non quo rem reiciendis quidem est. Et nulla expedita cum eligendi. Quo ullam eius aliquid omnis praesentium ut.","lat":"18.2130800","lng":"-53.0527420","address":null,"phone":"986.594.6998","website":"http:\/\/www.tillman.com\/","photo":"places\/sample-2.jpg","status":"approved","created_by":399,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":399,"name":"Mattie Graham"}},{"id":165,"name":"Sunt quam","category":"vet","description":null,"lat":"15.0923280","lng":"-42.2945290","address":"21840 Sebastian Run Suite 435","phone":null,"website":"http:\/\/www.barton.com\/et-labore-voluptatem-molestiae-voluptas-inventore-accusamus-officia-eveniet","photo":null,"status":"approved","created_by":398,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":398,"name":"Lina Rosenbaum"}},{"id":164,"name":"Architecto tempora","category":"park","description":null,"lat":"-6.6167760","lng":"-51.2708410","address":"63948 Hettinger Station","phone":null,"website":null,"photo":"places\/sample-1.jpg","status":"approved","created_by":397,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":397,"name":"Braxton Durgan MD"}},{"id":163,"name":"Ut sint","category":"vet","description":null,"lat":"15.0462380","lng":"-38.0633090","address":null,"phone":null,"website":"https:\/\/www.farrell.com\/harum-velit-veritatis-pariatur-aliquam-numquam-maxime-ex","photo":"places\/sample-3.jpg","status":"approved","created_by":396,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":396,"name":"Summer Yundt"}},{"id":162,"name":"Illo est","category":"hotel","description":null,"lat":"-20.8624200","lng":"-60.0486290","address":null,"phone":"+1 (678) 495-6590","website":null,"photo":null,"status":"approved","created_by":395,"created_at":"2026-08-13T13:39:05.000000Z","updated_at":"2026-08-13T13:39:05.000000Z","creator":{"id":395,"name":"Lila Crona"}}],"pagination":{"total":136,"per_page":20,"current_page":1,"last_page":7}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '57'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/places/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ver detalles de un lugar.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Lugar obtenido correctamente.","data":{"id":1,"name":"Et quo","category":"vet","description":null,"lat":"-32.0812440","lng":"-47.6953030","address":null,"phone":"986.251.8801","website":null,"photo":"places\/sample-2.jpg","status":"approved","created_by":7,"created_at":"2026-08-13T13:38:57.000000Z","updated_at":"2026-08-13T13:38:57.000000Z","creator":{"id":7,"name":"Lucy Bauch III"},"reviews":[{"id":1,"place_id":1,"user_id":7,"rating":2,"body":"Sed incidunt quia animi nostrum aut. Rerum rerum nulla in dolores fugit. Et delectus enim ex nesciunt.","photo":null,"status":"approved","rejection_reason":null,"created_at":"2026-08-13T13:38:57.000000Z","updated_at":"2026-08-13T13:38:57.000000Z"}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '56'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/places/{place_id}/reviews'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listado de reseñas de un lugar.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Rese\u00f1as obtenidas correctamente.","data":[{"id":1,"rating":2,"body":"Sed incidunt quia animi nostrum aut. Rerum rerum nulla in dolores fugit. Et delectus enim ex nesciunt.","photo":null,"user":{"id":7,"name":"Lucy Bauch III"},"place_id":1,"created_at":"2026-08-13T13:38:57+00:00","updated_at":"2026-08-13T13:38:57+00:00"}],"pagination":{"total":1,"per_page":10,"current_page":1,"last_page":1}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '55'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/places/{place_id}/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ver detalle de una reseña.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"message":"Rese\u00f1a obtenida correctamente.","data":{"id":1,"rating":2,"body":"Sed incidunt quia animi nostrum aut. Rerum rerum nulla in dolores fugit. Et delectus enim ex nesciunt.","photo":null,"user":{"id":7,"name":"Lucy Bauch III"},"place_id":1,"created_at":"2026-08-13T13:38:57+00:00","updated_at":"2026-08-13T13:38:57+00:00"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '54'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -266,7 +638,154 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/notifications
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get unread notifications for the authenticated user'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/notifications/unread-count
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get count of unread notifications'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/notifications/{notification}/mark-as-read'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Mark a notification as read'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      notification:
+        custom: []
+        name: notification
+        description: 'The notification.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      notification: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -304,13 +823,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -341,9 +866,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -352,9 +877,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -374,9 +899,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: hfqcoynlazghdtqtqxbaj
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -385,9 +910,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
-        example: -90
+        example: -89
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -396,9 +921,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -407,9 +932,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: d
+        example: pilpmufinllwloauydlsm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -418,29 +943,29 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: l
+        example: sjuryvojcybzvrbyickzn
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      photo: i
-      lat: -90
-      lng: -179
-      address: d
-      billing_address: l
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      photo: hfqcoynlazghdtqtqxbaj
+      lat: -89
+      lng: -180
+      address: pilpmufinllwloauydlsm
+      billing_address: sjuryvojcybzvrbyickzn
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -475,7 +1000,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -513,13 +1038,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -552,7 +1083,7 @@ endpoints:
         name: user_id
         description: 'Must match an existing stored value.'
         required: false
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -561,7 +1092,7 @@ endpoints:
       species:
         custom: []
         name: species
-        description: 'Especie de la mascota. Ejemplos: dog, cat, rabbit, bird, fish, etc. validation.max.'
+        description: 'Especie de la mascota. Ejemplos: dog, cat, rabbit, bird, fish, etc. Must not be greater than 50 characters.'
         required: true
         example: dog
         type: string
@@ -572,7 +1103,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Nombre de la mascota. validation.max.'
+        description: 'Nombre de la mascota. Must not be greater than 120 characters.'
         required: true
         example: Max
         type: string
@@ -583,7 +1114,7 @@ endpoints:
       breed:
         custom: []
         name: breed
-        description: 'Raza de la mascota (opcional). Ejemplos: Labrador, Persa, Husky. validation.max.'
+        description: 'Raza de la mascota (opcional). Ejemplos: Labrador, Persa, Husky. Must not be greater than 120 characters.'
         required: false
         example: 'Labrador Retriever'
         type: string
@@ -594,7 +1125,7 @@ endpoints:
       age:
         custom: []
         name: age
-        description: 'Edad de la mascota en años (0-35). validation.min validation.max.'
+        description: 'Edad de la mascota en años (0-35). Must be at least 0. Must not be greater than 35.'
         required: false
         example: 3
         type: integer
@@ -605,7 +1136,7 @@ endpoints:
       weight:
         custom: []
         name: weight
-        description: 'Peso de la mascota en kilogramos. validation.min validation.max.'
+        description: 'Peso de la mascota en kilogramos. Must be at least 0. Must not be greater than 999.99.'
         required: false
         example: 25.5
         type: number
@@ -616,7 +1147,7 @@ endpoints:
       size:
         custom: []
         name: size
-        description: 'Tamaño de la mascota. Valores: small, medium, large, giant. validation.max.'
+        description: 'Tamaño de la mascota. Valores: small, medium, large, giant. Must not be greater than 30 characters.'
         required: false
         example: medium
         type: string
@@ -627,7 +1158,7 @@ endpoints:
       energy_level:
         custom: []
         name: energy_level
-        description: 'Nivel de energía de la mascota. Valores: low, moderate, high, very_high. validation.max.'
+        description: 'Nivel de energía de la mascota. Valores: low, moderate, high, very_high. Must not be greater than 30 characters.'
         required: false
         example: high
         type: string
@@ -638,7 +1169,7 @@ endpoints:
       personality:
         custom: []
         name: personality
-        description: 'Descripción libre de la personalidad y comportamiento de la mascota. validation.max.'
+        description: 'Descripción libre de la personalidad y comportamiento de la mascota. Must not be greater than 2000 characters.'
         required: false
         example: 'Muy sociable, le encanta jugar con otros perros y es muy obediente.'
         type: string
@@ -660,7 +1191,7 @@ endpoints:
       photos:
         custom: []
         name: photos
-        description: 'Must be a file. validation.image validation.max.'
+        description: 'Must be a file. Must be an image. Must not be greater than 4096 kilobytes.'
         required: false
         example:
           - null
@@ -670,7 +1201,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      user_id: 16
+      user_id: 17
       species: dog
       name: Max
       breed: 'Labrador Retriever'
@@ -688,7 +1219,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -717,14 +1248,14 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -738,13 +1269,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -774,21 +1311,21 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       species:
         custom: []
         name: species
-        description: 'Especie de la mascota. Todos los campos son opcionales en actualización. validation.max.'
+        description: 'Especie de la mascota. Todos los campos son opcionales en actualización. Must not be greater than 50 characters.'
         required: false
         example: dog
         type: string
@@ -799,7 +1336,7 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Nombre de la mascota. validation.max.'
+        description: 'Nombre de la mascota. Must not be greater than 120 characters.'
         required: false
         example: Max
         type: string
@@ -810,7 +1347,7 @@ endpoints:
       breed:
         custom: []
         name: breed
-        description: 'Raza de la mascota. validation.max.'
+        description: 'Raza de la mascota. Must not be greater than 120 characters.'
         required: false
         example: 'Golden Retriever'
         type: string
@@ -821,7 +1358,7 @@ endpoints:
       age:
         custom: []
         name: age
-        description: 'Edad de la mascota en años. validation.min validation.max.'
+        description: 'Edad de la mascota en años. Must be at least 0. Must not be greater than 35.'
         required: false
         example: 4
         type: integer
@@ -832,7 +1369,7 @@ endpoints:
       weight:
         custom: []
         name: weight
-        description: 'Peso de la mascota en kilogramos. validation.min validation.max.'
+        description: 'Peso de la mascota en kilogramos. Must be at least 0. Must not be greater than 999.99.'
         required: false
         example: 28.0
         type: number
@@ -843,7 +1380,7 @@ endpoints:
       size:
         custom: []
         name: size
-        description: 'Tamaño: small, medium, large, giant. validation.max.'
+        description: 'Tamaño: small, medium, large, giant. Must not be greater than 30 characters.'
         required: false
         example: large
         type: string
@@ -854,7 +1391,7 @@ endpoints:
       energy_level:
         custom: []
         name: energy_level
-        description: 'Nivel de energía: low, moderate, high, very_high. validation.max.'
+        description: 'Nivel de energía: low, moderate, high, very_high. Must not be greater than 30 characters.'
         required: false
         example: moderate
         type: string
@@ -865,7 +1402,7 @@ endpoints:
       personality:
         custom: []
         name: personality
-        description: 'Descripción de la personalidad. validation.max.'
+        description: 'Descripción de la personalidad. Must not be greater than 2000 characters.'
         required: false
         example: 'Tranquilo y cariñoso con niños.'
         type: string
@@ -887,7 +1424,7 @@ endpoints:
       photos:
         custom: []
         name: photos
-        description: 'Must be a file. validation.image validation.max.'
+        description: 'Must be a file. Must be an image. Must not be greater than 4096 kilobytes.'
         required: false
         example:
           - null
@@ -914,7 +1451,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -943,14 +1480,14 @@ endpoints:
         name: id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -961,7 +1498,69 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/pets/{pet_id}/health/veterinarians'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Obtener veterinarios cercanos recomendados basado en registros sanitarios críticos.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      pet_id:
+        custom: []
+        name: pet_id
+        description: 'The ID of the pet.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      pet_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -990,14 +1589,14 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
+      pet_id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1011,13 +1610,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1046,14 +1651,14 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
+      pet_id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1076,7 +1681,7 @@ endpoints:
       last_date:
         custom: []
         name: last_date
-        description: 'Fecha del último registro (YYYY-MM-DD). validation.date.'
+        description: 'Fecha del último registro (YYYY-MM-DD). Must be a valid date.'
         required: false
         example: '2026-01-15'
         type: string
@@ -1087,7 +1692,7 @@ endpoints:
       periodicity_days:
         custom: []
         name: periodicity_days
-        description: 'Días entre registros (para calcular próxima fecha). validation.min.'
+        description: 'Días entre registros (para calcular próxima fecha). Must be at least 1.'
         required: false
         example: 365
         type: integer
@@ -1098,7 +1703,7 @@ endpoints:
       notes:
         custom: []
         name: notes
-        description: 'Notas adicionales sobre el registro. validation.max.'
+        description: 'Notas adicionales sobre el registro. Must not be greater than 1000 characters.'
         required: false
         example: 'Vacuna antirrábica anual'
         type: string
@@ -1129,7 +1734,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1158,7 +1763,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1169,15 +1774,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: 16
+      pet_id: 1
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1191,13 +1796,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1227,7 +1838,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1238,15 +1849,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: 16
+      pet_id: 1
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1269,7 +1880,7 @@ endpoints:
       last_date:
         custom: []
         name: last_date
-        description: 'Fecha del último registro (YYYY-MM-DD). validation.date.'
+        description: 'Fecha del último registro (YYYY-MM-DD). Must be a valid date.'
         required: false
         example: '2026-01-15'
         type: string
@@ -1280,7 +1891,7 @@ endpoints:
       periodicity_days:
         custom: []
         name: periodicity_days
-        description: 'Días entre registros (para calcular próxima fecha). validation.min.'
+        description: 'Días entre registros (para calcular próxima fecha). Must be at least 1.'
         required: false
         example: 365
         type: integer
@@ -1291,7 +1902,7 @@ endpoints:
       notes:
         custom: []
         name: notes
-        description: 'Notas adicionales sobre el registro. validation.max.'
+        description: 'Notas adicionales sobre el registro. Must not be greater than 1000 characters.'
         required: false
         example: 'Vacuna antirrábica anual'
         type: string
@@ -1322,7 +1933,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1351,7 +1962,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1362,15 +1973,15 @@ endpoints:
         name: id
         description: 'The ID of the health.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      id: 16
+      pet_id: 1
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1381,7 +1992,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1410,7 +2021,7 @@ endpoints:
         name: pet_id
         description: 'The ID of the pet.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1421,15 +2032,15 @@ endpoints:
         name: health_id
         description: 'The ID of the health.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      pet_id: 16
-      health_id: 16
+      pet_id: 1
+      health_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1440,7 +2051,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1478,13 +2089,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1513,14 +2130,14 @@ endpoints:
         name: petId
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      petId: architecto
+      petId: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1531,7 +2148,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1560,14 +2177,14 @@ endpoints:
         name: petId
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      petId: architecto
+      petId: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1578,7 +2195,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1616,13 +2233,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1657,7 +2280,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1686,14 +2309,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1707,13 +2330,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1743,14 +2372,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1761,7 +2390,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1790,14 +2419,14 @@ endpoints:
         name: id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1808,7 +2437,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1837,14 +2466,14 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: 16
+      match_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1858,13 +2487,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1893,37 +2528,37 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: 16
+      match_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       body:
         custom: []
         name: body
-        description: validation.max.
+        description: 'Must not be greater than 2000 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      body: b
+      body: vmqeopfuudtdsufvyvddq
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -1952,7 +2587,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1963,15 +2598,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1985,13 +2620,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2021,7 +2662,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2032,15 +2673,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2051,7 +2692,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2080,7 +2721,7 @@ endpoints:
         name: match_id
         description: 'The ID of the match.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2091,15 +2732,15 @@ endpoints:
         name: id
         description: 'The ID of the message.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      match_id: architecto
-      id: architecto
+      match_id: consequatur
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2110,7 +2751,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2139,14 +2780,14 @@ endpoints:
         name: walk_id
         description: 'The ID of the walk.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      walk_id: 16
+      walk_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2155,21 +2796,21 @@ endpoints:
         name: pet_id
         description: 'Must match an existing stored value.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      pet_id: 16
+      pet_id: 17
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2198,14 +2839,14 @@ endpoints:
         name: walk_id
         description: 'The ID of the walk.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      walk_id: 16
+      walk_id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2214,21 +2855,21 @@ endpoints:
         name: pet_id
         description: 'Must match an existing stored value.'
         required: false
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      pet_id: 16
+      pet_id: 17
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2259,7 +2900,7 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
         example: -89
         type: number
@@ -2270,9 +2911,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2281,9 +2922,9 @@ endpoints:
       radius_km:
         custom: []
         name: radius_km
-        description: 'validation.min validation.max.'
+        description: 'Must be at least 0.1. Must not be greater than 300.'
         required: false
-        example: 7
+        example: 16
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2292,9 +2933,9 @@ endpoints:
       date_from:
         custom: []
         name: date_from
-        description: validation.date.
+        description: 'Must be a valid date.'
         required: false
-        example: '2026-08-09T12:49:12'
+        example: '2026-08-13T13:41:35'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2302,9 +2943,9 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       lat: -89
-      lng: -179
-      radius_km: 7
-      date_from: '2026-08-09T12:49:12'
+      lng: -180
+      radius_km: 16
+      date_from: '2026-08-13T13:41:35'
     fileParameters: []
     responses:
       -
@@ -2314,13 +2955,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2351,9 +2998,9 @@ endpoints:
       title:
         custom: []
         name: title
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2362,9 +3009,9 @@ endpoints:
       description:
         custom: []
         name: description
-        description: validation.max.
+        description: 'Must not be greater than 2000 characters.'
         required: false
-        example: 'Et animi quos velit et fugiat.'
+        example: 'Dolores molestias ipsam sit.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2373,9 +3020,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: true
-        example: -89
+        example: -90
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2384,9 +3031,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: true
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2395,9 +3042,9 @@ endpoints:
       scheduled_at:
         custom: []
         name: scheduled_at
-        description: 'validation.date validation.after.'
+        description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: true
-        example: '2052-09-02'
+        example: '2107-09-12'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2406,28 +3053,28 @@ endpoints:
       max_pets:
         custom: []
         name: max_pets
-        description: 'validation.min validation.max.'
+        description: 'Must be at least 1. Must not be greater than 50.'
         required: true
-        example: 22
+        example: 13
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: b
-      description: 'Et animi quos velit et fugiat.'
-      lat: -89
-      lng: -179
-      scheduled_at: '2052-09-02'
-      max_pets: 22
+      title: vmqeopfuudtdsufvyvddq
+      description: 'Dolores molestias ipsam sit.'
+      lat: -90
+      lng: -180
+      scheduled_at: '2107-09-12'
+      max_pets: 13
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2456,14 +3103,14 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2477,13 +3124,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2513,23 +3166,23 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       title:
         custom: []
         name: title
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2538,9 +3191,9 @@ endpoints:
       description:
         custom: []
         name: description
-        description: validation.max.
+        description: 'Must not be greater than 2000 characters.'
         required: false
-        example: 'Et animi quos velit et fugiat.'
+        example: 'Dolores molestias ipsam sit.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2549,9 +3202,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
-        example: -89
+        example: -90
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2560,9 +3213,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -2571,9 +3224,9 @@ endpoints:
       scheduled_at:
         custom: []
         name: scheduled_at
-        description: 'validation.date validation.after.'
+        description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2052-09-02'
+        example: '2107-09-12'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2582,28 +3235,28 @@ endpoints:
       max_pets:
         custom: []
         name: max_pets
-        description: 'validation.min validation.max.'
+        description: 'Must be at least 1. Must not be greater than 50.'
         required: false
-        example: 22
+        example: 13
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: b
-      description: 'Et animi quos velit et fugiat.'
-      lat: -89
-      lng: -179
-      scheduled_at: '2052-09-02'
-      max_pets: 22
+      title: vmqeopfuudtdsufvyvddq
+      description: 'Dolores molestias ipsam sit.'
+      lat: -90
+      lng: -180
+      scheduled_at: '2107-09-12'
+      max_pets: 13
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2632,14 +3285,14 @@ endpoints:
         name: id
         description: 'The ID of the walk.'
         required: true
-        example: 16
+        example: 17
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 17
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2650,7 +3303,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2658,58 +3311,14 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/v1/products
+    uri: 'api/v1/products/recommended/{pet_id}'
     metadata:
       custom: []
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/v1/products/{id}'
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display the specified resource.'
+      title: 'Obtiene productos recomendados para una mascota específica.'
       description: ''
       authenticated: true
       deprecated: false
@@ -2718,19 +3327,19 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      id:
+      pet_id:
         custom: []
-        name: id
-        description: 'The ID of the product.'
+        name: pet_id
+        description: 'The ID of the pet.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      pet_id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2744,13 +3353,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2758,23 +3373,51 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/v1/orders
+    uri: 'api/v1/products/by-service/{serviceType}/{petId}'
     metadata:
       custom: []
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
-      description: ''
+      title: 'Obtiene productos relacionados con un tipo de servicio específico.'
+      description: |-
+        Utilizado en contexto de:
+        - Registros sanitarios (vacunación, cirugía, etc.)
+        - Visitas a veterinarios
+        - Tipos de lugares (parque, playa, etc.)
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
+    urlParameters:
+      serviceType:
+        custom: []
+        name: serviceType
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      petId:
+        custom: []
+        name: petId
+        description: ''
+        required: true
+        example: '1562'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      serviceType: consequatur
+      petId: '1562'
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2788,13 +3431,83 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/products/deworming-combo/{petId}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Devuelve la combinación óptima de pastillas antiparasitarias para cubrir el peso del animal.'
+      description: |-
+        Útil cuando al usuario se le notifica que la desparasitación vence en 7 días:
+        si el perro pesa 35 kg y hay pastillas de 20/10/5 kg, devuelve [1×20kg, 1×10kg, 1×5kg].
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      petId:
+        custom: []
+        name: petId
+        description: ''
+        required: true
+        example: '1562'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      petId: '1562'
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2802,14 +3515,14 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/v1/orders
+    uri: api/v1/orders/payment-intent
     metadata:
       custom: []
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Crea un PaymentIntent en Stripe y devuelve el client_secret al frontend.'
       description: ''
       authenticated: true
       deprecated: false
@@ -2827,7 +3540,116 @@ endpoints:
         name: product_id
         description: 'Must match an existing stored value.'
         required: true
-        example: architecto
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      quantity:
+        custom: []
+        name: quantity
+        description: 'Must be at least 1.'
+        required: true
+        example: 45
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      product_id: consequatur
+      quantity: 45
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/orders
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/orders
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Crea el pedido tras confirmar el pago en Stripe.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      product_id:
+        custom: []
+        name: product_id
+        description: 'Must match an existing stored value.'
+        required: true
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2838,7 +3660,7 @@ endpoints:
         name: pet_id
         description: 'Must match an existing stored value.'
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2847,9 +3669,9 @@ endpoints:
       quantity:
         custom: []
         name: quantity
-        description: validation.min.
+        description: 'Must be at least 1.'
         required: true
-        example: 22
+        example: 45
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -2858,9 +3680,9 @@ endpoints:
       shipping_address:
         custom: []
         name: shipping_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: g
+        example: qeopfuudtdsufvyvddqam
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2869,27 +3691,39 @@ endpoints:
       payment_method:
         custom: []
         name: payment_method
-        description: validation.max.
+        description: 'Must not be greater than 50 characters.'
         required: false
-        example: z
+        example: niihfqcoynlazghdtqtqx
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      stripe_payment_id:
+        custom: []
+        name: stripe_payment_id
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: bajwbpilpmufinllwloau
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      product_id: architecto
-      pet_id: architecto
-      quantity: 22
-      shipping_address: g
-      payment_method: z
+      product_id: consequatur
+      pet_id: consequatur
+      quantity: 45
+      shipping_address: qeopfuudtdsufvyvddqam
+      payment_method: niihfqcoynlazghdtqtqx
+      stripe_payment_id: bajwbpilpmufinllwloau
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -2918,14 +3752,14 @@ endpoints:
         name: id
         description: 'The ID of the order.'
         required: true
-        example: 16
+        example: 43
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 43
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2939,28 +3773,35 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/v1/places
+      - PUT
+      - PATCH
+    uri: 'api/v1/orders/{id}'
     metadata:
       custom: []
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
+      title: 'Actualiza el estado de un pedido (solo admin).'
       description: ''
       authenticated: true
       deprecated: false
@@ -2968,28 +3809,84 @@ endpoints:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the order.'
+        required: true
+        example: 43
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 43
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
+    bodyParameters:
+      status:
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        name: status
+        description: ''
+        required: true
+        example: delivered
+        type: string
+        enumValues:
+          - pending
+          - confirmed
+          - shipped
+          - delivered
+          - cancelled
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      note:
+        custom: []
+        name: note
+        description: 'Must not be greater than 500 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      tracking_number:
+        custom: []
+        name: tracking_number
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      tracking_url:
+        custom: []
+        name: tracking_url
+        description: 'Must be a valid URL.'
+        required: false
+        example: 'http://towne.com/consequatur-debitis-et-id'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      status: delivered
+      note: vmqeopfuudtdsufvyvddq
+      tracking_number: amniihfqcoynlazghdtqt
+      tracking_url: 'http://towne.com/consequatur-debitis-et-id'
+    fileParameters: []
+    responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3004,83 +3901,142 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created resource in storage.'
+      title: 'Crear nuevo lugar (sugerencia de usuario).'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/v1/places/{id}'
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display the specified resource.'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
+    bodyParameters:
+      name:
         custom: []
-        name: id
-        description: 'The ID of the place.'
+        name: name
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: architecto
+        example: 'Parque Central'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-    cleanUrlParameters:
-      id: architecto
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
+      category:
         custom: []
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        name: category
+        description: 'Categoría: pipican, beach, park, vet, shop, restaurant, hotel.'
+        required: true
+        example: park
+        type: string
+        enumValues:
+          - pipican
+          - beach
+          - park
+          - vet
+          - shop
+          - restaurant
+          - hotel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 1000 characters.'
+        required: true
+        example: 'Hermoso parque con áreas verdes y fuentes'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lat:
+        custom: []
+        name: lat
+        description: 'Must be between -90 and 90.'
+        required: true
+        example: -33.9249
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lng:
+        custom: []
+        name: lng
+        description: 'Must be between -180 and 180.'
+        required: true
+        example: -18.4241
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Must not be greater than 500 characters.'
+        required: true
+        example: 'Avenida Principal 123, Ciudad'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 20 characters.'
+        required: false
+        example: '+34 911 234 567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'Must be a valid URL. Must not be greater than 255 characters.'
+        required: false
+        example: 'https://example.com'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Parque Central'
+      category: park
+      description: 'Hermoso parque con áreas verdes y fuentes'
+      lat: -33.9249
+      lng: -18.4241
+      address: 'Avenida Principal 123, Ciudad'
+      phone: '+34 911 234 567'
+      website: 'https://example.com'
+    fileParameters:
+      photo: null
+    responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3088,7 +4044,6 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-      - PATCH
     uri: 'api/v1/places/{id}'
     metadata:
       custom: []
@@ -3096,13 +4051,13 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified resource in storage.'
+      title: 'Actualizar lugar (solo creador o admin).'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters:
       id:
@@ -3110,25 +4065,140 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: hotel
+        type: string
+        enumValues:
+          - pipican
+          - beach
+          - park
+          - vet
+          - shop
+          - restaurant
+          - hotel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 1000 characters.'
+        required: false
+        example: 'Dolores molestias ipsam sit.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lat:
+        custom: []
+        name: lat
+        description: 'Must be between -90 and 90.'
+        required: false
+        example: -90
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lng:
+        custom: []
+        name: lng
+        description: 'Must be between -180 and 180.'
+        required: false
+        example: -180
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Must not be greater than 500 characters.'
+        required: false
+        example: qcoynlazghdtqtqxbajwb
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 20 characters.'
+        required: false
+        example: pilpmufinllwloauy
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'Must be a valid URL. Must not be greater than 255 characters.'
+        required: false
+        example: dlsmsjuryvojcybzvrbyi
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: vmqeopfuudtdsufvyvddq
+      category: hotel
+      description: 'Dolores molestias ipsam sit.'
+      lat: -90
+      lng: -180
+      address: qcoynlazghdtqtqxbajwb
+      phone: pilpmufinllwloauy
+      website: dlsmsjuryvojcybzvrbyi
+    fileParameters:
+      photo: null
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3143,7 +4213,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Remove the specified resource from storage.'
+      title: 'Eliminar lugar (solo admin o creador).'
       description: ''
       authenticated: true
       deprecated: false
@@ -3157,14 +4227,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3175,7 +4245,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3183,14 +4253,14 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/v1/products/recommended/{petId}'
+    uri: api/v1/places/favorites
     metadata:
       custom: []
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
+      title: 'Obtener lugares favoritos del usuario.'
       description: ''
       authenticated: true
       deprecated: false
@@ -3198,20 +4268,8 @@ endpoints:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      petId:
-        custom: []
-        name: petId
-        description: ''
-        required: true
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      petId: architecto
+    urlParameters: []
+    cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3225,13 +4283,398 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/places/{place_id}/favorite'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Agregar lugar a favoritos.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/places/{place_id}/favorite'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar lugar de favoritos.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/places/{place_id}/reviews'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Crear nueva reseña.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rating:
+        custom: []
+        name: rating
+        description: 'Calificación numérica de 1 a 5 estrellas. Must be at least 1. Must not be greater than 5.'
+        required: true
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      body:
+        custom: []
+        name: body
+        description: 'Comentario/reseña del lugar. Must not be greater than 1000 characters.'
+        required: true
+        example: 'Un lugar excelente para llevar perros. Muy limpio y con muchos espacios verdes.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Foto opcional de la reseña. Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      rating: 5
+      body: 'Un lugar excelente para llevar perros. Muy limpio y con muchos espacios verdes.'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/places/{place_id}/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualizar reseña (solo autor o admin).'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rating:
+        custom: []
+        name: rating
+        description: 'Calificación numérica de 1 a 5 estrellas (opcional). Must be at least 1. Must not be greater than 5.'
+        required: false
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      body:
+        custom: []
+        name: body
+        description: 'Comentario/reseña del lugar (opcional). Must not be greater than 1000 characters.'
+        required: false
+        example: 'Excelente lugar para mascotas.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Foto opcional de la reseña. Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      rating: 5
+      body: 'Excelente lugar para mascotas.'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/places/{place_id}/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar reseña (solo autor o admin).'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/admin/dashboard/stats
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3269,13 +4712,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3306,9 +4755,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3317,9 +4766,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3330,7 +4779,7 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: architecto
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3350,9 +4799,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: 'n'
+        example: mqeopfuudtdsufvyvddqa
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3361,7 +4810,7 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
         example: -90
         type: number
@@ -3372,7 +4821,7 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
         example: -179
         type: number
@@ -3383,9 +4832,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: m
+        example: iihfqcoynlazghdtqtqxb
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3394,30 +4843,30 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: ajwbpilpmufinllwloauy
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      password: architecto
-      photo: 'n'
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      password: consequatur
+      photo: mqeopfuudtdsufvyvddqa
       lat: -90
       lng: -179
-      address: m
-      billing_address: i
+      address: iihfqcoynlazghdtqtqxb
+      billing_address: ajwbpilpmufinllwloauy
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3446,14 +4895,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 6
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 6
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3467,13 +4916,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3503,23 +4958,23 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 6
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 6
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: vmqeopfuudtdsufvyvddq
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3528,9 +4983,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: 'validation.email validation.max.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: false
-        example: zbailey@example.net
+        example: kunde.eloisa@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3561,9 +5016,9 @@ endpoints:
       photo:
         custom: []
         name: photo
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: i
+        example: hfqcoynlazghdtqtqxbaj
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3572,9 +5027,9 @@ endpoints:
       lat:
         custom: []
         name: lat
-        description: validation.between.
+        description: 'Must be between -90 and 90.'
         required: false
-        example: -90
+        example: -89
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3583,9 +5038,9 @@ endpoints:
       lng:
         custom: []
         name: lng
-        description: validation.between.
+        description: 'Must be between -180 and 180.'
         required: false
-        example: -179
+        example: -180
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3594,9 +5049,9 @@ endpoints:
       address:
         custom: []
         name: address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: d
+        example: pilpmufinllwloauydlsm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3605,29 +5060,29 @@ endpoints:
       billing_address:
         custom: []
         name: billing_address
-        description: validation.max.
+        description: 'Must not be greater than 255 characters.'
         required: false
-        example: l
+        example: sjuryvojcybzvrbyickzn
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: b
-      email: zbailey@example.net
-      photo: i
-      lat: -90
-      lng: -179
-      address: d
-      billing_address: l
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      photo: hfqcoynlazghdtqtqxbaj
+      lat: -89
+      lng: -180
+      address: pilpmufinllwloauydlsm
+      billing_address: sjuryvojcybzvrbyickzn
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3656,14 +5111,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: 16
+        example: 6
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 6
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3674,7 +5129,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3712,13 +5167,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3745,15 +5206,137 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      provider_id:
+        custom: []
+        name: provider_id
+        description: 'ID del proveedor del producto. Must match an existing stored value.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Nombre del producto. Must not be greater than 255 characters.'
+        required: true
+        example: 'Alimento Premium para Perros'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Categoría del producto (e.g., comida, juguete, accesorario). Must not be greater than 100 characters.'
+        required: true
+        example: comida
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Descripción detallada del producto. Must not be greater than 1000 characters.'
+        required: false
+        example: 'Alimento seco de alta calidad con ingredientes naturales'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      price:
+        custom: []
+        name: price
+        description: 'Precio del producto en EUR. Must be at least 0. Must not be greater than 99999.99.'
+        required: true
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      stock:
+        custom: []
+        name: stock
+        description: 'Cantidad disponible en stock. Must be at least 0. Must not be greater than 9999.'
+        required: true
+        example: 50
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      min_weight_kg:
+        custom: []
+        name: min_weight_kg
+        description: 'Peso mínimo de la mascota recomendado (opcional). Must be at least 0. Must not be greater than 999.99.'
+        required: false
+        example: 10.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      max_weight_kg:
+        custom: []
+        name: max_weight_kg
+        description: 'Peso máximo de la mascota recomendado (opcional). Must be at least 0. Must not be greater than 999.99.'
+        required: false
+        example: 30.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      recommended_breeds:
+        custom: []
+        name: recommended_breeds
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example:
+          - vmqeopfuudtdsufvyvddq
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'URL de la foto del producto. Must be a valid URL.'
+        required: false
+        example: 'https://example.com/product.jpg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      provider_id: 1
+      name: 'Alimento Premium para Perros'
+      category: comida
+      description: 'Alimento seco de alta calidad con ingredientes naturales'
+      price: 29.99
+      stock: 50
+      min_weight_kg: 10.0
+      max_weight_kg: 30.0
+      recommended_breeds:
+        - vmqeopfuudtdsufvyvddq
+      photo: 'https://example.com/product.jpg'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3782,14 +5365,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
-        type: string
+        example: 198
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 198
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3803,13 +5386,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3839,25 +5428,147 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
-        type: string
+        example: 198
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 198
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      provider_id:
+        custom: []
+        name: provider_id
+        description: 'ID del proveedor del producto. Must match an existing stored value.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Nombre del producto. Must not be greater than 255 characters.'
+        required: false
+        example: 'Alimento Premium para Perros'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Categoría del producto (e.g., comida, juguete, accesorio). Must not be greater than 100 characters.'
+        required: false
+        example: comida
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Descripción detallada del producto. Must not be greater than 1000 characters.'
+        required: false
+        example: 'Alimento seco de alta calidad con ingredientes naturales'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      price:
+        custom: []
+        name: price
+        description: 'Precio del producto en EUR. Must be at least 0. Must not be greater than 99999.99.'
+        required: false
+        example: 29.99
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      stock:
+        custom: []
+        name: stock
+        description: 'Cantidad disponible en stock. Must be at least 0. Must not be greater than 9999.'
+        required: false
+        example: 50
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      min_weight_kg:
+        custom: []
+        name: min_weight_kg
+        description: 'Peso mínimo de la mascota recomendado (opcional). Must be at least 0. Must not be greater than 999.99.'
+        required: false
+        example: 10.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      max_weight_kg:
+        custom: []
+        name: max_weight_kg
+        description: 'Peso máximo de la mascota recomendado (opcional). Must be at least 0. Must not be greater than 999.99.'
+        required: false
+        example: 30.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      recommended_breeds:
+        custom: []
+        name: recommended_breeds
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example:
+          - vmqeopfuudtdsufvyvddq
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'URL de la foto del producto. Must be a valid URL.'
+        required: false
+        example: 'https://example.com/product.jpg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      provider_id: 1
+      name: 'Alimento Premium para Perros'
+      category: comida
+      description: 'Alimento seco de alta calidad con ingredientes naturales'
+      price: 29.99
+      stock: 50
+      min_weight_kg: 10.0
+      max_weight_kg: 30.0
+      recommended_breeds:
+        - vmqeopfuudtdsufvyvddq
+      photo: 'https://example.com/product.jpg'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3886,14 +5597,14 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: architecto
-        type: string
+        example: 198
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 198
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3904,7 +5615,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3919,7 +5630,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
+      title: 'Listado de lugares aprobados + lugares pendientes del usuario (si es admin).'
       description: ''
       authenticated: true
       deprecated: false
@@ -3942,13 +5653,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3963,27 +5680,142 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created resource in storage.'
+      title: 'Crear nuevo lugar (sugerencia de usuario).'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: 'Parque Central'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Categoría: pipican, beach, park, vet, shop, restaurant, hotel.'
+        required: true
+        example: park
+        type: string
+        enumValues:
+          - pipican
+          - beach
+          - park
+          - vet
+          - shop
+          - restaurant
+          - hotel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 1000 characters.'
+        required: true
+        example: 'Hermoso parque con áreas verdes y fuentes'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lat:
+        custom: []
+        name: lat
+        description: 'Must be between -90 and 90.'
+        required: true
+        example: -33.9249
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lng:
+        custom: []
+        name: lng
+        description: 'Must be between -180 and 180.'
+        required: true
+        example: -18.4241
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Must not be greater than 500 characters.'
+        required: true
+        example: 'Avenida Principal 123, Ciudad'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 20 characters.'
+        required: false
+        example: '+34 911 234 567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'Must be a valid URL. Must not be greater than 255 characters.'
+        required: false
+        example: 'https://example.com'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Parque Central'
+      category: park
+      description: 'Hermoso parque con áreas verdes y fuentes'
+      lat: -33.9249
+      lng: -18.4241
+      address: 'Avenida Principal 123, Ciudad'
+      phone: '+34 911 234 567'
+      website: 'https://example.com'
+    fileParameters:
+      photo: null
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -3998,7 +5830,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display the specified resource.'
+      title: 'Ver detalles de un lugar.'
       description: ''
       authenticated: true
       deprecated: false
@@ -4012,14 +5844,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4033,13 +5865,19 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          access-control-allow-origin: '*'
+          x-frame-options: SAMEORIGIN
+          x-content-type-options: nosniff
+          x-xss-protection: '1; mode=block'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.stripe.com wss://localhost:8080; frame-src 'self' https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          referrer-policy: strict-origin-when-cross-origin
+          permissions-policy: 'geolocation=(self), microphone=(), camera=()'
+          vary: Origin
         description: null
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -4055,13 +5893,13 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified resource in storage.'
+      title: 'Actualizar lugar (solo creador o admin).'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
+      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters:
       id:
@@ -4069,25 +5907,140 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: ''
+        required: false
+        example: park
+        type: string
+        enumValues:
+          - pipican
+          - beach
+          - park
+          - vet
+          - shop
+          - restaurant
+          - hotel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 1000 characters.'
+        required: false
+        example: 'Dolores molestias ipsam sit.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lat:
+        custom: []
+        name: lat
+        description: 'Must be between -90 and 90.'
+        required: false
+        example: -90
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      lng:
+        custom: []
+        name: lng
+        description: 'Must be between -180 and 180.'
+        required: false
+        example: -180
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Must not be greater than 500 characters.'
+        required: false
+        example: qcoynlazghdtqtqxbajwb
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 20 characters.'
+        required: false
+        example: pilpmufinllwloauy
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'Must be a valid URL. Must not be greater than 255 characters.'
+        required: false
+        example: dlsmsjuryvojcybzvrbyi
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      photo:
+        custom: []
+        name: photo
+        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: vmqeopfuudtdsufvyvddq
+      category: park
+      description: 'Dolores molestias ipsam sit.'
+      lat: -90
+      lng: -180
+      address: qcoynlazghdtqtqxbajwb
+      phone: pilpmufinllwloauy
+      website: dlsmsjuryvojcybzvrbyi
+    fileParameters:
+      photo: null
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
@@ -4102,7 +6055,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Remove the specified resource from storage.'
+      title: 'Eliminar lugar (solo admin o creador).'
       description: ''
       authenticated: true
       deprecated: false
@@ -4116,14 +6069,14 @@ endpoints:
         name: id
         description: 'The ID of the place.'
         required: true
-        example: architecto
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: architecto
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4134,7 +6087,137 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/admin/places/{place_id}/approve'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Aprobar un lugar (solo admin).'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      approved:
+        custom: []
+        name: approved
+        description: ''
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      reason:
+        custom: []
+        name: reason
+        description: 'Must not be greater than 500 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      approved: true
+      reason: vmqeopfuudtdsufvyvddq
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/v1/admin/places/{place_id}/reject'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      place_id:
+        custom: []
+        name: place_id
+        description: 'The ID of the place.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      place_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      reason:
+        custom: []
+        name: reason
+        description: 'Must not be greater than 500 characters.'
+        required: true
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      reason: vmqeopfuudtdsufvyvddq
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3V5EgbkvZcDPa166h8fd4ae'
     controller: null
     method: null
     route: null
