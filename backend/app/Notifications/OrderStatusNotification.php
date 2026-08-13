@@ -30,7 +30,7 @@ class OrderStatusNotification extends Notification implements ShouldQueue
         $statusLabel = $this->getStatusLabel($this->newStatus);
         $statusIcon  = $this->getStatusIcon($this->newStatus);
 
-        return (new MailMessage)
+        $mail = (new MailMessage)
             ->subject("Pedido #{$this->order->id}: {$statusLabel} {$statusIcon}")
             ->greeting("¡Hola {$notifiable->name}!")
             ->line("Tu pedido #{$this->order->id} ha cambiado de estado:")
@@ -38,7 +38,18 @@ class OrderStatusNotification extends Notification implements ShouldQueue
             ->when($this->note, fn ($mail) => $mail->line("Nota: {$this->note}"))
             ->line("Producto: {$this->order->product->name}")
             ->line("Cantidad: {$this->order->quantity} ud.")
-            ->line("Total: ${$this->order->total_price}")
+            ->line("Total: ${$this->order->total_price}");
+
+        // Agregar tracking si está disponible
+        if ($this->order->tracking_number) {
+            $mail->line("🔗 **Número de seguimiento:** `{$this->order->tracking_number}`");
+        }
+
+        if ($this->order->tracking_url) {
+            $mail->action('Ver Seguimiento', $this->order->tracking_url);
+        }
+
+        return $mail
             ->action('Ver pedido', url("/orders/{$this->order->id}"))
             ->line('Gracias por comprar en PawConnect.');
     }
@@ -46,15 +57,17 @@ class OrderStatusNotification extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'type'          => 'order_status_changed',
-            'order_id'      => $this->order->id,
-            'product_name'  => $this->order->product->name,
-            'old_status'    => $this->oldStatus,
-            'new_status'    => $this->newStatus,
-            'note'          => $this->note,
-            'icon'          => $this->getStatusIcon($this->newStatus),
-            'message'       => "Tu pedido #{$this->order->id} está {$this->getStatusLabel($this->newStatus)}",
-            'url'           => "/orders/{$this->order->id}",
+            'type'              => 'order_status_changed',
+            'order_id'          => $this->order->id,
+            'product_name'      => $this->order->product->name,
+            'old_status'        => $this->oldStatus,
+            'new_status'        => $this->newStatus,
+            'note'              => $this->note,
+            'tracking_number'   => $this->order->tracking_number,
+            'tracking_url'      => $this->order->tracking_url,
+            'icon'              => $this->getStatusIcon($this->newStatus),
+            'message'           => "Tu pedido #{$this->order->id} está {$this->getStatusLabel($this->newStatus)}",
+            'url'               => "/orders/{$this->order->id}",
         ];
     }
 

@@ -149,6 +149,31 @@
                 </div>
             </div>
 
+            {{-- Tracking Info --}}
+            ${(order.tracking_number || order.status === 'shipped' || order.status === 'delivered') ? `
+            <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-600 shadow">
+                <h2 class="text-lg font-bold text-blue-900 mb-3">📍 Información de Envío</h2>
+
+                ${order.tracking_number ? `
+                <div class="mb-4">
+                    <p class="text-sm text-blue-800 mb-2">
+                        <span class="font-semibold">Número de seguimiento:</span>
+                    </p>
+                    <code class="block bg-white px-3 py-2 rounded font-mono font-bold text-blue-700 border border-blue-200">
+                        ${order.tracking_number}
+                    </code>
+                </div>` : ''}
+
+                ${order.tracking_url ? `
+                <a href="${order.tracking_url}" target="_blank"
+                   class="inline-block mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors">
+                    🔗 Ver Seguimiento en Vivo
+                </a>` : `
+                <p class="text-sm text-blue-700">
+                    El seguimiento estará disponible próximamente...
+                </p>`}
+            </div>` : ''}
+
             {{-- Timeline de estados --}}
             ${order.status_history?.length ? `
             <div class="bg-white rounded-xl shadow p-6">

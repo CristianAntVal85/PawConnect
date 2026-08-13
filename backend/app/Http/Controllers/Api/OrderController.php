@@ -191,16 +191,18 @@ class OrderController extends Controller
         }
 
         $validated = $request->validate([
-            'status' => ['required', 'string', 'in:pending,confirmed,shipped,delivered,cancelled'],
-            'note'   => ['nullable', 'string', 'max:500'],
+            'status'           => ['required', 'string', 'in:pending,confirmed,shipped,delivered,cancelled'],
+            'note'             => ['nullable', 'string', 'max:500'],
+            'tracking_number'  => ['nullable', 'string', 'max:100'],
+            'tracking_url'     => ['nullable', 'url'],
         ]);
 
         $oldStatus = $order->status;
         $newStatus = $validated['status'];
         $note      = $validated['note'] ?? null;
 
-        // Si es el mismo estado, no hacer nada
-        if ($oldStatus === $newStatus) {
+        // Si es el mismo estado y no hay cambios en tracking, no hacer nada
+        if ($oldStatus === $newStatus && empty($validated['tracking_number'])) {
             return response()->json([
                 'message' => 'El pedido ya tiene ese estado.',
                 'data'    => (new OrderResource($order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory'])))->resolve(),
@@ -210,9 +212,18 @@ class OrderController extends Controller
         // Cargar relaciones necesarias para la notificación
         $order->load(['product', 'pet', 'user']);
 
-        DB::transaction(function () use ($order, $oldStatus, $newStatus, $note) {
-            // Actualizar estado del pedido
-            $order->update(['status' => $newStatus]);
+        DB::transaction(function () use ($order, $oldStatus, $newStatus, $note, $validated) {
+            // Preparar datos a actualizar
+            $updateData = ['status' => $newStatus];
+            if (! empty($validated['tracking_number'])) {
+                $updateData['tracking_number'] = $validated['tracking_number'];
+            }
+            if (! empty($validated['tracking_url'])) {
+                $updateData['tracking_url'] = $validated['tracking_url'];
+            }
+
+            // Actualizar estado del pedido (e tracking si se proporciona)
+            $order->update($updateData);
 
             // Registrar en historial
             OrderStatusHistory::query()->create([

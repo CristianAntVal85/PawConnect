@@ -24,6 +24,8 @@ class OrderResource extends JsonResource
             'shipping_address'  => $this->shipping_address,
             'payment_method'    => $this->payment_method,
             'stripe_payment_id' => $this->stripe_payment_id,
+            'tracking_number'   => $this->tracking_number,
+            'tracking_url'      => $this->tracking_url,
             'status'            => $this->status,
             'product'           => $this->whenLoaded('product', fn () => [
                 'id'    => $this->product->id,

@@ -60,6 +60,30 @@
                 </div>
             </div>
 
+            {{-- Tracking Section --}}
+            @if ($order->tracking_number || $order->status === 'shipped' || $order->status === 'delivered')
+                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+                    <h2 class="text-lg font-bold text-slate-900 mb-4">📍 Seguimiento</h2>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-xs text-slate-500 mb-1">Número de Seguimiento</p>
+                            <p class="text-slate-900 font-mono font-semibold">
+                                {{ $order->tracking_number ?? 'Pendiente de asignar' }}
+                            </p>
+                        </div>
+                        @if ($order->tracking_url)
+                            <div>
+                                <p class="text-xs text-slate-500 mb-1">URL de Tracking</p>
+                                <a href="{{ $order->tracking_url }}" target="_blank"
+                                   class="text-blue-600 hover:text-blue-800 font-medium break-all text-sm">
+                                    {{ $order->tracking_url }} →
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
             {{-- Timeline --}}
             @if ($order->statusHistory->count())
                 <div class="bg-white rounded-lg shadow p-6">
@@ -123,14 +147,36 @@
                     </div>
 
                     <div>
-                        <label for="note" class="block text-sm font-medium text-slate-700 mb-2">Nota (opcional)</label>
+                        <label for="tracking_number" class="block text-sm font-medium text-slate-700 mb-2">
+                            Número de Seguimiento (opcional)
+                        </label>
+                        <input type="text" id="tracking_number" name="tracking_number"
+                               value="{{ $order->tracking_number }}"
+                               placeholder="Ej: FDX123456789"
+                               class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="tracking_url" class="block text-sm font-medium text-slate-700 mb-2">
+                            URL de Tracking (opcional)
+                        </label>
+                        <input type="url" id="tracking_url" name="tracking_url"
+                               value="{{ $order->tracking_url }}"
+                               placeholder="https://tracking.fedex.com/..."
+                               class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="note" class="block text-sm font-medium text-slate-700 mb-2">
+                            Nota (opcional)
+                        </label>
                         <textarea id="note" name="note" rows="3"
-                                  class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                  placeholder="Ej: Enviado por FedEx, tracking #123..."></textarea>
+                                  class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                  placeholder="Ej: Enviado por FedEx, cliente notificado..."></textarea>
                     </div>
 
                     <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors">
-                        Actualizar estado
+                        Actualizar
                     </button>
                 </form>
 

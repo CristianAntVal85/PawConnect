@@ -21,6 +21,8 @@ class Order extends Model
         'shipping_address',
         'payment_method',
         'stripe_payment_id',
+        'tracking_number',
+        'tracking_url',
         'status',
     ];
 
@@ -50,5 +52,25 @@ class Order extends Model
     public function statusHistory(): HasMany
     {
         return $this->hasMany(OrderStatusHistory::class);
+    }
+
+    /**
+     * Generar número de tracking único
+     *
+     * @return string
+     */
+    public static function generateTrackingNumber(): string
+    {
+        return 'PW' . strtoupper(uniqid());
+    }
+
+    /**
+     * Verificar si el pedido puede recibir tracking
+     *
+     * @return bool
+     */
+    public function canHaveTracking(): bool
+    {
+        return in_array($this->status, ['confirmed', 'shipped', 'delivered']);
     }
 }
