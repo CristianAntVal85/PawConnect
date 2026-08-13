@@ -669,7 +669,10 @@ tests/
   - ✅ OpenAPI exportado en `backend/storage/app/private/scribe/openapi.yaml`
   - ✅ `backend/README.md` actualizado con requisitos, instalación, `.env` y comandos artisan
 
-- [ ] **9.5** Propuesta técnica para app móvil (Flutter / React Native)
+- [x] **9.5** Propuesta técnica para app móvil (Flutter / React Native)
+  - ✅ Propuesta creada en [docs/09-propuesta-app-movil.md](docs/09-propuesta-app-movil.md)
+  - ✅ Recomendación técnica: React Native + Expo + TypeScript
+  - ✅ Arquitectura, stack, seguridad, roadmap y riesgos documentados
 
 - [ ] **9.6** Despliegue *(opcional)*
   - VPS / Laravel Forge / Railway
