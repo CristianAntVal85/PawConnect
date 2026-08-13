@@ -21,6 +21,7 @@ class PlaceReviewController extends Controller
         $reviews = $place->reviews()->with('user:id,name')->latest()->paginate(10);
 
         return response()->json([
+            'success' => true,
             'message' => 'Reseñas obtenidas correctamente.',
             'data'    => PlaceReviewResource::collection($reviews->items())->resolve(),
             'pagination' => [
@@ -50,10 +51,11 @@ class PlaceReviewController extends Controller
         $review = PlaceReview::create($validated);
         $review->load('user:id,name');
 
-        return response()->json([
-            'message' => 'Reseña creada exitosamente.',
-            'data'    => (new PlaceReviewResource($review))->resolve(),
-        ], 201);
+        return $this->success(
+            (new PlaceReviewResource($review))->resolve(),
+            'Reseña creada exitosamente.',
+            201
+        );
     }
 
     /**
@@ -67,10 +69,10 @@ class PlaceReviewController extends Controller
 
         $review->load('user:id,name');
 
-        return response()->json([
-            'message' => 'Reseña obtenida correctamente.',
-            'data'    => (new PlaceReviewResource($review))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceReviewResource($review))->resolve(),
+            'Reseña obtenida correctamente.'
+        );
     }
 
     /**
@@ -102,10 +104,10 @@ class PlaceReviewController extends Controller
         $review->update($validated);
         $review->load('user:id,name');
 
-        return response()->json([
-            'message' => 'Reseña actualizada correctamente.',
-            'data'    => (new PlaceReviewResource($review))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceReviewResource($review))->resolve(),
+            'Reseña actualizada correctamente.'
+        );
     }
 
     /**
@@ -129,8 +131,6 @@ class PlaceReviewController extends Controller
 
         $review->delete();
 
-        return response()->json([
-            'message' => 'Reseña eliminada correctamente.',
-        ]);
+        return $this->success(null, 'Reseña eliminada correctamente.');
     }
 }

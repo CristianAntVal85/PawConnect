@@ -32,6 +32,24 @@ class PlaceTest extends TestCase
     }
 
     /** @test */
+    public function api_place_index_responde_con_formato_estandarizado_y_paginacion()
+    {
+        $response = $this->actingAs($this->user)
+            ->getJson(route('api.v1.places.index'));
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'success',
+            'message',
+            'data' => [['id', 'name']],
+            'pagination' => ['total', 'per_page', 'current_page', 'last_page'],
+        ]);
+
+        $this->assertTrue($response->json('success'));
+        $this->assertGreaterThan(0, $response->json('pagination.total'));
+    }
+
+    /** @test */
     public function usuarios_ven_solo_lugares_aprobados()
     {
         $response = $this->actingAs($this->user)

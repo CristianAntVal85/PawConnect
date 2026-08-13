@@ -19,10 +19,10 @@ class HealthController extends Controller
 
         $records = $pet->healthRecords()->latest()->get();
 
-        return response()->json([
-            'message' => 'Registros sanitarios obtenidos correctamente.',
-            'data' => HealthRecordResource::collection($records)->resolve(),
-        ]);
+        return $this->success(
+            HealthRecordResource::collection($records)->resolve(),
+            'Registros sanitarios obtenidos correctamente.'
+        );
     }
 
     public function store(StoreHealthRecordRequest $request, Pet $pet): JsonResponse
@@ -40,10 +40,11 @@ class HealthController extends Controller
 
         $record->save();
 
-        return response()->json([
-            'message' => 'Registro sanitario creado correctamente.',
-            'data' => (new HealthRecordResource($record))->resolve(),
-        ], 201);
+        return $this->success(
+            (new HealthRecordResource($record))->resolve(),
+            'Registro sanitario creado correctamente.',
+            201
+        );
     }
 
     public function show(Request $request, Pet $pet, HealthRecord $health): JsonResponse
@@ -51,10 +52,10 @@ class HealthController extends Controller
         $this->ensureCanManagePet($request, $pet);
         $this->ensureRecordBelongsToPet($pet, $health);
 
-        return response()->json([
-            'message' => 'Registro sanitario obtenido correctamente.',
-            'data' => (new HealthRecordResource($health))->resolve(),
-        ]);
+        return $this->success(
+            (new HealthRecordResource($health))->resolve(),
+            'Registro sanitario obtenido correctamente.'
+        );
     }
 
     public function update(UpdateHealthRecordRequest $request, Pet $pet, HealthRecord $health): JsonResponse
@@ -73,10 +74,10 @@ class HealthController extends Controller
 
         $health->save();
 
-        return response()->json([
-            'message' => 'Registro sanitario actualizado correctamente.',
-            'data' => (new HealthRecordResource($health->fresh()))->resolve(),
-        ]);
+        return $this->success(
+            (new HealthRecordResource($health->fresh()))->resolve(),
+            'Registro sanitario actualizado correctamente.'
+        );
     }
 
     public function destroy(Request $request, Pet $pet, HealthRecord $health): JsonResponse
@@ -86,9 +87,7 @@ class HealthController extends Controller
 
         $health->delete();
 
-        return response()->json([
-            'message' => 'Registro sanitario eliminado correctamente.',
-        ]);
+        return $this->success(null, 'Registro sanitario eliminado correctamente.');
     }
 
     /**
@@ -112,10 +111,10 @@ class HealthController extends Controller
 
         $health->save();
 
-        return response()->json([
-            'message' => 'Registro sanitario renovado correctamente.',
-            'data' => (new HealthRecordResource($health->fresh()))->resolve(),
-        ]);
+        return $this->success(
+            (new HealthRecordResource($health->fresh()))->resolve(),
+            'Registro sanitario renovado correctamente.'
+        );
     }
 
     /**
@@ -132,11 +131,10 @@ class HealthController extends Controller
             radiusKm: 15
         );
 
-        return response()->json([
-            'message' => 'Veterinarios recomendados obtenidos correctamente.',
-            'data' => \App\Http\Resources\RecommendedVeterinarianResource::collection($vets)->resolve(),
-            'count' => $vets->count(),
-        ]);
+        return $this->success(
+            \App\Http\Resources\RecommendedVeterinarianResource::collection($vets)->resolve(),
+            'Veterinarios recomendados obtenidos correctamente.',
+        );
     }
 
     private function ensureCanManagePet(Request $request, Pet $pet): void

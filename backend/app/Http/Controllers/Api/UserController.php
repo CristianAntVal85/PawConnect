@@ -16,10 +16,7 @@ class UserController extends Controller
      */
     public function me(Request $request): JsonResponse
     {
-        return response()->json([
-            'message' => 'Perfil obtenido correctamente.',
-            'data' => $request->user(),
-        ]);
+        return $this->success($request->user(), 'Perfil obtenido correctamente.');
     }
 
     /**
@@ -42,10 +39,7 @@ class UserController extends Controller
 
         $user->update($validated);
 
-        return response()->json([
-            'message' => 'Perfil actualizado correctamente.',
-            'data' => $user->fresh(),
-        ]);
+        return $this->success($user->fresh(), 'Perfil actualizado correctamente.');
     }
 
     /**
@@ -57,9 +51,7 @@ class UserController extends Controller
         $user->tokens()->delete();
         $user->delete();
 
-        return response()->json([
-            'message' => 'Cuenta eliminada correctamente.',
-        ]);
+        return $this->success(null, 'Cuenta eliminada correctamente.');
     }
 
     /**
@@ -70,8 +62,15 @@ class UserController extends Controller
         $users = User::query()->latest()->paginate(15);
 
         return response()->json([
+            'success' => true,
             'message' => 'Usuarios obtenidos correctamente.',
-            'data' => $users,
+            'data' => $users->items(),
+            'pagination' => [
+                'total' => $users->total(),
+                'per_page' => $users->perPage(),
+                'current_page' => $users->currentPage(),
+                'last_page' => $users->lastPage(),
+            ],
         ]);
     }
 
@@ -98,10 +97,7 @@ class UserController extends Controller
 
         $user = User::create($validated);
 
-        return response()->json([
-            'message' => 'Usuario creado correctamente.',
-            'data' => $user,
-        ], 201);
+        return $this->success($user, 'Usuario creado correctamente.', 201);
     }
 
     /**
@@ -109,10 +105,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return response()->json([
-            'message' => 'Usuario obtenido correctamente.',
-            'data' => $user,
-        ]);
+        return $this->success($user, 'Usuario obtenido correctamente.');
     }
 
     /**
@@ -134,10 +127,7 @@ class UserController extends Controller
 
         $user->update($validated);
 
-        return response()->json([
-            'message' => 'Usuario actualizado correctamente.',
-            'data' => $user->fresh(),
-        ]);
+        return $this->success($user->fresh(), 'Usuario actualizado correctamente.');
     }
 
     /**
@@ -147,8 +137,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->json([
-            'message' => 'Usuario eliminado correctamente.',
-        ]);
+        return $this->success(null, 'Usuario eliminado correctamente.');
     }
 }

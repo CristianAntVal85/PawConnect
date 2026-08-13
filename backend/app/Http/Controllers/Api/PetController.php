@@ -35,10 +35,7 @@ class PetController extends Controller
 
         $pets = $query->latest()->get();
 
-        return response()->json([
-            'message' => 'Mascotas obtenidas correctamente.',
-            'data' => $pets,
-        ]);
+        return $this->success($pets, 'Mascotas obtenidas correctamente.');
     }
 
     /**
@@ -81,11 +78,7 @@ class PetController extends Controller
             throw $exception;
         }
 
-
-        return response()->json([
-            'message' => 'Mascota creada correctamente.',
-            'data' => $pet,
-        ], 201);
+        return $this->success($pet, 'Mascota creada correctamente.', 201);
     }
 
     /**
@@ -93,10 +86,10 @@ class PetController extends Controller
      */
     public function show(Pet $pet): JsonResponse
     {
-        return response()->json([
-            'message' => 'Mascota obtenida correctamente.',
-            'data' => $pet->load(['user:id,name,email', 'photos:id,pet_id,path,display_order']),
-        ]);
+        return $this->success(
+            $pet->load(['user:id,name,email', 'photos:id,pet_id,path,display_order']),
+            'Mascota obtenida correctamente.'
+        );
     }
 
     /**
@@ -137,10 +130,7 @@ class PetController extends Controller
 
         $this->storageService->deleteManyPublicFiles($oldPhotoPaths);
 
-        return response()->json([
-            'message' => 'Mascota actualizada correctamente.',
-            'data' => $pet,
-        ]);
+        return $this->success($pet, 'Mascota actualizada correctamente.');
     }
 
     /**
@@ -152,8 +142,6 @@ class PetController extends Controller
         $pet->delete();
         $this->storageService->deleteManyPublicFiles($photoPaths);
 
-        return response()->json([
-            'message' => 'Mascota eliminada correctamente.',
-        ]);
+        return $this->success(null, 'Mascota eliminada correctamente.');
     }
 }

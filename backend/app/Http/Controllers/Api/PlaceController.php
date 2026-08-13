@@ -63,6 +63,7 @@ class PlaceController extends Controller
         $places = $query->paginate(20);
 
         return response()->json([
+            'success' => true,
             'message' => 'Lugares obtenidos correctamente.',
             'data'    => PlaceResource::collection($places->items())->resolve(),
             'pagination' => [
@@ -92,10 +93,11 @@ class PlaceController extends Controller
         $place = PetFriendlyPlace::create($validated);
         $place->load('creator:id,name');
 
-        return response()->json([
-            'message' => 'Lugar sugerido exitosamente. Pendiente de aprobación del administrador.',
-            'data'    => (new PlaceResource($place))->resolve(),
-        ], 201);
+        return $this->success(
+            (new PlaceResource($place))->resolve(),
+            'Lugar sugerido exitosamente. Pendiente de aprobación del administrador.',
+            201
+        );
     }
 
     /**
@@ -110,10 +112,10 @@ class PlaceController extends Controller
 
         $place->load('creator:id,name', 'reviews');
 
-        return response()->json([
-            'message' => 'Lugar obtenido correctamente.',
-            'data'    => (new PlaceResource($place))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceResource($place))->resolve(),
+            'Lugar obtenido correctamente.'
+        );
     }
 
     /**
@@ -141,10 +143,10 @@ class PlaceController extends Controller
         $place->update($validated);
         $place->load('creator:id,name');
 
-        return response()->json([
-            'message' => 'Lugar actualizado correctamente.',
-            'data'    => (new PlaceResource($place))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceResource($place))->resolve(),
+            'Lugar actualizado correctamente.'
+        );
     }
 
     /**
@@ -164,9 +166,7 @@ class PlaceController extends Controller
 
         $place->delete();
 
-        return response()->json([
-            'message' => 'Lugar eliminado correctamente.',
-        ]);
+        return $this->success(null, 'Lugar eliminado correctamente.');
     }
 
     /**
@@ -194,10 +194,10 @@ class PlaceController extends Controller
             ));
         }
 
-        return response()->json([
-            'message' => "Lugar {$status} correctamente.",
-            'data'    => (new PlaceResource($place->load('creator:id,name')))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceResource($place->load('creator:id,name')))->resolve(),
+            "Lugar {$status} correctamente."
+        );
     }
 
     public function reject(Request $request, PetFriendlyPlace $place): JsonResponse
@@ -220,9 +220,9 @@ class PlaceController extends Controller
             ));
         }
 
-        return response()->json([
-            'message' => 'Lugar rechazado correctamente.',
-            'data'    => (new PlaceResource($place->load('creator:id,name')))->resolve(),
-        ]);
+        return $this->success(
+            (new PlaceResource($place->load('creator:id,name')))->resolve(),
+            'Lugar rechazado correctamente.'
+        );
     }
 }

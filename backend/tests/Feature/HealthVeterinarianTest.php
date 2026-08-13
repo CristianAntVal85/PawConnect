@@ -214,6 +214,7 @@ class HealthVeterinarianTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonStructure([
+            'success',
             'message',
             'data' => [
                 '*' => [
@@ -225,8 +226,7 @@ class HealthVeterinarianTest extends TestCase
                     'needed_services',
                     'urgency'
                 ]
-            ],
-            'count'
+            ]
         ]);
     }
 
@@ -262,7 +262,7 @@ class HealthVeterinarianTest extends TestCase
     public function getServicesDescription_formats_types_correctly(): void
     {
         $services = ['vaccination', 'deworming', 'checkup'];
-        
+
         $description = $this->service->getServicesDescription($services);
 
         $this->assertStringContainsString('Vacunación', $description);

@@ -53,9 +53,10 @@ class PlaceFavoriteTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonStructure([
+            'success',
+            'message',
             'data' => [],
-            'links',
-            'meta',
+            'pagination' => ['total', 'per_page', 'current_page', 'last_page'],
         ]);
         $this->assertCount(0, $response->json('data'));
     }
@@ -187,6 +188,8 @@ class PlaceFavoriteTest extends TestCase
             ->getJson('/api/v1/places/favorites');
 
         $response->assertJsonStructure([
+            'success',
+            'message',
             'data' => [
                 [
                     'id',
@@ -205,8 +208,7 @@ class PlaceFavoriteTest extends TestCase
                     'updated_at',
                 ]
             ],
-            'links',
-            'meta',
+            'pagination' => ['total', 'per_page', 'current_page', 'last_page'],
         ]);
     }
 
@@ -231,7 +233,7 @@ class PlaceFavoriteTest extends TestCase
 
         $response1->assertOk();
         $this->assertCount(20, $response1->json('data')); // 20 por página
-        $this->assertNotNull($response1->json('links.next'));
+        $this->assertEquals(2, $response1->json('pagination.last_page'));
 
         // Segunda página
         $response2 = $this->actingAs($this->user)

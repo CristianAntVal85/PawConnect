@@ -28,7 +28,7 @@ test('un usuario puede crear un pedido', function () {
             'data' => ['id', 'total_price', 'status', 'product_id', 'pet_id'],
         ]);
 
-    expect($response->json('data.total_price'))->toBe(51.0); // 25.50 * 2
+    expect($response->json('data.total_price'))->toBe(51); // 25.50 * 2
     expect($response->json('data.status'))->toBe('pending');
 
     $this->assertDatabaseHas('orders', [
@@ -52,7 +52,7 @@ test('el total_price se calcula automáticamente', function () {
         'payment_method' => 'card',
     ]);
 
-    expect($response->json('data.total_price'))->toBe(50.0);
+    expect($response->json('data.total_price'))->toBe(50);
 });
 
 test('un usuario NO puede crear pedidos con mascotas de otros usuarios', function () {
@@ -89,7 +89,7 @@ test('un usuario puede listar solo sus propios pedidos', function () {
 test('la lista de pedidos incluye información del producto', function () {
     $user = actingAsUser();
     $product = Product::factory()->create(['name' => 'Producto Test']);
-    
+
     Order::factory()->create([
         'user_id' => $user->id,
         'product_id' => $product->id,

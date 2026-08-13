@@ -633,10 +633,11 @@ tests/
 
 ## Fase 9 — Preparación Multiplataforma y Cierre *(Semana 19)*
 
-- [ ] **9.1** Revisar y limpiar la API REST
-  - Respuestas con `ApiResponse` trait
-  - Paginación consistente (`LengthAwarePaginator`)
-  - Sin stack traces en producción
+- [x] **9.1** Revisar y limpiar la API REST
+  - Respuestas con `ApiResponse` trait (`success`, `message`, `data`)
+  - Paginación consistente (`{success, message, data: [...], pagination: {total, per_page, current_page, last_page}}`)
+  - Sin stack traces en producción (manejado por trait `error()`)
+  - **Implementación:** Estandarizados 14 controladores API (Place, Product, Order, Auth, Pet, User, PlaceReview, PlaceFavorite, Notification, Health, Match, Message, Stats, Walk). Todos devuelven estructura uniforme `{success, message, data}` con paginación consistente. 267 tests verdes ✅
 
 - [ ] **9.2** Checklist OWASP
   - CSRF activo en `web.php`

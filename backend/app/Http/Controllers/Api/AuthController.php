@@ -38,8 +38,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Registro exitoso.',
+        return $this->success([
             'token' => $token,
             'user' => [
                 'id' => $user->id,
@@ -47,7 +46,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role,
             ],
-        ], 201);
+        ], 'Registro exitoso.', 201);
     }
 
     /**
@@ -75,8 +74,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso.',
+        return $this->success([
             'token' => $token,
             'user' => [
                 'id' => $user->id,
@@ -84,7 +82,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'role' => $user->role,
             ],
-        ]);
+        ], 'Inicio de sesión exitoso.');
     }
 
     /**

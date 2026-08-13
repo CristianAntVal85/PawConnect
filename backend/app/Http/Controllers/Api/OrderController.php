@@ -35,6 +35,7 @@ class OrderController extends Controller
         $orders = $query->paginate(15);
 
         return response()->json([
+            'success' => true,
             'message' => 'Pedidos obtenidos correctamente.',
             'data' => OrderResource::collection($orders->items())->resolve(),
             'pagination' => [
@@ -60,9 +61,7 @@ class OrderController extends Controller
         $quantity = (int) $validated['quantity'];
 
         if ($product->stock < $quantity) {
-            return response()->json([
-                'message' => "Stock insuficiente. Solo hay {$product->stock} unidades disponibles.",
-            ], 422);
+            return $this->error("Stock insuficiente. Solo hay {$product->stock} unidades disponibles.", 422);
         }
 
         $totalCents = PaymentService::toCents((float) $product->price * $quantity);
@@ -75,13 +74,10 @@ class OrderController extends Controller
                 'user_id'      => $request->user()->id,
             ]);
         } catch (ApiErrorException $e) {
-            return response()->json([
-                'message' => 'Error al crear la intención de pago: ' . $e->getMessage(),
-            ], 502);
+            return $this->error('Error al crear la intención de pago: ' . $e->getMessage(), 502);
         }
 
-        return response()->json([
-            'message'       => 'PaymentIntent creado correctamente.',
+        return $this->success([
             'client_secret' => $intent->clientSecret,
             'amount'        => $totalCents,
             'currency'      => 'usd',
@@ -90,7 +86,7 @@ class OrderController extends Controller
                 'name'  => $product->name,
                 'price' => (float) $product->price,
             ],
-        ]);
+        ], 'PaymentIntent creado correctamente.');
     }
 
     /**
@@ -116,18 +112,14 @@ class OrderController extends Controller
         }
 
         if ($product->stock < $quantity) {
-            return response()->json([
-                'message' => "Stock insuficiente. Solo hay {$product->stock} unidades disponibles.",
-            ], 422);
+            return $this->error("Stock insuficiente. Solo hay {$product->stock} unidades disponibles.", 422);
         }
 
         // Verificar el pago en Stripe si se proporcionó un payment_id
         if (! empty($validated['stripe_payment_id'])) {
             $paymentSucceeded = $this->paymentService->isPaymentSucceeded($validated['stripe_payment_id']);
             if (! $paymentSucceeded) {
-                return response()->json([
-                    'message' => 'El pago no ha sido confirmado. Por favor, completa el pago antes de crear el pedido.',
-                ], 422);
+                return $this->error('El pago no ha sido confirmado. Por favor, completa el pago antes de crear el pedido.', 422);
             }
         }
 
@@ -161,10 +153,11 @@ class OrderController extends Controller
 
         $order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory']);
 
-        return response()->json([
-            'message' => 'Pedido creado correctamente.',
-            'data'    => (new OrderResource($order))->resolve(),
-        ], 201, [], JSON_PRESERVE_ZERO_FRACTION);
+        return $this->success(
+            (new OrderResource($order))->resolve(),
+            'Pedido creado correctamente.',
+            201
+        );
     }
 
     public function show(Request $request, Order $order): JsonResponse
@@ -175,10 +168,10 @@ class OrderController extends Controller
 
         $order->load(['product:id,name,price,photo', 'pet:id,name,user_id', 'statusHistory']);
 
-        return response()->json([
-            'message' => 'Pedido obtenido correctamente.',
-            'data'    => (new OrderResource($order))->resolve(),
-        ]);
+        return $this->success(
+            (new OrderResource($order))->resolve(),
+            'Pedido obtenido correctamente.'
+        );
     }
 
     /**
@@ -203,10 +196,10 @@ class OrderController extends Controller
 
         // Si es el mismo estado y no hay cambios en tracking, no hacer nada
         if ($oldStatus === $newStatus && empty($validated['tracking_number'])) {
-            return response()->json([
-                'message' => 'El pedido ya tiene ese estado.',
-                'data'    => (new OrderResource($order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory'])))->resolve(),
-            ]);
+            return $this->success(
+                (new OrderResource($order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory'])))->resolve(),
+                'El pedido ya tiene ese estado.'
+            );
         }
 
         // Cargar relaciones necesarias para la notificación
@@ -241,9 +234,9 @@ class OrderController extends Controller
 
         $order->load(['product:id,name,price', 'pet:id,name,user_id', 'statusHistory']);
 
-        return response()->json([
-            'message' => 'Estado del pedido actualizado correctamente.',
-            'data'    => (new OrderResource($order))->resolve(),
-        ]);
+        return $this->success(
+            (new OrderResource($order))->resolve(),
+            'Estado del pedido actualizado correctamente.'
+        );
     }
 }

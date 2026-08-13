@@ -14,7 +14,7 @@ class StatsController extends Controller
     public function dashboard()
     {
         // El middleware 'is_admin' ya verifica el rol, así que podemos proceder
-        return response()->json([
+        return $this->success([
             'totals' => [
                 'users' => User::count(),
                 'pets' => Pet::count(),
@@ -25,7 +25,7 @@ class StatsController extends Controller
             'monthly' => $this->getMonthlyStats(),
             'ordersByStatus' => $this->getOrdersByStatus(),
             'metrics' => $this->calculateMetrics(),
-        ]);
+        ], 'Estadísticas obtenidas correctamente.');
     }
 
     private function getMonthlyStats()

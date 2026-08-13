@@ -499,13 +499,17 @@ test('endpoint deworming-combo devuelve la combinacion correcta via API', functi
     $response = $this->getJson("/api/v1/products/deworming-combo/{$dog->id}");
 
     $response->assertOk()
-        ->assertJsonPath('covered', true)
+        ->assertJsonPath('data.covered', true)
         ->assertJsonFragment(['weight_kg' => (float) $dog->weight])
         ->assertJsonStructure([
-            'pet' => ['id', 'name', 'species', 'weight_kg'],
-            'combination' => [['product', 'quantity', 'subtotal']],
-            'total_dosage_kg',
-            'covered',
+            'success',
+            'message',
+            'data' => [
+                'pet' => ['id', 'name', 'species', 'weight_kg'],
+                'combination' => [['product', 'quantity', 'subtotal']],
+                'total_dosage_kg',
+                'covered',
+            ],
         ]);
 });
 

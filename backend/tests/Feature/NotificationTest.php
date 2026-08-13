@@ -48,12 +48,12 @@ test('un usuario puede obtener sus notificaciones no leídas', function () {
 
     $response->assertOk()
         ->assertJsonStructure([
+            'success',
             'message',
             'data' => [
-                'data' => [
-                    '*' => ['id', 'type', 'data', 'read_at', 'created_at'],
-                ],
+                '*' => ['id', 'type', 'data', 'read_at', 'created_at'],
             ],
+            'pagination',
             'unread_count',
         ])
         ->assertJsonPath('unread_count', 2);
@@ -84,11 +84,11 @@ test('la paginación funciona correctamente', function () {
     $response = $this->getJson('/api/v1/notifications');
 
     $response->assertOk()
-        ->assertJsonStructure(['data' => ['data', 'total', 'per_page']]);
+        ->assertJsonStructure(['success', 'message', 'data', 'pagination']);
 
     // Laravel pagina 20 por defecto, verificamos que hay datos
-    expect($response->json('data.total'))->toBe(25)
-        ->and(count($response->json('data.data')))->toBeLessThanOrEqual(25);
+    expect($response->json('pagination.total'))->toBe(25)
+        ->and(count($response->json('data')))->toBeLessThanOrEqual(25);
 });
 
 // ── Endpoint GET /api/v1/notifications/unread-count ───────────────────────────
@@ -221,9 +221,9 @@ test('las notificaciones de salud incluyen datos correctos', function () {
     $response = $this->getJson('/api/v1/notifications');
 
     $response->assertOk();
-    
+
     // El campo data es una string JSON, necesitamos decodificarlo
-    $data = json_decode($response->json('data.data.0.data'), true);
+    $data = json_decode($response->json('data.0.data'), true);
     expect($data['pet_name'])->toBe('Firulais')
         ->and($data['type_label'])->toBe('Vacunación');
 });

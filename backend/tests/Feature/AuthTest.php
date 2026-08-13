@@ -18,13 +18,16 @@ test('un usuario puede registrarse con datos válidos', function () {
     $response
         ->assertCreated()
         ->assertJsonStructure([
+            'success',
             'message',
-            'token',
-            'user' => ['id', 'name', 'email', 'role'],
+            'data' => [
+                'token',
+                'user' => ['id', 'name', 'email', 'role'],
+            ],
         ]);
 
-    expect($response->json('token'))->not->toBeEmpty();
-    expect($response->json('user.email'))->toBe('test@pawconnect.test');
+    expect($response->json('data.token'))->not->toBeEmpty();
+    expect($response->json('data.user.email'))->toBe('test@pawconnect.test');
 
     $this->assertDatabaseHas('users', [
         'email' => 'test@pawconnect.test',
@@ -67,12 +70,15 @@ test('un usuario puede iniciar sesión con credenciales válidas', function () {
     $response
         ->assertOk()
         ->assertJsonStructure([
+            'success',
             'message',
-            'token',
-            'user' => ['id', 'name', 'email', 'role'],
+            'data' => [
+                'token',
+                'user' => ['id', 'name', 'email', 'role'],
+            ],
         ]);
 
-    expect($response->json('token'))->not->toBeEmpty();
+    expect($response->json('data.token'))->not->toBeEmpty();
 });
 
 test('el login falla con credenciales incorrectas', function () {
@@ -100,7 +106,7 @@ test('un usuario autenticado puede cerrar sesión', function () {
     $user = actingAsUser();
 
     $response = $this->postJson('/api/v1/auth/logout');
-    
+
     $response->assertOk();
     expect($response->json('message'))->toContain('Sesión cerrada');
 

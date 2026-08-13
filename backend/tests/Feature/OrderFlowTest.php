@@ -85,8 +85,8 @@ test('crear payment-intent devuelve client_secret', function () {
     ]);
 
     $response->assertOk()
-        ->assertJsonStructure(['message', 'client_secret', 'amount', 'currency', 'product'])
-        ->assertJson(['amount' => 10000, 'currency' => 'usd', 'client_secret' => 'pi_test_secret_xxx']);
+        ->assertJsonStructure(['success', 'message', 'data' => ['client_secret', 'amount', 'currency', 'product']])
+        ->assertJson(['data' => ['amount' => 10000, 'currency' => 'usd', 'client_secret' => 'pi_test_secret_xxx']]);
 });
 
 test('payment-intent falla si stock insuficiente', function () {

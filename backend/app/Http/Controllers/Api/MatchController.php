@@ -26,10 +26,10 @@ class MatchController extends Controller
 
         $candidates = $this->matchService->getCandidates($pet);
 
-        return response()->json([
-            'message' => 'Candidatos obtenidos correctamente.',
-            'data' => $candidates->values(),
-        ]);
+        return $this->success(
+            $candidates->values(),
+            'Candidatos obtenidos correctamente.'
+        );
     }
 
     /**
@@ -43,13 +43,10 @@ class MatchController extends Controller
 
         $result = $this->matchService->registerInteraction($currentPet, $targetPet, $action);
 
-        return response()->json([
-            'message' => $result['match'] ? '¡Has hecho match!' : 'Interacción registrada.',
-            'data' => [
-                'swipe' => $result['swipe'],
-                'match' => $result['match'],
-            ],
-        ]);
+        return $this->success([
+            'swipe' => $result['swipe'],
+            'match' => $result['match'],
+        ], $result['match'] ? '\u00a1Has hecho match!' : 'Interacción registrada.');
     }
 
     /**

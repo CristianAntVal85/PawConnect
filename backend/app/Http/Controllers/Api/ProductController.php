@@ -44,6 +44,7 @@ class ProductController extends Controller
         $products = $query->paginate(20);
 
         return response()->json([
+            'success' => true,
             'message' => 'Productos obtenidos correctamente.',
             'data' => ProductResource::collection($products->items())->resolve(),
             'pagination' => [
@@ -65,10 +66,11 @@ class ProductController extends Controller
         $product = Product::create($validated);
         $product->load('provider');
 
-        return response()->json([
-            'message' => 'Producto creado correctamente.',
-            'data' => (new ProductResource($product))->resolve(),
-        ], 201);
+        return $this->success(
+            (new ProductResource($product))->resolve(),
+            'Producto creado correctamente.',
+            201
+        );
     }
 
     /**
@@ -78,10 +80,10 @@ class ProductController extends Controller
     {
         $product->load('provider');
 
-        return response()->json([
-            'message' => 'Producto obtenido correctamente.',
-            'data' => (new ProductResource($product))->resolve(),
-        ]);
+        return $this->success(
+            (new ProductResource($product))->resolve(),
+            'Producto obtenido correctamente.'
+        );
     }
 
     /**
@@ -94,10 +96,10 @@ class ProductController extends Controller
         $product->update($validated);
         $product->load('provider');
 
-        return response()->json([
-            'message' => 'Producto actualizado correctamente.',
-            'data' => (new ProductResource($product->fresh()))->resolve(),
-        ]);
+        return $this->success(
+            (new ProductResource($product->fresh()))->resolve(),
+            'Producto actualizado correctamente.'
+        );
     }
 
     /**
@@ -107,9 +109,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return response()->json([
-            'message' => 'Producto eliminado correctamente.',
-        ]);
+        return $this->success(null, 'Producto eliminado correctamente.');
     }
 
     /**
@@ -119,15 +119,14 @@ class ProductController extends Controller
     {
         // Verificar que la mascota pertenece al usuario autenticado
         if ($request->user()->id !== $pet->user_id) {
-            return response()->json([
-                'message' => 'No tienes permiso para ver recomendaciones de esta mascota.',
-            ], 403);
+            return $this->error('No tienes permiso para ver recomendaciones de esta mascota.', 403);
         }
 
         $perPage = $request->input('per_page', 20);
         $products = $this->recommendationService->recommendForPet($pet, $perPage);
 
         return response()->json([
+            'success' => true,
             'message' => "Productos recomendados para {$pet->name}.",
             'pet' => [
                 'id' => $pet->id,
@@ -160,16 +159,12 @@ class ProductController extends Controller
         // Buscar la mascota
         $pet = Pet::find($petId);
         if (!$pet) {
-            return response()->json([
-                'message' => 'Mascota no encontrada.',
-            ], 404);
+            return $this->error('Mascota no encontrada.', 404);
         }
 
         // Verificar que la mascota pertenece al usuario autenticado
         if ($request->user()->id !== $pet->user_id) {
-            return response()->json([
-                'message' => 'No tienes permiso para ver recomendaciones de esta mascota.',
-            ], 403);
+            return $this->error('No tienes permiso para ver recomendaciones de esta mascota.', 403);
         }
 
         $perPage = $request->input('per_page', 6);
@@ -179,6 +174,7 @@ class ProductController extends Controller
         $emoji = $this->recommendationService->getServiceTypeEmoji($serviceType);
 
         return response()->json([
+            'success' => true,
             'message' => "Productos relacionados con {$serviceLabel} para {$pet->name}.",
             'service' => [
                 'type' => $serviceType,
@@ -210,11 +206,11 @@ class ProductController extends Controller
     {
         $pet = Pet::find($petId);
         if (!$pet) {
-            return response()->json(['message' => 'Mascota no encontrada.'], 404);
+            return $this->error('Mascota no encontrada.', 404);
         }
 
         if ($request->user()->id !== $pet->user_id) {
-            return response()->json(['message' => 'No tienes permiso para ver recomendaciones de esta mascota.'], 403);
+            return $this->error('No tienes permiso para ver recomendaciones de esta mascota.', 403);
         }
 
         $result = $this->recommendationService->getDewormingCombination($pet);
@@ -225,19 +221,18 @@ class ProductController extends Controller
             'subtotal' => round($item['quantity'] * (float) $item['product']->price, 2),
         ])->values()->all();
 
-        return response()->json([
-            'message' => $result['covered']
-                ? "Combinación de pastillas para {$pet->name} ({$pet->weight} kg)."
-                : "No se encontraron pastillas suficientes para cubrir el peso de {$pet->name}.",
+        return $this->success([
+            'combination' => $items,
+            'total_dosage_kg' => $result['total_dosage_kg'],
+            'covered' => $result['covered'],
             'pet' => [
                 'id' => $pet->id,
                 'name' => $pet->name,
                 'species' => $pet->species,
                 'weight_kg' => (float) $pet->weight,
             ],
-            'combination' => $items,
-            'total_dosage_kg' => $result['total_dosage_kg'],
-            'covered' => $result['covered'],
-        ]);
+        ], $result['covered']
+            ? "Combinación de pastillas para {$pet->name} ({$pet->weight} kg)."
+            : "No se encontraron pastillas suficientes para cubrir el peso de {$pet->name}.");
     }
 }

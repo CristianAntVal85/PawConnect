@@ -34,10 +34,10 @@ class MessageController extends Controller
             ->oldest('created_at')
             ->get();
 
-        return response()->json([
-            'message' => 'Mensajes obtenidos correctamente.',
-            'data' => MessageResource::collection($messages),
-        ]);
+        return $this->success(
+            MessageResource::collection($messages),
+            'Mensajes obtenidos correctamente.'
+        );
     }
 
     /**
@@ -64,10 +64,11 @@ class MessageController extends Controller
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return response()->json([
-            'message' => 'Mensaje enviado correctamente.',
-            'data' => new MessageResource($message),
-        ], 201);
+        return $this->success(
+            new MessageResource($message),
+            'Mensaje enviado correctamente.',
+            201
+        );
     }
 
     /**
