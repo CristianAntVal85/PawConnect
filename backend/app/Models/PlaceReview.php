@@ -17,12 +17,15 @@ class PlaceReview extends Model
         'rating',
         'body',
         'photo',
+        'status',
+        'rejection_reason',
     ];
 
     protected function casts(): array
     {
         return [
             'rating' => 'integer',
+            'status' => 'string',
         ];
     }
 

@@ -598,10 +598,25 @@ tests/
   - Vista detallada de proveedor con sus productos
 
 - [x] **8.5** Gestión de Pedidos — cambiar estado + historial + URL tracking
+  - Listado de pedidos con filtros por estado y fechas
+  - Cambio de estado con notificación al usuario
+  - Historial de cambios de estado en vista detallada
+  - 10+ tests validando flujo completo
 
 - [x] **8.6** Gestión de Lugares — aprobar/rechazar sugerencias
+  - Listado de lugares pendientes/aprobados con filtros (estado, búsqueda, categoría, fechas)
+  - Vista detallada con creador y reseñas
+  - Aprobación/rechazo con motivo y notificación automática al creador
+  - Validaciones: no permitir cambio de estado si ya está en ese estado
+  - 5 tests validando acceso admin y cambios de estado
 
-- [ ] **8.7** Moderación de Reseñas
+- [x] **8.7** Moderación de Reseñas
+  - Migración: columnas `status` (pending/approved/rejected) y `rejection_reason` a `place_reviews`
+  - Listado de reseñas con filtros por estado, calificación, búsqueda de lugar/usuario y fechas
+  - Vista detallada con información del reseñador, lugar y contenido de reseña
+  - Aprobación/rechazo con motivo opcional y notificación al reseñador
+  - Validaciones: no permitir cambio de estado si ya está en ese estado
+  - 10 tests validando acceso admin y cambios de estado
 
 - [ ] **8.8** Exportar datos a CSV
 

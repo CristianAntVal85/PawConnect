@@ -92,5 +92,11 @@ Route::middleware('auth')->group(function (): void {
         Route::get('/places/{place}', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'show'])->name('places.show');
         Route::post('/places/{place}/approve', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'approve'])->name('places.approve');
         Route::post('/places/{place}/reject', [\App\Http\Controllers\Web\Admin\PlaceController::class, 'reject'])->name('places.reject');
+
+        // Gestión de Reseñas
+        Route::get('/reviews', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'index'])->name('reviews.index');
+        Route::get('/reviews/{review}', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'show'])->name('reviews.show');
+        Route::post('/reviews/{review}/approve', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'approve'])->name('reviews.approve');
+        Route::post('/reviews/{review}/reject', [\App\Http\Controllers\Web\Admin\ReviewController::class, 'reject'])->name('reviews.reject');
     });
 });
