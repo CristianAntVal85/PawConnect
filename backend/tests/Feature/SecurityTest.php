@@ -57,7 +57,7 @@ test('CSRF protection está activo en rutas web POST', function () {
 });
 
 test('tokens Sanctum tienen expiración configurada', function () {
-    $expiration = config('sanctum.expiration');
+    $expiration = (int) config('sanctum.expiration');
 
     expect($expiration)->not->toBeNull()
         ->and($expiration)->toBeGreaterThan(0)
