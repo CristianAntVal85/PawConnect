@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Empieza en PawConnect en menos de un minuto')
 
 @section('content')
-    <form method="POST" action="#" class="space-y-4">
+    <form method="POST" action="{{ route('register.store') }}" class="space-y-4">
         @csrf
 
         <div>

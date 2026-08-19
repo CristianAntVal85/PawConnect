@@ -3,15 +3,35 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * LoginController - Autenticación web con sesiones
+ *
+ * Maneja login para vistas Blade.
+ * Delega lógica de validación en AuthService (compartida con API).
+ *
+ * @see App\Http\Controllers\Api\AuthController - Para autenticación API
+ * @see App\Services\AuthService - Lógica compartida
+ */
 class LoginController extends Controller
 {
+    protected AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
      * Procesar el login del usuario a través del formulario web.
-     * Valida email y contraseña, autentica y redirige.
+     *
+     * 1. Valida email y contraseña
+     * 2. Valida credenciales (delegado en AuthService)
+     * 3. Autentica con sesión web
+     * 4. Redirige a dashboard
      */
     public function store(Request $request)
     {
@@ -21,18 +41,23 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        // 2️⃣ AUTENTICAR: Intenta loguear con las credenciales
-        if (!Auth::attempt($validated, $request->boolean('remember'))) {
-            // Si falla, redirige de vuelta al login con error
-            throw ValidationException::withMessages([
-                'email' => ['Las credenciales no son correctas.'],
-            ]);
+        // 2️⃣ AUTENTICAR: Valida credenciales usando servicio compartido
+        try {
+            $user = $this->authService->validateCredentials(
+                $validated['email'],
+                $validated['password']
+            );
+        } catch (ValidationException $e) {
+            throw $e;
         }
 
-        // 3️⃣ SESIÓN: Regenera la sesión por seguridad
+        // 3️⃣ SESIÓN: Autentica con sesión web (remember si está checked)
+        $this->authService->authenticateWeb($user, $request->boolean('remember'));
+
+        // 4️⃣ SEGURIDAD: Regenera la sesión
         $request->session()->regenerate();
 
-        // 4️⃣ REDIRIGIR: Va al dashboard
+        // 5️⃣ REDIRIGIR: Va al dashboard
         return redirect()
             ->intended('/dashboard')
             ->with('success', 'Inicio de sesión exitoso.');

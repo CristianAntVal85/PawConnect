@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,8 +15,25 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * AuthController - Autenticación API con Sanctum
+ *
+ * Maneja autenticación para clientes API (móviles, SPA, etc).
+ * Devuelve tokens JWT en lugar de sesiones web.
+ * Delega lógica de validación en AuthService (compartida con Web).
+ *
+ * @see App\Http\Controllers\Web\LoginController - Para autenticación web
+ * @see App\Services\AuthService - Lógica compartida
+ */
 class AuthController extends Controller
 {
+    protected AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
      * Registrar un nuevo usuario y devolver token Sanctum.
      *
@@ -29,12 +47,8 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', PasswordRule::min(8)->mixedCase()->numbers()],
         ]);
 
-        $user = User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role'     => User::ROLE_USER,
-        ]);
+        // Delegar creación en AuthService (compartida con Web)
+        $user = $this->authService->createUser($validated);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -61,16 +75,14 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Las credenciales no son correctas.'],
-            ]);
-        }
+        // Validar credenciales usando AuthService (compartida con Web)
+        $user = $this->authService->validateCredentials(
+            $request->email,
+            $request->password
+        );
 
         // Revoca tokens anteriores con el mismo nombre (sesión única por dispositivo)
-        $user->tokens()->where('name', 'auth_token')->delete();
+        $this->authService->revokeSameName($user, 'auth_token');
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
