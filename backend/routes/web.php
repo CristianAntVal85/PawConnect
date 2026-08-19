@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\ForgotPasswordController;
 use App\Http\Controllers\Web\HealthController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MarketplaceController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PetController;
 use App\Http\Controllers\Web\PlaceController;
 use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\RegisterController;
 use App\Http\Controllers\Web\WalkController;
 use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +20,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/login', 'auth.login')->name('login');
+// ── Rutas de Autenticación ────────────────────────────────────────────────────
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-Route::view('/register', 'auth.register')->name('register');
-Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
 
 // Rutas públicas de lugares
 Route::get('/places', [PlaceController::class, 'index'])->name('places.index');

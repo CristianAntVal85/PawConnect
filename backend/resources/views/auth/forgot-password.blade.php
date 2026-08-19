@@ -9,7 +9,7 @@
         Ingresa tu correo y recibirás instrucciones para recuperar tu acceso.
     </x-alert>
 
-    <form method="POST" action="#" class="space-y-4">
+    <form method="POST" action="{{ route('password.email') }}" class="space-y-4">
         @csrf
 
         <div>
