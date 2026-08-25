@@ -4,8 +4,8 @@
     "../docker-compose.yml"
   ],
   "service": "app",
-  "workspaceFolder": "/workspaces/pawconnect",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/pawconnect,type=bind",
+  "workspaceFolder": "/app",
+  "workspaceMount": "source=${localWorkspaceFolder}/backend,target=/app,type=bind",
   "remoteUser": "vscode",
   "shutdownAction": "stopCompose",
   "overrideCommand": false,
@@ -13,7 +13,7 @@
     8000,
     3306
   ],
-  "postCreateCommand": "cd backend && composer install --no-interaction --prefer-dist && npm install",
+  "postCreateCommand": "composer install --no-interaction --prefer-dist && npm install",
   "customizations": {
     "vscode": {
       "extensions": [
