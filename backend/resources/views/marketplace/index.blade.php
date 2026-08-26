@@ -50,10 +50,10 @@
         @else
         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
             <p class="text-blue-700">
-                <strong>💡 Tip:</strong> 
+                <strong>💡 Tip:</strong>
                 <a href="{{ route('web.pets.create') }}" class="font-semibold underline hover:text-blue-900">
                     Crea tu primera mascota
-                </a> 
+                </a>
                 para ver recomendaciones personalizadas.
             </p>
         </div>
@@ -96,9 +96,9 @@
                         <label for="filter-breed" class="block text-sm font-semibold text-slate-700 mb-2">
                             Buscar por raza
                         </label>
-                        <input 
-                            type="text" 
-                            id="filter-breed" 
+                        <input
+                            type="text"
+                            id="filter-breed"
                             placeholder="ej: Labrador"
                             class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         >
@@ -113,7 +113,7 @@
                     </div>
 
                     <!-- Botón Limpiar filtros -->
-                    <button 
+                    <button
                         id="reset-filters"
                         class="w-full px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold rounded-lg transition-colors"
                     >
@@ -157,6 +157,4 @@
     </div>
 </div>
 
-<!-- Script para manejar filtros y recomendaciones -->
-<script src="{{ asset('js/marketplace.js') }}"></script>
 @endsection

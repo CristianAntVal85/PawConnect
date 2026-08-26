@@ -1,18 +1,24 @@
 services:
   app:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./backend/Dockerfile
     container_name: pawconnect-app
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /app
     volumes:
-      - ./backend:/var/www/html
+      - ./backend:/app
     ports:
-      - "8000:8000"
+      - "8000:80"
     environment:
       - APP_ENV=local
+      - APP_DEBUG=true
       - APP_KEY=base64:xzb03FtHK3NDdLuRli/M4DQ7y9y58PU4+5vY9aQ/Kd4=
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=pawconnect
+      - DB_USERNAME=pawconnect
+      - DB_PASSWORD=pawconnect
     depends_on:
       - mysql
 

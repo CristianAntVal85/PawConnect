@@ -1,41 +1,49 @@
-FROM php:8.2-fpm
+FROM php:8.2-apache
+
+WORKDIR /app
+ENV APACHE_DOCUMENT_ROOT /app/public
 
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    unzip \
-    procps \
-    nano \
-    libzip-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql zip gd bcmath \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+	git curl unzip procps nano wget zip \
+	libzip-dev libonig-dev libxml2-dev \
+	libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+	libpq-dev gnupg \
+	&& docker-php-ext-install \
+	zip ctype fileinfo mbstring pdo pdo_mysql xml gd bcmath \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Directorio de trabajo REAL para Laravel
-WORKDIR /var/www/html
+# Instalar Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+	apt-get install -y nodejs && \
+	apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copiar archivos del backend (context es ./backend)
-COPY . /var/www/html/
+# Configurar Apache
+RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf && \
+	sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
+	a2enmod rewrite headers
 
-# Crear directorios necesarios antes de composer
-RUN mkdir -p /var/www/html/bootstrap/cache /var/www/html/storage
+# Aumentar límites PHP
+RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/docker-php-ram.ini && \
+	echo 'max_execution_time = 300' >> /usr/local/etc/php/conf.d/docker-php-exec.ini && \
+	echo 'post_max_size = 100M' >> /usr/local/etc/php/conf.d/docker-php-post.ini && \
+	echo 'upload_max_filesize = 100M' >> /usr/local/etc/php/conf.d/docker-php-upload.ini
 
-# Instalar dependencias PHP
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Crear usuario vscode para DevContainer (CRÍTICO)
+RUN useradd -m -s /bin/bash vscode && \
+	echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+	usermod -aG www-data vscode
 
-# Permisos correctos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Copiar código del backend
+COPY backend/ /app/
 
-# Exponer puerto
-EXPOSE 8000
+# Crear directorios necesarios
+RUN mkdir -p /app/bootstrap/cache /app/storage/logs && \
+	chown -R www-data:www-data /app && \
+	chmod -R ug+rwx /app/storage /app/bootstrap/cache
 
-# Servir Laravel con artisan serve
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+EXPOSE 80
+CMD ["apache2-foreground"]
