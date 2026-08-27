@@ -97,7 +97,7 @@ function renderProducts(products) {
 
             <!-- Contenido -->
             <div class="p-4 flex flex-col flex-1">
-                <div class="flex-1">
+                <div>
                     <p class="text-xs text-slate-500 mb-1">${product.provider?.name || 'Proveedor desconocido'}</p>
 
                     <h3 class="text-sm font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
@@ -128,7 +128,7 @@ function renderProducts(products) {
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center pt-3 border-t border-slate-200 mt-4">
+                <div class="flex justify-between items-center pt-3 border-t border-slate-200 mt-auto px-2 py-3">
                     <div class="text-xl font-bold text-blue-600">
                         $${parseFloat(product.price).toFixed(2)}
                     </div>
@@ -412,4 +412,3 @@ if (document.readyState === 'loading') {
 window.loadProducts = loadProducts;
 window.loadRecommendations = loadRecommendations;
 window.addToCart = addToCart;
-window.applyFilters = applyFilters;

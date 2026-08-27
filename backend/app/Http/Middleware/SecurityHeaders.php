@@ -40,7 +40,7 @@ class SecurityHeaders
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com{$googleFonts}{$viteDevServer}",
             "img-src 'self' data: https: blob:",
             "font-src 'self' data: https://fonts.gstatic.com",
-            "connect-src 'self' https://api.stripe.com wss://localhost:8080{$viteDevServer}",
+            "connect-src 'self' https://api.stripe.com wss://localhost:8080 ws://localhost:8080{$viteDevServer}",
             "frame-src 'self' https://js.stripe.com",
             "object-src 'none'",
             "base-uri 'self'",
