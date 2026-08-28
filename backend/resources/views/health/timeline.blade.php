@@ -14,7 +14,7 @@
                             {{ ucfirst($pet->species) }} · {{ $pet->breed }}
                         </p>
                     </div>
-                    <a href="{{ route('pets.show', $pet) }}"
+                    <a href="{{ route('web.pets.show', $pet) }}"
                         class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">
                         Volver a mascota
                     </a>
@@ -167,7 +167,7 @@
                         <p class="text-gray-500 text-lg">
                             No hay registros sanitarios. Crea uno para comenzar a hacer seguimiento.
                         </p>
-                        <a href="{{ route('pets.show', $pet) }}"
+                        <a href="{{ route('web.pets.show', $pet) }}"
                             class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                             Agregar Registro
                         </a>
@@ -241,22 +241,35 @@
 
                                     <!-- Acciones -->
                                     <div class="flex flex-col gap-2">
-                                        <button type="button" class="renew-btn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
-                                            data-pet-id="{{ $pet->id }}" data-health-id="{{ $record['id'] }}">
-                                            🔄 Renovar
-                                        </button>
-                                        <button type="button" class="products-btn px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium"
-                                            data-pet-id="{{ $pet->id }}"
-                                            data-service-type="{{ $record['type'] }}"
-                                            data-is-deworming="{{ $record['type'] === 'deworming' ? 'true' : 'false' }}"
-                                            title="{{ $record['type'] === 'deworming' ? 'Ver combo de pastillas antiparasitarias para el peso de ' . $pet->name : 'Ver productos relacionados con este servicio' }}">
-                                            {{ $record['type'] === 'deworming' ? '💊 Combo pastillas' : '🛍️ Productos' }}
-                                        </button>
-                                        <a href="{{ route('pets.show', $pet) }}"
-                                            class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium text-center">
+
+                                        {{-- Renovar --}}
+                                        <form action="{{ route('web.pets.health.renew', [$pet->id, $record['id']]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                                                🔄 Renovar
+                                            </button>
+                                        </form>
+
+                                        {{-- Editar --}}
+                                        <a href="{{ route('web.pets.health.edit', [$pet->id, $record['id']]) }}"
+                                        class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium text-center">
                                             ✏️ Editar
                                         </a>
+
+                                        {{-- Eliminar --}}
+                                        <form action="{{ route('web.pets.health.destroy', [$pet->id, $record['id']]) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('¿Seguro que deseas eliminar este registro sanitario?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
+                                                🗑️ Eliminar
+                                            </button>
+                                        </form>
+
                                     </div>
+
                                 </div>
                             </div>
                         @endforeach
