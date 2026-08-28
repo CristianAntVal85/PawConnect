@@ -30,13 +30,17 @@ class SecurityHeaders
         }
 
         // Content Security Policy - restrictivo pero funcional
+        // En desarrollo, permitir Vite en localhost:5173
+        $viteDevServer = app()->environment('local', 'development') ? ' http://localhost:5173 ws://localhost:5173' : '';
+        $googleFonts = ' https://fonts.googleapis.com';
+
         $csp = implode('; ', [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net",
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net{$viteDevServer}",
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com{$googleFonts}{$viteDevServer}",
             "img-src 'self' data: https: blob:",
-            "font-src 'self' data:",
-            "connect-src 'self' https://api.stripe.com wss://localhost:8080",
+            "font-src 'self' data: https://fonts.gstatic.com",
+            "connect-src 'self' https://api.stripe.com wss://localhost:8080 ws://localhost:8080{$viteDevServer}",
             "frame-src 'self' https://js.stripe.com",
             "object-src 'none'",
             "base-uri 'self'",

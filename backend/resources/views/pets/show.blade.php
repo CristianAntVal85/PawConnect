@@ -47,7 +47,7 @@
             <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div class="mb-3 flex items-center justify-between">
                     <h2 class="brand-font text-lg font-semibold text-slate-900">Estado sanitario</h2>
-                    <a href="#" class="text-sm font-semibold text-emerald-600 hover:text-emerald-700">Agregar registro</a>
+                    <a href="{{ route('web.pets.health.create', $pet->id) }}" class="text-sm font-semibold text-emerald-600 hover:text-emerald-700">Agregar registro</a>
                 </div>
 
                 <div class="grid gap-3 sm:grid-cols-2">

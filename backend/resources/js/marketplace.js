@@ -39,22 +39,30 @@ async function loadProducts(page = 1) {
             params.append('breed', currentFilters.breed);
         }
 
-        const response = await fetch(`${API_URL}/products?${params.toString()}`, {
+        const url = `${API_URL}/products?${params.toString()}`;
+        console.log('Fetching products from:', url);
+
+        const response = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             }
         });
 
-        if (!response.ok) throw new Error('Error al cargar productos');
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
 
         const data = await response.json();
+        console.log('Products data:', data);
         renderProducts(data.data || []);
         renderProductsPagination(data.pagination || {});
 
     } catch (error) {
-        console.error('Error:', error);
-        showError('Error al cargar productos', 'products-container');
+        console.error('Error loading products:', error);
+        showError('Error al cargar productos: ' + error.message, 'products-container');
     }
 }
 
@@ -79,46 +87,48 @@ function renderProducts(products) {
     count.textContent = products.length;
 
     container.innerHTML = products.map(product => `
-        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer"
+        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer flex flex-col h-full"
              onclick="window.location.href='/marketplace/${product.id}'">
-            
+
             <!-- Imagen -->
             <div class="relative bg-slate-200 h-48 flex items-center justify-center overflow-hidden">
                 ${product.photo ? `<img src="${product.photo}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">` : '<div class="text-4xl">📦</div>'}
             </div>
 
             <!-- Contenido -->
-            <div class="p-4">
-                <p class="text-xs text-slate-500 mb-1">${product.provider?.name || 'Proveedor desconocido'}</p>
-                
-                <h3 class="text-sm font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                    ${product.name}
-                </h3>
+            <div class="p-4 flex flex-col flex-1">
+                <div>
+                    <p class="text-xs text-slate-500 mb-1">${product.provider?.name || 'Proveedor desconocido'}</p>
 
-                <p class="text-xs text-slate-600 mb-2 capitalize">
-                    📂 ${product.category || 'General'}
-                </p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        ${product.name}
+                    </h3>
 
-                ${product.min_weight_kg || product.max_weight_kg ? `
-                    <p class="text-xs text-slate-600 mb-2 text-amber-700 bg-amber-50 px-2 py-1 rounded">
-                        ⚖️ Peso: ${product.min_weight_kg || '0'}kg - ${product.max_weight_kg || '∞'}kg
+                    <p class="text-xs text-slate-600 mb-2 capitalize">
+                        📂 ${product.category || 'General'}
                     </p>
-                ` : ''}
 
-                ${product.recommended_breeds?.length ? `
-                    <p class="text-xs text-slate-600 mb-2">
-                        🐕 ${Array.isArray(product.recommended_breeds) ? product.recommended_breeds.join(', ') : product.recommended_breeds}
-                    </p>
-                ` : ''}
+                    ${product.min_weight_kg || product.max_weight_kg ? `
+                        <p class="text-xs text-slate-600 mb-2 text-amber-700 bg-amber-50 px-2 py-1 rounded">
+                            ⚖️ Peso: ${product.min_weight_kg || '0'}kg - ${product.max_weight_kg || '∞'}kg
+                        </p>
+                    ` : ''}
 
-                <div class="mb-3">
-                    ${product.stock > 0 
-                        ? `<span class="text-xs font-semibold text-green-600">✓ En stock (${product.stock})</span>`
-                        : `<span class="text-xs font-semibold text-red-600">✗ Sin stock</span>`
-                    }
+                    ${product.recommended_breeds?.length ? `
+                        <p class="text-xs text-slate-600 mb-2">
+                            🐕 ${Array.isArray(product.recommended_breeds) ? product.recommended_breeds.join(', ') : product.recommended_breeds}
+                        </p>
+                    ` : ''}
+
+                    <div class="mb-3">
+                        ${product.stock > 0
+                            ? `<span class="text-xs font-semibold text-green-600">✓ En stock (${product.stock})</span>`
+                            : `<span class="text-xs font-semibold text-red-600">✗ Sin stock</span>`
+                        }
+                    </div>
                 </div>
 
-                <div class="flex justify-between items-center pt-3 border-t border-slate-200">
+                <div class="flex justify-between items-center pt-3 border-t border-slate-200 mt-auto px-2 py-3">
                     <div class="text-xl font-bold text-blue-600">
                         $${parseFloat(product.price).toFixed(2)}
                     </div>
@@ -188,9 +198,9 @@ function renderRecommendations(products, pet = null) {
     }
 
     container.innerHTML = products.map(product => `
-        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer"
+        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer flex flex-col h-full"
              onclick="window.location.href='/marketplace/${product.id}'">
-            
+
             <!-- Imagen -->
             <div class="relative bg-slate-200 h-48 flex items-center justify-center overflow-hidden">
                 ${product.photo ? `<img src="${product.photo}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">` : '<div class="text-4xl">📦</div>'}
@@ -200,9 +210,9 @@ function renderRecommendations(products, pet = null) {
             </div>
 
             <!-- Contenido -->
-            <div class="p-4">
+            <div class="p-4 flex flex-col flex-1 relative">
                 <p class="text-xs text-slate-500 mb-1">${product.provider?.name || 'Proveedor'}</p>
-                
+
                 <h3 class="text-sm font-bold text-slate-900 mb-2 line-clamp-2">
                     ${product.name}
                 </h3>
@@ -212,13 +222,13 @@ function renderRecommendations(products, pet = null) {
                 </p>
 
                 <div class="mb-3">
-                    ${product.stock > 0 
+                    ${product.stock > 0
                         ? `<span class="text-xs font-semibold text-green-600">✓ Disponible</span>`
                         : `<span class="text-xs font-semibold text-red-600">✗ Sin stock</span>`
                     }
                 </div>
 
-                <div class="flex justify-between items-center pt-3 border-t border-slate-200">
+                <div class="flex justify-between items-center pt-3 border-t border-slate-200 mt-auto mb-4">
                     <div class="text-xl font-bold text-amber-600">
                         $${parseFloat(product.price).toFixed(2)}
                     </div>
@@ -246,10 +256,10 @@ function renderProductsPagination(pagination) {
     let html = '';
     for (let i = 1; i <= pagination.last_page; i++) {
         html += `
-            <button 
+            <button
                 onclick="loadProducts(${i})"
-                class="px-3 py-2 rounded-lg ${i === pagination.current_page 
-                    ? 'bg-blue-500 text-white' 
+                class="px-3 py-2 rounded-lg ${i === pagination.current_page
+                    ? 'bg-blue-500 text-white'
                     : 'bg-slate-200 text-slate-900 hover:bg-slate-300'} transition-colors"
             >
                 ${i}
@@ -268,14 +278,14 @@ function renderRecommendationsPagination(pagination) {
 
     container.classList.remove('hidden');
     const petId = document.getElementById('pet-select').value;
-    
+
     let html = '';
     for (let i = 1; i <= pagination.last_page; i++) {
         html += `
-            <button 
+            <button
                 onclick="loadRecommendations(${petId}, ${i})"
-                class="px-3 py-2 rounded-lg ${i === pagination.current_page 
-                    ? 'bg-amber-500 text-white' 
+                class="px-3 py-2 rounded-lg ${i === pagination.current_page
+                    ? 'bg-amber-500 text-white'
                     : 'bg-slate-200 text-slate-900 hover:bg-slate-300'} transition-colors"
             >
                 ${i}
@@ -298,7 +308,7 @@ document.getElementById('filter-category')?.addEventListener('change', (e) => {
 // Filtro de precio
 document.getElementById('filter-price')?.addEventListener('input', (e) => {
     currentFilters.maxPrice = parseInt(e.target.value);
-    document.getElementById('price-display').textContent = 
+    document.getElementById('price-display').textContent =
         currentFilters.maxPrice >= 1000 ? '$1000+' : `$${currentFilters.maxPrice}`;
     loadProducts(1);
 });
@@ -324,13 +334,13 @@ document.getElementById('reset-filters')?.addEventListener('click', () => {
         inStock: true,
         page: 1,
     };
-    
+
     document.getElementById('filter-category').value = '';
     document.getElementById('filter-price').value = '1000';
     document.getElementById('filter-breed').value = '';
     document.getElementById('filter-in-stock').checked = true;
     document.getElementById('price-display').textContent = '$1000+';
-    
+
     loadProducts(1);
 });
 
@@ -383,6 +393,22 @@ function addToCart(productId) {
 // 9. Inicialización
 // ────────────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadProducts(1);
-});
+function initMarketplace() {
+    const productsContainer = document.getElementById('products-container');
+    if (productsContainer) {
+        console.log('Inicializando marketplace...');
+        loadProducts(1);
+    }
+}
+
+// Si el documento ya está listo, ejecutar inmediatamente
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMarketplace);
+} else {
+    initMarketplace();
+}
+
+// Exponer funciones globalmente para uso en atributos onclick del HTML
+window.loadProducts = loadProducts;
+window.loadRecommendations = loadRecommendations;
+window.addToCart = addToCart;

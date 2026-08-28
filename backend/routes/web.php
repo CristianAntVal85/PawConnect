@@ -62,6 +62,13 @@ Route::middleware('auth')->group(function (): void {
 
     // Health records
     Route::get('/pets/{pet}/health', [HealthController::class, 'timeline'])->name('web.pets.health.timeline');
+    Route::get('/pets/{pet}/health/create', [HealthController::class, 'create'])->name('web.pets.health.create');
+    Route::post('/pets/{pet}/health', [HealthController::class, 'store'])->name('web.pets.health.store');
+    Route::get('/pets/{pet}/health/{health}/edit', [HealthController::class, 'edit'])->name('web.pets.health.edit');
+    Route::put('/pets/{pet}/health/{health}', [HealthController::class, 'update'])->name('web.pets.health.update');
+    Route::delete('/pets/{pet}/health/{health}', [HealthController::class, 'destroy'])->name('web.pets.health.destroy');
+    Route::post('/pets/{pet}/health/{health}/renew', [HealthController::class, 'renew'])->name('web.pets.health.renew');
+
 
     // Marketplace
     Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('web.marketplace.index');
