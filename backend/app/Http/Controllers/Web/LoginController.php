@@ -58,6 +58,9 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         // 5️⃣ REDIRIGIR: Va al dashboard
+        if ($user->role === 'admin') {
+            return redirect()->intended('/admin/dashboard');
+        }
         return redirect()
             ->intended('/dashboard')
             ->with('success', 'Inicio de sesión exitoso.');

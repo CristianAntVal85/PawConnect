@@ -90,7 +90,7 @@ Route::middleware('auth')->group(function (): void {
 
     // Admin routes
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\Web\Admin\DashboardController::class, 'index'])->name('dashboard');
 
         // Gestión de Usuarios
         Route::get('/users', [\App\Http\Controllers\Web\Admin\UserController::class, 'index'])->name('users.index');
