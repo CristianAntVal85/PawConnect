@@ -12,7 +12,7 @@
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
         <form class="flex w-full flex-wrap gap-2 sm:w-auto">
             <input type="text" placeholder="Buscar por nombre o raza" class="min-w-[240px] flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200">
-            <select class="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200">
+            <select class="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 min-w-[160px]">
                 <option>Todas las especies</option>
                 <option>Perro</option>
                 <option>Gato</option>
