@@ -142,7 +142,7 @@
                 </div>
 
                 <!-- Grid de productos -->
-                <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                     <div class="col-span-full py-12 text-center">
                         <p class="text-slate-500">Cargando productos...</p>
                     </div>
