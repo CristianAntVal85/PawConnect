@@ -87,7 +87,7 @@ function renderProducts(products) {
     count.textContent = products.length;
 
     container.innerHTML = products.map(product => `
-        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer flex flex-col h-full"
+        <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden group cursor-pointer flex flex-col h-full min-w-[220px]"
              onclick="window.location.href='/marketplace/${product.id}'">
 
             <!-- Imagen -->
