@@ -127,7 +127,7 @@
                 </div>
                 <div class="flex items-center justify-between py-2">
                     <span class="text-slate-300 text-sm">Conversión de usuarios (con compras)</span>
-                    <span class="font-semibold text-violet-400">{{ $totalUsers > 0 ? number_format((Order::distinct('user_id')->count() / $totalUsers) * 100, 1) : 0 }}%</span>
+                    <span class="font-semibold text-violet-400">{{ $repeatCustomersPercentage }}%</span>
                 </div>
             </div>
         </div>

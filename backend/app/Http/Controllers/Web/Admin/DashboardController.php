@@ -32,6 +32,11 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        // Percentage of users who have placed at least one order
+        $repeatCustomersPercentage = $totalUsers > 0
+            ? number_format((Order::distinct('user_id')->count() / $totalUsers) * 100, 1)
+            : 0;
+
         return view('admin.dashboard', [
             'totalUsers' => $totalUsers,
             'totalPets' => $totalPets,
@@ -41,6 +46,7 @@ class DashboardController extends Controller
             'monthlyData' => $monthlyData,
             'ordersByStatus' => $ordersByStatus,
             'recentOrders' => $recentOrders,
+            'repeatCustomersPercentage' => $repeatCustomersPercentage,
         ]);
     }
 
