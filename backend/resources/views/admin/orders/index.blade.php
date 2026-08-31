@@ -6,7 +6,7 @@
 @section('page-subtitle', 'Gestión de pedidos')
 
 @section('content')
-<div class="max-w-7xl mx-auto py-4">
+<div class="max-w-7xl mx-auto py-4 ">
 
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-slate-900">Pedidos</h2>
