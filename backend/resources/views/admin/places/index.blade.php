@@ -2,83 +2,62 @@
 
 @section('title', 'Gestión de Lugares')
 
+@section('page-title', 'Admin')
+@section('page-subtitle', 'Gestión de lugares')
+
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6">Gestión de Lugares Pet-Friendly</h1>
+<div class="max-w-7xl mx-auto py-4 text-slate-200">
 
-    @if (session('success'))
-        <div class="mb-4 p-4 bg-green-50 text-green-700 rounded-lg border border-green-200">
-            {{ session('success') }}
-        </div>
-    @endif
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-slate-200">Lugares</h2>
+        <span class="bg-slate-800 text-slate-200 px-3 py-1 rounded-full text-sm font-semibold border border-slate-700">
+            Total: {{ $places->total() }}
+        </span>
+    </div>
 
-    @if (session('error'))
-        <div class="mb-4 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <!-- Filtros -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <form method="GET" action="{{ route('admin.places.index') }}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <!-- Búsqueda -->
+    {{-- Filtros --}}
+    <div class="bg-slate-900 rounded-lg border border-slate-800 p-4 mb-6">
+        <form method="GET" action="{{ route('admin.places.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-                <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Buscar</label>
-                <input type="text" name="search" id="search" value="{{ request('search') }}"
-                    placeholder="Nombre, categoría, creador"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-slate-300 mb-1">Búsqueda</label>
+                <input type="text" name="search" placeholder="Nombre, ciudad..."
+                       value="{{ request('search') }}"
+                       class="w-full px-3 py-2 border border-slate-700 rounded-lg text-sm bg-slate-800 text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
             </div>
 
-            <!-- Estado -->
             <div>
-                <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
-                <select name="status" id="status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-slate-300 mb-1">Estado</label>
+                <select name="status"
+                        class="w-full px-3 py-2 border border-slate-700 rounded-lg text-sm bg-slate-800 text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
                     <option value="">Todos</option>
-                    @foreach ($statuses as $value => $label)
-                        <option value="{{ $value }}" {{ request('status') === $value ? 'selected' : '' }}>
-                            {{ $label }}
-                        </option>
-                    @endforeach
+                    <option value="pending" @selected(request('status') === 'pending')>Pendiente</option>
+                    <option value="approved" @selected(request('status') === 'approved')>Aprobado</option>
+                    <option value="rejected" @selected(request('status') === 'rejected')>Rechazado</option>
                 </select>
             </div>
 
-            <!-- Categoría -->
             <div>
-                <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Categoría</label>
-                <select name="category" id="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Todas</option>
-                    @foreach ($categories as $cat)
-                        <option value="{{ $cat }}" {{ request('category') === $cat ? 'selected' : '' }}>
-                            {{ ucfirst($cat) }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Fecha desde -->
-            <div>
-                <label for="date_from" class="block text-sm font-medium text-gray-700 mb-2">Desde</label>
-                <input type="date" name="date_from" id="date_from" value="{{ request('date_from') }}"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <!-- Fecha hasta -->
-            <div>
-                <label for="date_to" class="block text-sm font-medium text-gray-700 mb-2">Hasta</label>
-                <input type="date" name="date_to" id="date_to" value="{{ request('date_to') }}"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-slate-300 mb-1">Ciudad</label>
+                <input type="text" name="city" value="{{ request('city') }}"
+                       class="w-full px-3 py-2 border border-slate-700 rounded-lg text-sm bg-slate-800 text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
             </div>
 
             <div class="flex items-end gap-2">
-                <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition">
-                    🔍 Filtrar
+                <button type="submit"
+                        class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-lg text-sm transition-colors border border-slate-700">
+                    Filtrar
                 </button>
-                <a href="{{ route('admin.places.index') }}" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md text-center transition">
+
+                <a href="{{ route('admin.places.index') }}"
+                   class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-center text-slate-200 font-semibold rounded-lg text-sm transition-colors border border-slate-700">
                     Limpiar
                 </a>
-                <a href="{{ route('admin.places.export') }}" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-md text-center transition flex items-center justify-center gap-2">
+
+                <a href="{{ route('admin.places.export') }}"
+                   class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-center text-slate-200 font-semibold rounded-lg text-sm transition-colors border border-slate-700 flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                     Descargar CSV
                 </a>
@@ -86,70 +65,84 @@
         </form>
     </div>
 
-    <!-- Tabla de lugares -->
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-        <table class="min-w-full">
-            <thead class="bg-gray-100 border-b">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Categoría</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Creador</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Fecha</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y">
-                @forelse ($places as $place)
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 font-medium text-gray-900">{{ $place->name }}</td>
-                        <td class="px-6 py-4 text-gray-600">
-                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                                {{ ucfirst($place->category) }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-gray-600">
-                            {{ $place->creator?->name ?? 'Desconocido' }}
-                        </td>
-                        <td class="px-6 py-4">
-                            @if ($place->status === 'pending')
-                                <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-semibold">
-                                    ⏳ Pendiente
-                                </span>
-                            @elseif ($place->status === 'approved')
-                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                                    ✅ Aprobado
-                                </span>
-                            @else
-                                <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold">
-                                    ❌ Rechazado
-                                </span>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 text-gray-600 text-sm">
-                            {{ $place->created_at->format('d/m/Y') }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="{{ route('admin.places.show', $place) }}"
-                                class="text-blue-600 hover:text-blue-800 font-semibold">
-                                Ver detalles →
-                            </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                            No hay lugares que mostrar.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+    @if ($places->count())
+        <div class="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-slate-800 border-b border-slate-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-slate-300">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-slate-300">Nombre</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-slate-300">Ciudad</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-slate-300">Estado</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-slate-300">Fecha</th>
+                            <th class="px-6 py-3 text-center text-xs font-bold text-slate-300">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($places as $place)
+                            <tr class="border-b border-slate-800 hover:bg-slate-800 transition-colors">
+                                <td class="px-6 py-4 text-sm font-mono font-bold text-sky-400">#{{ $place->id }}</td>
+                                <td class="px-6 py-4 text-sm text-slate-200 font-medium">{{ $place->name }}</td>
+                                <td class="px-6 py-4 text-sm text-slate-200">{{ $place->city }}</td>
 
-    <!-- Paginación -->
-    <div class="mt-6">
-        {{ $places->links() }}
-    </div>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-200 border border-slate-700">
+                                        @switch($place->status)
+                                            @case('pending') ⏳ Pendiente @break
+                                            @case('approved') ✅ Aprobado @break
+                                            @case('rejected') ❌ Rechazado @break
+                                        @endswitch
+                                    </span>
+                                </td>
+
+                                <td class="px-6 py-4 text-sm text-slate-400">
+                                    {{ $place->created_at->format('d M Y') }}
+                                </td>
+
+                                <td class="px-6 py-4 text-center flex items-center justify-center gap-3">
+
+                                    {{-- Ver --}}
+                                    <a href="{{ route('admin.places.show', $place->id) }}"
+                                       class="text-sky-400 hover:text-sky-300 font-medium text-sm">
+                                        Ver →
+                                    </a>
+
+                                    {{-- Aprobar --}}
+                                    @if ($place->status === 'pending')
+                                        <form method="POST" action="{{ route('admin.places.approve', $place->id) }}">
+                                            @csrf
+                                            <button class="text-green-400 hover:text-green-300 text-sm font-medium">
+                                                Aprobar
+                                            </button>
+                                        </form>
+
+                                        {{-- Rechazar --}}
+                                        <form method="POST" action="{{ route('admin.places.reject', $place->id) }}">
+                                            @csrf
+                                            <button class="text-red-400 hover:text-red-300 text-sm font-medium">
+                                                Rechazar
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Paginación --}}
+        <div class="mt-6">
+            {{ $places->links() }}
+        </div>
+    @else
+        <div class="bg-slate-900 rounded-lg border border-slate-800 p-12 text-center">
+            <p class="text-slate-400 text-lg">📭 No hay lugares para mostrar.</p>
+        </div>
+    @endif
+
 </div>
 @endsection
