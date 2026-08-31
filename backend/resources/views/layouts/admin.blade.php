@@ -43,12 +43,12 @@
             </header>
 
             <nav class="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Usuarios</a>
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Mascotas</a>
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Pedidos</a>
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Productos</a>
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Lugares</a>
-                <a href="#" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Resenas</a>
+                <a href="{{ route('admin.users.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Usuarios</a>
+                <a href="{{ route('admin.pets.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Mascotas</a>
+                <a href="{{ route('admin.orders.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Pedidos</a>
+                <a href="{{ route('admin.products.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Productos</a>
+                <a href="{{ route('admin.places.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Lugares</a>
+                <a href="{{ route('admin.reviews.index') }}" class="rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-center text-sm font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300">Resenas</a>
             </nav>
 
             <main class="flex-1 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 sm:p-6">

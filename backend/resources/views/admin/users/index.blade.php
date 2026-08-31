@@ -164,7 +164,7 @@
                                                     <input type="hidden" name="role" value="user">
                                                     <button
                                                         type="submit"
-                                                        @if(User::where('role', 'admin')->count() === 1) disabled @endif
+                                                        @if(\App\Models\User::where('role', 'admin')->count() === 1) disabled @endif
                                                         class="w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-slate-100 transition text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
                                                         Hacer Usuario
@@ -177,7 +177,7 @@
                                                     @csrf
                                                     <button
                                                         type="submit"
-                                                        @if(User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
+                                                        @if(\App\Models\User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
                                                         class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-700 transition text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
                                                         Bloquear
