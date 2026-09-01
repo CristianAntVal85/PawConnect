@@ -79,9 +79,9 @@
                     @if(!$user->isBlocked())
                         <form method="POST" action="{{ route('admin.users.block', $user->id) }}" class="flex-1">
                             @csrf
-                            <button 
+                            <button
                                 type="submit"
-                                @if(User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
+                                @if(\App\Models\User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
                                 class="w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Bloquear
@@ -146,9 +146,9 @@
                                 <option value="admin" {{ $user->isAdmin() ? 'selected' : '' }}>Admin</option>
                             </select>
                         </div>
-                        <button 
+                        <button
                             type="submit"
-                            @if(User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
+                            @if(\App\Models\User::where('role', 'admin')->count() === 1 && $user->isAdmin()) disabled @endif
                             class="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Actualizar
@@ -252,3 +252,4 @@
         </a>
     </div>
 </div>
+@endsection

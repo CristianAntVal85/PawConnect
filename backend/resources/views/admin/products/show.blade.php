@@ -106,7 +106,7 @@
                         </div>
                         <div class="flex justify-between py-2">
                             <span class="text-slate-400">Razas Recomendadas</span>
-                            <span class="font-semibold">{{ $product->recommended_breeds ?? 'Todas' }}</span>
+                            <span class="font-semibold">{{ $product->recommended_breeds_string ?? 'Todas' }}</span>
                         </div>
                     </div>
                 </div>

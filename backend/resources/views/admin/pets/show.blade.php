@@ -11,9 +11,9 @@
         <div class="lg:col-span-1 rounded-lg border border-slate-800 bg-slate-900/80 backdrop-blur p-6">
             <div class="text-center">
                 @if($pet->photos->isNotEmpty())
-                    <img 
-                        src="{{ asset('storage/' . $pet->photos->first()->path) }}" 
-                        alt="{{ $pet->name }}" 
+                    <img
+                        src="{{ asset('storage/' . $pet->photos->first()->path) }}"
+                        alt="{{ $pet->name }}"
                         class="w-32 h-32 rounded-lg object-cover mx-auto mb-4"
                     >
                 @else
@@ -87,7 +87,7 @@
                     </div>
                 </div>
 
-                <a 
+                <a
                     href="{{ route('admin.users.show', $pet->user->id) }}"
                     class="block px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg transition text-center"
                 >
@@ -103,8 +103,8 @@
                 <h3 class="text-lg font-semibold text-slate-100 mb-4">Dueño</h3>
                 <div class="flex items-center gap-4">
                     @if($pet->user->photo)
-                        <img 
-                            src="{{ asset('storage/' . $pet->user->photo) }}" 
+                        <img
+                            src="{{ asset('storage/' . $pet->user->photo) }}"
                             alt="{{ $pet->user->name }}"
                             class="w-12 h-12 rounded-full object-cover"
                         >
@@ -135,8 +135,8 @@
                     <h3 class="text-lg font-semibold text-slate-100 mb-4">Fotos ({{ $pet->photos->count() }})</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         @foreach($pet->photos as $photo)
-                            <img 
-                                src="{{ asset('storage/' . $photo->path) }}" 
+                            <img
+                                src="{{ asset('storage/' . $photo->path) }}"
                                 alt="{{ $pet->name }}"
                                 class="rounded-lg object-cover w-full h-32 hover:opacity-80 transition cursor-pointer"
                                 onclick="window.open('{{ asset('storage/' . $photo->path) }}', '_blank')"
@@ -227,3 +227,4 @@
         </a>
     </div>
 </div>
+@endsection

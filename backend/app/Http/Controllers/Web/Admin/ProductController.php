@@ -108,6 +108,10 @@ class ProductController extends Controller
     {
         $product->load(['provider']);
 
+        $product->recommended_breeds_string = $product->recommended_breeds
+            ? implode(', ', $product->recommended_breeds)
+            : 'Todas';
+
         return view('admin.products.show', compact('product'));
     }
 
