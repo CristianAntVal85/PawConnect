@@ -15,20 +15,29 @@ class PetController extends Controller
 {
     public function index(): View
     {
-        $pets = collect();
+        $query = Pet::query()
+            ->with(['photos'])
+            ->where('user_id', Auth::id());
 
-        if (Auth::check()) {
-            $pets = Pet::query()
-                ->with(['photos'])
-            ->where('user_id', Auth::id())
-                ->latest()
-                ->get();
+        // Filtro por nombre o raza
+        if (request('search')) {
+            $search = request('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('breed', 'LIKE', "%{$search}%");
+            });
         }
 
-        return view('pets.index', [
-            'pets' => $pets,
-        ]);
+        // Filtro por especie
+        if (request('species')) {
+            $query->where('species', request('species'));
+        }
+
+        $pets = $query->latest()->get();
+
+        return view('pets.index', compact('pets'));
     }
+
 
     public function create(): View
     {
