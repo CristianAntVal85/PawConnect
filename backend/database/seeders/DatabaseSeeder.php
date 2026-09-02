@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            UserLocationSeeder::class,
             PetSeeder::class,
             ProductSeeder::class,
             PetFriendlyPlaceSeeder::class,

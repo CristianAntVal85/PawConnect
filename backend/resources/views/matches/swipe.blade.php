@@ -6,6 +6,79 @@
 
 @section('content')
 <div class="mx-auto flex max-w-5xl flex-col gap-6" x-data="swipePage()">
+
+    {{-- ── Banner de ubicación de búsqueda ─────────────────────────────── --}}
+    <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 shadow-sm">
+        <div class="flex items-center gap-2 text-sm text-slate-600 min-w-0">
+            <svg class="h-4 w-4 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+            </svg>
+            <span class="truncate font-medium text-slate-800" x-text="locationLabel"></span>
+            <template x-if="radiusKm">
+                <span class="shrink-0 text-slate-400">· radio <span x-text="radiusKm"></span> km</span>
+            </template>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-2">
+            {{-- Selector de radio --}}
+            <select x-model.number="radiusKm" @change="loadCandidates()"
+                    class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100">
+                <option value="5">5 km</option>
+                <option value="10">10 km</option>
+                <option value="25" selected>25 km</option>
+                <option value="50">50 km</option>
+                <option value="100">100 km</option>
+            </select>
+
+            {{-- Botón GPS --}}
+            <button type="button" @click="useGPS()"
+                    :disabled="gpsLoading"
+                    class="flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50">
+                <svg class="h-4 w-4" :class="gpsLoading ? 'animate-spin' : ''" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                </svg>
+                <span x-text="gpsLoading ? 'Localizando…' : 'Mi ubicación'"></span>
+            </button>
+
+            {{-- Picker de ubicaciones guardadas --}}
+            <div class="relative" x-data="{ open: false }" @click.outside="open = false">
+                <button type="button" @click="open = !open; if(open) $root.loadSavedLocations()"
+                        class="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                    </svg>
+                    Guardadas
+                </button>
+
+                <template x-if="open">
+                    <div class="absolute right-0 z-20 mt-1 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                        <template x-if="savedLocations.length === 0">
+                            <p class="px-3 py-2 text-sm text-slate-400">Sin ubicaciones guardadas</p>
+                        </template>
+                        <template x-for="loc in savedLocations" :key="loc.id">
+                            <button type="button"
+                                    @click="selectSavedLocation(loc); open = false"
+                                    class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"
+                                    :class="activeSavedLocationId === loc.id ? 'bg-emerald-50 text-emerald-700 font-medium' : ''">
+                                <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                                </svg>
+                                <span x-text="loc.name"></span>
+                                <template x-if="loc.is_default">
+                                    <span class="ml-auto rounded-full bg-emerald-100 px-1.5 py-0.5 text-xs text-emerald-700">predeterminada</span>
+                                </template>
+                            </button>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    {{-- ── Panel principal ──────────────────────────────────────────────── --}}
     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
@@ -16,6 +89,8 @@
         </div>
 
         <div class="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+
+            {{-- Tarjeta candidato --}}
             <div class="relative min-h-[440px] overflow-hidden rounded-3xl border border-slate-200 bg-slate-50">
                 <template x-if="!loading && currentPet">
                     <div class="absolute inset-0 flex items-center justify-center p-4">
@@ -32,13 +107,23 @@
                                         <span class="rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white" x-text="currentPet.energy_level || '—'"></span>
                                     </div>
                                 </div>
+                                {{-- Badge de distancia --}}
+                                <template x-if="currentPet.distance_km !== undefined">
+                                    <div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                                        <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                                        </svg>
+                                        <span x-text="currentPet.distance_km + ' km'"></span>
+                                    </div>
+                                </template>
                             </div>
 
                             <div class="mt-4 space-y-3">
                                 <div class="flex flex-wrap gap-2">
                                     <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700" x-text="currentPet.size || '—'"></span>
                                     <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700" x-text="currentPet.age ? currentPet.age + ' años' : 'Edad no disponible'"></span>
-                                    <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700" x-text="currentPet.personality || 'Sociable'" ></span>
+                                    <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700" x-text="currentPet.personality || 'Sociable'"></span>
                                 </div>
                                 <p class="text-sm leading-6 text-slate-600" x-text="currentPet.personality || 'Una mascota muy sociable y alegre que encaja con tu estilo de vida.'"></p>
                             </div>
@@ -50,23 +135,59 @@
                     <div class="flex h-full items-center justify-center text-slate-500">Cargando candidatos…</div>
                 </template>
 
-                <template x-if="!loading && !currentPet">
-                    <div class="flex h-full items-center justify-center px-6 text-center text-slate-500">No hay más candidatos por ahora. Vuelve más tarde.</div>
+                <template x-if="!loading && !currentPet && locationError">
+                    <div class="flex h-full flex-col items-center justify-center gap-4 px-8 text-center">
+                        <svg class="h-10 w-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                        </svg>
+                        <p class="font-medium text-slate-600">Necesitamos tu ubicación para mostrarte candidatos cercanos.</p>
+                        <button type="button" @click="useGPS()" class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
+                            Usar mi ubicación actual
+                        </button>
+                    </div>
+                </template>
+
+                <template x-if="!loading && !currentPet && !locationError">
+                    <div class="flex h-full items-center justify-center px-6 text-center text-slate-500">
+                        No hay más candidatos cerca. Prueba a ampliar el radio o cambia tu ubicación.
+                    </div>
                 </template>
             </div>
 
+            {{-- Panel lateral --}}
             <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
                 <h3 class="brand-font text-xl font-semibold text-slate-900">Acciones</h3>
                 <p class="mt-2 text-sm text-slate-600">Pulsa Like si te interesa o Pass si prefieres seguir adelante.</p>
 
                 <div class="mt-6 flex gap-3">
-                    <button type="button" @click="handleDecision('pass')" class="flex-1 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-100">✗ Pass</button>
-                    <button type="button" @click="handleDecision('like')" class="flex-1 rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">♥ Like</button>
+                    <button type="button" @click="handleDecision('pass')"
+                            :disabled="!currentPet || loading"
+                            class="flex-1 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-100 disabled:opacity-40">
+                        ✗ Pass
+                    </button>
+                    <button type="button" @click="handleDecision('like')"
+                            :disabled="!currentPet || loading"
+                            class="flex-1 rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-40">
+                        ♥ Like
+                    </button>
                 </div>
 
-                <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
-                    <p class="font-semibold text-slate-900">Consejo</p>
-                    <p class="mt-2">Los candidatos se ordenan por compatibilidad de tamaño, energía y distancia.</p>
+                <div class="mt-6 space-y-3">
+                    <div class="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
+                        <p class="font-semibold text-slate-900">Ordenación</p>
+                        <p class="mt-1">Los candidatos se ordenan por distancia desde tu ubicación. La compatibilidad de tamaño y energía actúa como criterio secundario.</p>
+                    </div>
+
+                    <template x-if="currentPet && currentPet.distance_km !== undefined">
+                        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-sm">
+                            <p class="font-semibold text-emerald-800">Candidato actual</p>
+                            <p class="mt-1 text-emerald-700">
+                                <span class="font-bold" x-text="currentPet.distance_km"></span> km desde tu ubicación de búsqueda
+                            </p>
+                            <p class="mt-1 text-emerald-600" x-text="candidates.length + ' candidato(s) disponibles'"></p>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
@@ -81,26 +202,131 @@ function swipePage() {
         candidates: [],
         currentPet: null,
         loading: true,
+        locationError: false,
         statusText: 'Preparando candidatos',
         cardClass: '',
+        // Ubicación de búsqueda activa
+        searchLat: null,
+        searchLng: null,
+        locationLabel: 'Detectando ubicación…',
+        radiusKm: 25,
+        gpsLoading: false,
+        // Ubicaciones guardadas
+        savedLocations: [],
+        activeSavedLocationId: null,
+
         async init() {
+            // Intentar cargar primero con la ubicación por defecto del servidor.
+            // Luego pedir GPS para mayor precisión si está disponible.
             await this.loadCandidates();
+            this.requestGPS();
         },
+
+        /**
+         * Solicita permiso de geolocalización al navegador sin bloquear la carga.
+         */
+        requestGPS() {
+            if (!navigator.geolocation) return;
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    this.searchLat = pos.coords.latitude;
+                    this.searchLng = pos.coords.longitude;
+                    this.locationLabel = 'Tu ubicación actual (GPS)';
+                    this.activeSavedLocationId = null;
+                    this.loadCandidates();
+                },
+                () => { /* Permiso denegado, se usa la ubicación guardada del servidor */ }
+            );
+        },
+
+        /**
+         * Botón "Mi ubicación": fuerza la petición GPS con feedback visual.
+         */
+        async useGPS() {
+            if (!navigator.geolocation) {
+                alert('Tu navegador no soporta geolocalización.');
+                return;
+            }
+            this.gpsLoading = true;
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    this.searchLat = pos.coords.latitude;
+                    this.searchLng = pos.coords.longitude;
+                    this.locationLabel = 'Tu ubicación actual (GPS)';
+                    this.activeSavedLocationId = null;
+                    this.gpsLoading = false;
+                    this.loadCandidates();
+                },
+                () => {
+                    this.gpsLoading = false;
+                    alert('No se pudo obtener tu ubicación. Revisa los permisos del navegador.');
+                },
+                { timeout: 10000 }
+            );
+        },
+
+        /**
+         * Carga las ubicaciones guardadas del usuario desde la API.
+         */
+        async loadSavedLocations() {
+            try {
+                const res = await window.API.apiGet('/locations');
+                this.savedLocations = res.data || [];
+            } catch {
+                this.savedLocations = [];
+            }
+        },
+
+        /**
+         * Selecciona una ubicación guardada como punto de búsqueda.
+         */
+        selectSavedLocation(loc) {
+            this.searchLat = parseFloat(loc.lat);
+            this.searchLng = parseFloat(loc.lng);
+            this.locationLabel = loc.name;
+            this.activeSavedLocationId = loc.id;
+            this.loadCandidates();
+        },
+
+        /**
+         * Construye la URL con los parámetros de búsqueda y carga candidatos.
+         */
         async loadCandidates() {
             this.loading = true;
-            this.statusText = 'Preparando candidatos';
+            this.locationError = false;
+            this.statusText = 'Buscando candidatos…';
             try {
-                const response = await window.API.apiGet('/matches/candidates');
+                let endpoint = `/matches/candidates?radius=${this.radiusKm}`;
+                if (this.searchLat !== null && this.searchLng !== null) {
+                    endpoint += `&lat=${this.searchLat}&lng=${this.searchLng}`;
+                }
+                const response = await window.API.apiGet(endpoint);
                 this.candidates = response.data || [];
                 this.currentPet = this.candidates[0] || null;
-                this.statusText = this.currentPet ? '1 candidato disponible' : 'No hay más candidatos';
+                const count = this.candidates.length;
+                this.statusText = count > 0
+                    ? `${count} candidato${count !== 1 ? 's' : ''} cerca`
+                    : 'Sin candidatos cercanos';
+
+                // Actualizar etiqueta si la respuesta fue con ubicación por defecto del servidor
+                if (this.searchLat === null && this.locationLabel === 'Detectando ubicación…') {
+                    this.locationLabel = 'Ubicación predeterminada guardada';
+                }
             } catch (error) {
-                this.statusText = 'No se pudieron cargar los candidatos';
+                if (error.status === 422) {
+                    this.locationError = true;
+                    this.statusText = 'Ubicación requerida';
+                } else {
+                    this.statusText = 'No se pudieron cargar los candidatos';
+                }
+                this.candidates = [];
+                this.currentPet = null;
                 console.error(error);
             } finally {
                 this.loading = false;
             }
         },
+
         async handleDecision(action) {
             if (!this.currentPet) return;
 
@@ -109,7 +335,10 @@ function swipePage() {
                 const response = await window.API.apiPost(`/matches/${action}/${this.currentPet.id}`);
                 this.candidates.shift();
                 this.currentPet = this.candidates[0] || null;
-                this.statusText = this.currentPet ? 'Siguiente candidato' : 'No hay más candidatos';
+                const count = this.candidates.length;
+                this.statusText = count > 0
+                    ? `${count} candidato${count !== 1 ? 's' : ''} cerca`
+                    : 'Sin candidatos cercanos';
                 this.cardClass = '';
                 if (response.data?.match) {
                     this.statusText = '¡Tienes un match!';
@@ -119,7 +348,7 @@ function swipePage() {
                 this.statusText = 'No se pudo registrar la decisión';
                 console.error(error);
             }
-        }
+        },
     };
 }
 </script>
