@@ -131,4 +131,15 @@ class PetController extends Controller
             ->route('web.pets.show', $pet)
             ->with('success', 'Mascota actualizada correctamente.');
     }
+
+    public function destroy(Pet $pet): RedirectResponse
+    {
+        abort_unless((int) $pet->user_id === (int) Auth::id(), 403);
+
+        $pet->delete();
+
+        return redirect()
+            ->route('web.pets.index')
+            ->with('success', 'Mascota eliminada correctamente.');
+    }
 }
