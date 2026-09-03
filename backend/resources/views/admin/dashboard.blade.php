@@ -132,6 +132,7 @@
             </div>
         </div>
     </div>
+    @endsection
 
     <!-- Recent Orders -->
     <div class="rounded-lg border border-slate-800 bg-slate-900/80 backdrop-blur overflow-hidden">
