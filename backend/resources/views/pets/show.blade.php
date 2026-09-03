@@ -57,9 +57,21 @@
                 </div>
             </section>
 
-            <div class="flex flex-wrap gap-2">
-                <a href="{{ url('/pets/' . $pet->id . '/edit') }}" class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">Editar</a>
-                <a href="{{ url('/pets') }}" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Volver al listado</a>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex gap-2">
+                    <a href="{{ url('/pets/' . $pet->id . '/edit') }}" class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">Editar</a>
+                    <a href="{{ url('/pets') }}" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Volver al listado</a>
+                </div>
+                <form action="{{ route('web.pets.destroy', $pet->id) }}"
+                    method="POST"
+                    onsubmit="return confirm('¿Seguro que deseas eliminar esta mascota? Esta acción no se puede deshacer.');">
+                    @csrf
+                    @method('DELETE')
+
+                    <button class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 transition">
+                        Eliminar mascota
+                    </button>
+                </form>
             </div>
         </div>
     </div>

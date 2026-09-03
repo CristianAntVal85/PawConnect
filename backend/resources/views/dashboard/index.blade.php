@@ -42,7 +42,23 @@
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 @foreach($pets->take(4) as $pet)
-                    <x-pet-card :pet="$pet" compact />
+                    <a href="{{ url('/pets/' . $pet->id) }}"
+                    class="block rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden">
+
+                        @if($pet->photos->isNotEmpty())
+                            <img src="{{ asset('storage/' . $pet->photos->first()->path) }}"
+                                alt="{{ $pet->name }}"
+                                class="w-full h-40 object-cover">
+                        @else
+                            <div class="w-full h-40 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 text-4xl">
+                                🐾
+                            </div>
+                        @endif
+
+                        <div class="p-3">
+                            <x-pet-card :pet="$pet" compact />
+                        </div>
+                    </a>
                 @endforeach
             </div>
         </div>

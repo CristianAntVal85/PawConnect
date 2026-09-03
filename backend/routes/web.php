@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/pets/{pet}', [PetController::class, 'show'])->name('web.pets.show');
     Route::get('/pets/{pet}/edit', [PetController::class, 'edit'])->name('web.pets.edit');
     Route::put('/pets/{pet}', [PetController::class, 'update'])->name('web.pets.update');
+    Route::delete('/pets/{pet}', [PetController::class, 'destroy'])->name('web.pets.destroy');
 
     // Health records
     Route::get('/pets/{pet}/health', [HealthController::class, 'timeline'])->name('web.pets.health.timeline');
