@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\ForgotPasswordController;
 use App\Http\Controllers\Web\HealthController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MarketplaceController;
+use App\Http\Controllers\Web\MatchController;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PetController;
@@ -46,9 +47,12 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/chat/{match?}', [ChatController::class, 'index'])
         ->whereNumber('match')
         ->name('web.chat.index');
-    Route::get('/matches/swipe', function () {
-        return view('matches.swipe');
-    })->name('web.matches.swipe');
+
+    // Matches
+    Route::get('/matches/swipe', [MatchController::class, 'swipe'])->name('web.matches.swipe');
+    Route::post('/matches/{pet}/like', [MatchController::class, 'like'])->name('web.matches.like');
+    Route::post('/matches/{pet}/pass', [MatchController::class, 'pass'])->name('web.matches.pass');
+
     Route::get('/walks', [WalkController::class, 'index'])->name('web.walks.index');
     Route::post('/walks/{walk}/join', [WalkController::class, 'join'])->name('web.walks.join');
     Route::delete('/walks/{walk}/leave', [WalkController::class, 'leave'])->name('web.walks.leave');
@@ -87,6 +91,7 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('web.profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('web.profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('web.profile.password.update');
+    Route::post('/update-location', [ProfileController::class, 'updateLocation'])->name('web.profile.update-location');
 
     // Admin routes
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function (): void {

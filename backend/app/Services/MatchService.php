@@ -26,63 +26,74 @@ class MatchService
      */
     public function getCandidates(
         Pet $currentPet,
-        float $searchLat,
-        float $searchLng,
         int $radiusKm = 25,
-    ): BaseCollection {
-        if ($currentPet->species !== 'dog') {
-            return new BaseCollection();
+        ?string $breed = null,
+        ?string $energy = null,
+        ?string $age = null
+    ): Collection
+    {
+        $user = $currentPet->user;
+
+        if ($currentPet->species !== 'dog' || ! $user->lat || ! $user->lng) {
+            return new Collection();
         }
 
         $seenPetIds = $this->getSeenPetIds($currentPet);
 
-        $candidates = Pet::query()
+        $query = Pet::query()
             ->where('id', '!=', $currentPet->id)
-            ->where('user_id', '!=', $currentPet->user_id)
+            ->where('user_id', '!=', $user->id)
             ->whereNotIn('id', $seenPetIds)
             ->where('available_for_walks', true)
             ->where('species', 'dog')
-            ->with(['user.defaultLocation'])
-            ->get();
+            ->with('user:id,lat,lng');
 
-        $scored = $candidates
-            ->map(function (Pet $candidate) use ($searchLat, $searchLng, $radiusKm, $currentPet): ?array {
-                $location = $candidate->user?->defaultLocation;
+        if ($breed && $breed !== 'all') {
+            $query->where('breed', $breed);
+        }
 
-                if (! $location) {
-                    return null;
-                }
+        if ($energy && $energy !== 'all') {
+            $query->where('energy_level', $energy);
+        }
 
-                $distance = $this->haversine(
-                    $searchLat,
-                    $searchLng,
-                    (float) $location->lat,
-                    (float) $location->lng,
-                );
+        if ($age && $age !== 'all') {
+            $query->where(function ($q) use ($age) {
+                $q->whereRaw("
+                    CASE
+                        WHEN age <= 2 THEN 'young'
+                        WHEN age < 7 THEN 'adult'
+                        ELSE 'senior'
+                    END = ?
+                ", [$age]);
+            });
+        }
 
-                if ($distance > $radiusKm) {
-                    return null;
-                }
+        $candidates = $query->get();
 
-                return [
-                    'pet'         => $candidate,
-                    'distance_km' => round($distance, 1),
-                    'compat'      => $this->compatibilityScore($currentPet, $candidate),
-                ];
-            })
-            ->filter()
-            ->sortBy([
-                ['distance_km', 'asc'],
-                ['compat', 'desc'],
-            ])
-            ->values();
+        // Filtrar por distancia
+        $candidates = $candidates->filter(function (Pet $candidate) use ($user, $radiusKm): bool {
+            $candidateUser = $candidate->user;
 
-        return $scored->map(function (array $item): Pet {
-            $item['pet']->setAttribute('distance_km', $item['distance_km']);
+            if (! $candidateUser?->lat || ! $candidateUser?->lng) {
+                return false;
+            }
 
-            return $item['pet'];
+            $distance = $this->haversine(
+                (float) $user->lat,
+                (float) $user->lng,
+                (float) $candidateUser->lat,
+                (float) $candidateUser->lng,
+            );
+
+            return $distance <= $radiusKm;
         });
+
+        // Ordenar por compatibilidad
+        return $candidates->sortByDesc(function (Pet $candidate) use ($currentPet): int {
+            return $this->compatibilityScore($currentPet, $candidate);
+        })->values();
     }
+
 
     public function registerInteraction(Pet $currentPet, Pet $targetPet, string $action): array
     {

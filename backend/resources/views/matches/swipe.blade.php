@@ -5,6 +5,153 @@
 @section('page-subtitle', 'Descubre mascotas compatibles')
 
 @section('content')
+<form method="GET" action="{{ route('web.matches.swipe') }}"
+      class="mb-6 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-sm">
+
+    <h3 class="mb-4 text-sm font-semibold text-gray-800">
+        Filtros de búsqueda
+    </h3>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+        {{-- Filtro de raza --}}
+        <div x-data="breedSelector()" class="relative">
+            <label class="mb-1 block text-xs font-medium text-gray-700">
+                Raza
+            </label>
+
+            {{-- Input de búsqueda --}}
+            <div class="relative">
+                <input type="text"
+                    x-model="search"
+                    @focus="open = true"
+                    @input="open = true"
+                    placeholder="Buscar raza..."
+                    class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 pl-9 text-sm text-gray-800
+                            shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+
+                <svg class="absolute left-2 top-2.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 12.65z"/>
+                </svg>
+            </div>
+
+            {{-- Dropdown de sugerencias --}}
+            <div x-show="open && filteredBreeds.length"
+                @click.away="open = false"
+                class="absolute z-10 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg">
+
+                <template x-for="breed in filteredBreeds" :key="breed">
+                    <div @click="selectBreed(breed)"
+                        class="cursor-pointer px-3 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                        <span x-text="breed"></span>
+                    </div>
+                </template>
+            </div>
+
+            {{-- Select final (oculto pero funcional para el form) --}}
+            <select name="breed" x-model="selected" class="hidden">
+                <option value="all">Todas</option>
+                <template x-for="breed in breeds" :key="breed">
+                    <option :value="breed" x-text="breed"></option>
+                </template>
+            </select>
+        </div>
+
+        <script>
+            function breedSelector() {
+                return {
+                    search: '',
+                    selected: 'all',
+                    open: false,
+
+                    breeds: [
+                        'Afgano', 'Akita Inu', 'Alaskan Malamute', 'American Bully',
+                        'American Staffordshire Terrier', 'Basset Hound', 'Beagle',
+                        'Bichón Frisé', 'Bichón Maltés', 'Bobtail (Old English Sheepdog)',
+                        'Border Collie', 'Bóxer', 'Braco Alemán', 'Braco de Weimar (Weimaraner)',
+                        'Bull Terrier', 'Bulldog Francés', 'Bulldog Inglés', 'Caniche',
+                        'Carlino (Pug)', 'Cavalier King Charles Spaniel', 'Chihuahua',
+                        'Cocker Spaniel', 'Collie Rough', 'Dálmata', 'Doberman',
+                        'Dogo Argentino', 'Dogo Canario (Presa Canario)', 'Fox Terrier',
+                        'Galgo Español', 'Golden Retriever', 'Gos d’Atura (Pastor Catalán)',
+                        'Gran Danés', 'Husky Siberiano', 'Jack Russell Terrier',
+                        'Kerry Blue Terrier', 'Labrador Retriever', 'Mastín Español',
+                        'Mastín Napolitano', 'Pastor Alemán', 'Pastor Australiano',
+                        'Pastor Belga Malinois', 'Pastor Blanco Suizo', 'Pastor Vasco',
+                        'Pekinés', 'Pinscher Miniatura', 'Pitbull Terrier', 'Podenco',
+                        'Pointer', 'Pomerania', 'Presa Mallorquín (Ca de Bou)',
+                        'Presa Canario', 'Pug', 'Ratonero Bodeguero', 'Rottweiler',
+                        'Sabueso Español', 'Samoyedo', 'San Bernardo', 'Setter Inglés',
+                        'Setter Irlandés', 'Shar Pei', 'Shiba Inu', 'Shih Tzu',
+                        'Schnauzer Gigante', 'Schnauzer Mediano', 'Schnauzer Miniatura',
+                        'Staffordshire Bull Terrier', 'Teckel (Dachshund)', 'Terranova',
+                        'Vizsla', 'Weimaraner', 'West Highland White Terrier',
+                        'Whippet', 'Yorkshire Terrier'
+                    ],
+
+                    get filteredBreeds() {
+                        if (!this.search) return this.breeds;
+                        return this.breeds.filter(b =>
+                            b.toLowerCase().includes(this.search.toLowerCase())
+                        );
+                    },
+
+                    selectBreed(breed) {
+                        this.selected = breed;
+                        this.search = breed;
+                        this.open = false;
+                    }
+                }
+            }
+        </script>
+
+
+
+
+        {{-- Filtro de energía --}}
+        <div>
+            <label class="mb-1 block text-xs font-medium text-gray-700">
+                Energía
+            </label>
+            <select name="energy"
+                    class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800
+                           shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                <option value="all">Cualquiera</option>
+                <option value="low">Baja</option>
+                <option value="medium">Media</option>
+                <option value="high">Alta</option>
+            </select>
+        </div>
+
+        {{-- Filtro de edad --}}
+        <div>
+            <label class="mb-1 block text-xs font-medium text-gray-700">
+                Edad
+            </label>
+            <select name="age" class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800
+                        shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                <option value="all">Todas</option>
+                <option value="young">Joven (0-2 años)</option>
+                <option value="adult">Adulto (2-7 años)</option>
+                <option value="senior">Senior (+7 años)</option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="mt-4 flex justify-end">
+        <button type="submit"
+                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium
+                       text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500">
+            Aplicar filtros
+        </button>
+    </div>
+</form>
+
+
 <div class="mx-auto flex max-w-5xl flex-col gap-6" x-data="swipePage()">
 
     {{-- ── Banner de ubicación de búsqueda ─────────────────────────────── --}}
@@ -216,81 +363,56 @@ function swipePage() {
         activeSavedLocationId: null,
 
         async init() {
-            // Intentar cargar primero con la ubicación por defecto del servidor.
-            // Luego pedir GPS para mayor precisión si está disponible.
+            // Solicitar geolocalización primero
+            await this.requestLocation();
+            // Luego cargar candidatos
             await this.loadCandidates();
             this.requestGPS();
         },
+        async requestLocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    console.warn('Geolocalización no disponible');
+                    this.statusText = 'La geolocalización no está disponible';
+                    resolve();
+                    return;
+                }
 
-        /**
-         * Solicita permiso de geolocalización al navegador sin bloquear la carga.
-         */
-        requestGPS() {
-            if (!navigator.geolocation) return;
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    this.searchLat = pos.coords.latitude;
-                    this.searchLng = pos.coords.longitude;
-                    this.locationLabel = 'Tu ubicación actual (GPS)';
-                    this.activeSavedLocationId = null;
-                    this.loadCandidates();
-                },
-                () => { /* Permiso denegado, se usa la ubicación guardada del servidor */ }
-            );
+                this.statusText = 'Solicitando permiso de ubicación...';
+
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        try {
+                            await fetch('/update-location', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                                },
+                                body: JSON.stringify({
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                })
+                            });
+                            console.log('Ubicación guardada:', position.coords.latitude, position.coords.longitude);
+                        } catch (error) {
+                            console.error('Error guardando ubicación:', error);
+                        }
+                        resolve();
+                    },
+                    (error) => {
+                        console.warn('Error obteniendo geolocalización:', error);
+                        this.statusText = 'No se pudo obtener la ubicación';
+                        resolve();
+                    },
+                    {
+                        enableHighAccuracy: false,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
         },
-
-        /**
-         * Botón "Mi ubicación": fuerza la petición GPS con feedback visual.
-         */
-        async useGPS() {
-            if (!navigator.geolocation) {
-                alert('Tu navegador no soporta geolocalización.');
-                return;
-            }
-            this.gpsLoading = true;
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    this.searchLat = pos.coords.latitude;
-                    this.searchLng = pos.coords.longitude;
-                    this.locationLabel = 'Tu ubicación actual (GPS)';
-                    this.activeSavedLocationId = null;
-                    this.gpsLoading = false;
-                    this.loadCandidates();
-                },
-                () => {
-                    this.gpsLoading = false;
-                    alert('No se pudo obtener tu ubicación. Revisa los permisos del navegador.');
-                },
-                { timeout: 10000 }
-            );
-        },
-
-        /**
-         * Carga las ubicaciones guardadas del usuario desde la API.
-         */
-        async loadSavedLocations() {
-            try {
-                const res = await window.API.apiGet('/locations');
-                this.savedLocations = res.data || [];
-            } catch {
-                this.savedLocations = [];
-            }
-        },
-
-        /**
-         * Selecciona una ubicación guardada como punto de búsqueda.
-         */
-        selectSavedLocation(loc) {
-            this.searchLat = parseFloat(loc.lat);
-            this.searchLng = parseFloat(loc.lng);
-            this.locationLabel = loc.name;
-            this.activeSavedLocationId = loc.id;
-            this.loadCandidates();
-        },
-
-        /**
-         * Construye la URL con los parámetros de búsqueda y carga candidatos.
-         */
         async loadCandidates() {
             this.loading = true;
             this.locationError = false;
