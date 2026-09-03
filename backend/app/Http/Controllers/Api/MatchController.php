@@ -7,6 +7,7 @@ use App\Models\Pet;
 use App\Services\MatchService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class MatchController extends Controller
 {
@@ -15,7 +16,15 @@ class MatchController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Devuelve candidatos ordenados por distancia desde la ubicación de búsqueda.
+     *
+     * Parámetros query opcionales:
+     *   ?lat=40.4168&lng=-3.7038   → posición actual (GPS o manual)
+     *   ?radius=25                 → radio en kilómetros (por defecto 25)
+     *   ?pet_id=3                  → mascota activa (por defecto la primera del usuario)
+     *
+     * Si no se envía lat/lng se usa la ubicación predeterminada guardada del usuario.
+     * Si no existe ninguna de las dos se devuelve 422.
      */
     public function index(Request $request): JsonResponse
     {
@@ -24,7 +33,11 @@ class MatchController extends Controller
 
         $this->authorize('view', $pet);
 
-        $candidates = $this->matchService->getCandidates($pet);
+        [$searchLat, $searchLng] = $this->resolveSearchLocation($request);
+
+        $radiusKm = (int) $request->query('radius', 25);
+
+        $candidates = $this->matchService->getCandidates($pet, $searchLat, $searchLng, $radiusKm);
 
         return $this->success(
             $candidates->values(),
@@ -71,5 +84,40 @@ class MatchController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    /**
+     * Resuelve la ubicación de búsqueda:
+     *   1. lat/lng explícitos en la query (GPS del navegador o ubicación manual)
+     *   2. Ubicación predeterminada guardada del usuario
+     *
+     * @return array{0: float, 1: float}
+     * @throws ValidationException si no hay ninguna ubicación disponible
+     */
+    private function resolveSearchLocation(Request $request): array
+    {
+        $lat = $request->query('lat');
+        $lng = $request->query('lng');
+
+        if ($lat !== null && $lng !== null) {
+            $request->validate([
+                'lat' => ['numeric', 'between:-90,90'],
+                'lng' => ['numeric', 'between:-180,180'],
+            ]);
+
+            return [(float) $lat, (float) $lng];
+        }
+
+        $default = $request->user()->defaultLocation;
+
+        if ($default) {
+            return [(float) $default->lat, (float) $default->lng];
+        }
+
+        throw ValidationException::withMessages([
+            'lat' => ['Debes enviar tu ubicación o tener una ubicación predeterminada guardada.'],
+        ]);
     }
 }

@@ -3,60 +3,85 @@
 namespace App\Services;
 
 use App\Models\Pet;
+use App\Models\UserLocation;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Support\Facades\DB;
 
 class MatchService
 {
     /**
-     * Devuelve candidatos para un usuario autenticado.
+     * Devuelve candidatos ordenados por distancia ascendente desde la ubicación
+     * de búsqueda (estilo Wallapop): el buscador envía su posición actual (GPS o
+     * elegida manualmente) y los candidatos se ordenan por la distancia entre esa
+     * posición y su ubicación predeterminada almacenada.
      *
      * Reglas:
      * - excluir mascotas propias del usuario
      * - excluir mascotas ya vistas (likes/pass)
-     * - filtrar por distancia (Haversine) usando lat/lng del usuario y del candidato
-     * - ordenar por compatibilidad: tamaño, energía y disponibilidad
+     * - filtrar por distancia (Haversine) entre searchLat/searchLng y la
+     *   ubicación predeterminada del dueño del candidato
+     * - ordenar por distancia ascendente; compatibilidad como criterio secundario
+     * - incluir distance_km en cada candidato
      */
-    public function getCandidates(Pet $currentPet, int $radiusKm = 25): Collection
-    {
-        $user = $currentPet->user;
-
-        if ($currentPet->species !== 'dog' || ! $user->lat || ! $user->lng) {
-            return new Collection();
+    public function getCandidates(
+        Pet $currentPet,
+        float $searchLat,
+        float $searchLng,
+        int $radiusKm = 25,
+    ): BaseCollection {
+        if ($currentPet->species !== 'dog') {
+            return new BaseCollection();
         }
 
         $seenPetIds = $this->getSeenPetIds($currentPet);
 
-        $query = Pet::query()
+        $candidates = Pet::query()
             ->where('id', '!=', $currentPet->id)
-            ->where('user_id', '!=', $user->id)
+            ->where('user_id', '!=', $currentPet->user_id)
             ->whereNotIn('id', $seenPetIds)
             ->where('available_for_walks', true)
             ->where('species', 'dog')
-            ->with('user:id,lat,lng');
+            ->with(['user.defaultLocation'])
+            ->get();
 
-        $candidates = $query->get();
+        $scored = $candidates
+            ->map(function (Pet $candidate) use ($searchLat, $searchLng, $radiusKm, $currentPet): ?array {
+                $location = $candidate->user?->defaultLocation;
 
-        $candidates = $candidates->filter(function (Pet $candidate) use ($user, $radiusKm): bool {
-            $candidateUser = $candidate->user;
+                if (! $location) {
+                    return null;
+                }
 
-            if (! $candidateUser?->lat || ! $candidateUser?->lng) {
-                return false;
-            }
+                $distance = $this->haversine(
+                    $searchLat,
+                    $searchLng,
+                    (float) $location->lat,
+                    (float) $location->lng,
+                );
 
-            $distance = $this->haversine(
-                (float) $user->lat,
-                (float) $user->lng,
-                (float) $candidateUser->lat,
-                (float) $candidateUser->lng,
-            );
+                if ($distance > $radiusKm) {
+                    return null;
+                }
 
-            return $distance <= $radiusKm;
+                return [
+                    'pet'         => $candidate,
+                    'distance_km' => round($distance, 1),
+                    'compat'      => $this->compatibilityScore($currentPet, $candidate),
+                ];
+            })
+            ->filter()
+            ->sortBy([
+                ['distance_km', 'asc'],
+                ['compat', 'desc'],
+            ])
+            ->values();
+
+        return $scored->map(function (array $item): Pet {
+            $item['pet']->setAttribute('distance_km', $item['distance_km']);
+
+            return $item['pet'];
         });
-
-        return $candidates->sortByDesc(function (Pet $candidate) use ($currentPet): int {
-            return $this->compatibilityScore($currentPet, $candidate);
-        })->values();
     }
 
     public function registerInteraction(Pet $currentPet, Pet $targetPet, string $action): array

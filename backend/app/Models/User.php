@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -96,6 +97,16 @@ class User extends Authenticatable
     public function walksCreated(): HasMany
     {
         return $this->hasMany(Walk::class, 'creator_id');
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(UserLocation::class);
+    }
+
+    public function defaultLocation(): HasOne
+    {
+        return $this->hasOne(UserLocation::class)->where('is_default', true)->latest();
     }
 
     public function isAdmin(): bool
