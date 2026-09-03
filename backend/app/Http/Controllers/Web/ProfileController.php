@@ -41,4 +41,23 @@ class ProfileController extends Controller
             ->route('web.profile.edit')
             ->with('password_success', 'Contrasena actualizada correctamente.');
     }
+
+    public function updateLocation(\Illuminate\Http\Request $request)
+    {
+        $validated = $request->validate([
+            'lat' => 'required|numeric|between:-90,90',
+            'lng' => 'required|numeric|between:-180,180',
+        ]);
+
+        $user = $request->user();
+        $user->update([
+            'lat' => $validated['lat'],
+            'lng' => $validated['lng'],
+        ]);
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Ubicación actualizada',
+        ]);
+    }
 }
