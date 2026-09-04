@@ -31,11 +31,7 @@
                 @error('species') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
             </div>
 
-            <div>
-                <label for="breed" class="mb-1 block text-sm font-medium text-slate-700">Raza</label>
-                <input id="breed" name="breed" value="{{ old('breed') }}" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200">
-                @error('breed') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
-            </div>
+            <x-breed-selector name="breed" selected="{{ old('breed') }}" />
 
             <div>
                 <label for="age" class="mb-1 block text-sm font-medium text-slate-700">Edad (anos)</label>
