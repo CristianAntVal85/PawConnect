@@ -5,15 +5,7 @@
 @section('page-subtitle', 'Resumen general de actividad')
 
 @section('content')
-    @php
-        $pets = $pets ?? collect();
-        if ($pets->isEmpty()) {
-            $pets = collect([
-                (object) ['name' => 'Luna', 'species' => 'dog', 'breed' => 'Labrador', 'age' => 3, 'size' => 'large', 'energy_level' => 'high', 'personality' => 'Activa y sociable', 'available_for_walks' => true],
-                (object) ['name' => 'Nina', 'species' => 'cat', 'breed' => 'Europeo', 'age' => 2, 'size' => 'small', 'energy_level' => 'medium', 'personality' => 'Curiosa y tranquila', 'available_for_walks' => false],
-            ]);
-        }
-    @endphp
+
 
     <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -40,28 +32,39 @@
                 <h2 class="brand-font text-xl font-semibold text-slate-900">Tus mascotas</h2>
                 <a href="{{ url('/pets') }}" class="text-sm font-semibold text-emerald-600 hover:text-emerald-700">Ver todas</a>
             </div>
-            <div class="grid gap-4 sm:grid-cols-2">
-                @foreach($pets->take(4) as $pet)
-                    <a href="{{ url('/pets/' . $pet->id) }}"
-                    class="block rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden">
 
-                        @if($pet->photos->isNotEmpty())
-                            <img src="{{ asset('storage/' . $pet->photos->first()->path) }}"
-                                alt="{{ $pet->name }}"
-                                class="w-full h-40 object-cover">
-                        @else
-                            <div class="w-full h-40 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 text-4xl">
-                                🐾
+            @if($pets->isNotEmpty())
+                <div class="grid gap-4 sm:grid-cols-2">
+                    @foreach($pets->take(4) as $pet)
+                        <a href="{{ url('/pets/' . $pet->id) }}"
+                        class="block rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden">
+
+                            @if($pet->photos->isNotEmpty())
+                                <img src="{{ asset('storage/' . $pet->photos->first()->path) }}"
+                                    alt="{{ $pet->name }}"
+                                    class="w-full h-40 object-cover">
+                            @else
+                                <div class="w-full h-40 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 text-4xl">
+                                    🐾
+                                </div>
+                            @endif
+
+                            <div class="p-3">
+                                <x-pet-card :pet="$pet" compact />
                             </div>
-                        @endif
+                        </a>
+                    @endforeach
+                </div>
+             @else
+                <p class="text-slate-600">Todavía no tienes mascotas registradas.</p>
 
-                        <div class="p-3">
-                            <x-pet-card :pet="$pet" compact />
-                        </div>
-                    </a>
-                @endforeach
-            </div>
+                <a href="{{ url('/pets/create') }}"
+                    class="inline-block mt-2 text-emerald-600 font-semibold hover:text-emerald-700">
+                        Registrar una mascota
+                </a>
+            @endif
         </div>
+
 
         <aside class="space-y-4">
             <x-alert type="warning" title="Recordatorio sanitario" dismissible>
