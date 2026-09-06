@@ -6,7 +6,7 @@
   "service": "app",
   "workspaceFolder": "/app",
   "workspaceMount": "source=${localWorkspaceFolder}/backend,target=/app,type=bind",
-  "remoteUser": "vscode",
+  "remoteUser": "root",
   "shutdownAction": "stopCompose",
   "overrideCommand": false,
   "forwardPorts": [

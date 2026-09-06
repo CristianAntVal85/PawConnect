@@ -16,9 +16,6 @@
 
         <x-breed-selector />
 
-
-
-
         {{-- Filtro de energía --}}
         <div>
             <label class="mb-1 block text-xs font-medium text-gray-700">
@@ -276,7 +273,6 @@ function swipePage() {
             await this.requestLocation();
             // Luego cargar candidatos
             await this.loadCandidates();
-            this.requestGPS();
         },
         async requestLocation() {
             return new Promise((resolve) => {
@@ -292,6 +288,12 @@ function swipePage() {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
                         try {
+                            // Establecer ubicación en el cliente para usarla inmediatamente
+                            this.searchLat = Number(position.coords.latitude.toFixed(6));
+                            this.searchLng = Number(position.coords.longitude.toFixed(6));
+                            this.locationLabel = 'Mi ubicación actual';
+
+                            // Guardar también en el servidor para futuras sesiones
                             await fetch('/update-location', {
                                 method: 'POST',
                                 headers: {
@@ -347,6 +349,8 @@ function swipePage() {
                 if (error.status === 422) {
                     this.locationError = true;
                     this.statusText = 'Ubicación requerida';
+                } else if (error.status >= 500) {
+                    this.statusText = 'Error del servidor cargando candidatos';
                 } else {
                     this.statusText = 'No se pudieron cargar los candidatos';
                 }
@@ -356,6 +360,61 @@ function swipePage() {
             } finally {
                 this.loading = false;
             }
+        },
+
+        async useGPS() {
+            if (!navigator.geolocation) {
+                this.statusText = 'La geolocalización no está disponible';
+                return;
+            }
+
+            this.gpsLoading = true;
+            this.statusText = 'Obteniendo tu ubicación…';
+
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0,
+                });
+            }).catch((error) => {
+                console.warn('Error GPS:', error);
+                return null;
+            });
+
+            if (!position) {
+                this.gpsLoading = false;
+                this.statusText = 'No se pudo obtener la ubicación GPS';
+                return;
+            }
+
+            this.searchLat = Number(position.coords.latitude.toFixed(6));
+            this.searchLng = Number(position.coords.longitude.toFixed(6));
+            this.locationLabel = 'Mi ubicación actual';
+            this.activeSavedLocationId = null;
+
+            await this.loadCandidates();
+            this.gpsLoading = false;
+        },
+
+        async loadSavedLocations() {
+            try {
+                const response = await window.API.apiGet('/locations');
+                this.savedLocations = response.data || [];
+            } catch (error) {
+                this.savedLocations = [];
+                console.error(error);
+            }
+        },
+
+        async selectSavedLocation(loc) {
+            if (!loc) return;
+
+            this.searchLat = Number(loc.lat);
+            this.searchLng = Number(loc.lng);
+            this.activeSavedLocationId = loc.id;
+            this.locationLabel = loc.name || 'Ubicación guardada';
+            await this.loadCandidates();
         },
 
         async handleDecision(action) {
