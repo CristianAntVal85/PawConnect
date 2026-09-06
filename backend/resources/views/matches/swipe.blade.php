@@ -14,101 +14,7 @@
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 
-        {{-- Filtro de raza --}}
-        <div x-data="breedSelector()" class="relative">
-            <label class="mb-1 block text-xs font-medium text-gray-700">
-                Raza
-            </label>
-
-            {{-- Input de búsqueda --}}
-            <div class="relative">
-                <input type="text"
-                    x-model="search"
-                    @focus="open = true"
-                    @input="open = true"
-                    placeholder="Buscar raza..."
-                    class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 pl-9 text-sm text-gray-800
-                            shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
-
-                <svg class="absolute left-2 top-2.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 12.65z"/>
-                </svg>
-            </div>
-
-            {{-- Dropdown de sugerencias --}}
-            <div x-show="open && filteredBreeds.length"
-                @click.away="open = false"
-                class="absolute z-10 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg">
-
-                <template x-for="breed in filteredBreeds" :key="breed">
-                    <div @click="selectBreed(breed)"
-                        class="cursor-pointer px-3 py-2 text-sm text-gray-800 hover:bg-gray-100">
-                        <span x-text="breed"></span>
-                    </div>
-                </template>
-            </div>
-
-            {{-- Select final (oculto pero funcional para el form) --}}
-            <select name="breed" x-model="selected" class="hidden">
-                <option value="all">Todas</option>
-                <template x-for="breed in breeds" :key="breed">
-                    <option :value="breed" x-text="breed"></option>
-                </template>
-            </select>
-        </div>
-
-        <script>
-            function breedSelector() {
-                return {
-                    search: '',
-                    selected: 'all',
-                    open: false,
-
-                    breeds: [
-                        'Afgano', 'Akita Inu', 'Alaskan Malamute', 'American Bully',
-                        'American Staffordshire Terrier', 'Basset Hound', 'Beagle',
-                        'Bichón Frisé', 'Bichón Maltés', 'Bobtail (Old English Sheepdog)',
-                        'Border Collie', 'Bóxer', 'Braco Alemán', 'Braco de Weimar (Weimaraner)',
-                        'Bull Terrier', 'Bulldog Francés', 'Bulldog Inglés', 'Caniche',
-                        'Carlino (Pug)', 'Cavalier King Charles Spaniel', 'Chihuahua',
-                        'Cocker Spaniel', 'Collie Rough', 'Dálmata', 'Doberman',
-                        'Dogo Argentino', 'Dogo Canario (Presa Canario)', 'Fox Terrier',
-                        'Galgo Español', 'Golden Retriever', 'Gos d’Atura (Pastor Catalán)',
-                        'Gran Danés', 'Husky Siberiano', 'Jack Russell Terrier',
-                        'Kerry Blue Terrier', 'Labrador Retriever', 'Mastín Español',
-                        'Mastín Napolitano', 'Pastor Alemán', 'Pastor Australiano',
-                        'Pastor Belga Malinois', 'Pastor Blanco Suizo', 'Pastor Vasco',
-                        'Pekinés', 'Pinscher Miniatura', 'Pitbull Terrier', 'Podenco',
-                        'Pointer', 'Pomerania', 'Presa Mallorquín (Ca de Bou)',
-                        'Presa Canario', 'Pug', 'Ratonero Bodeguero', 'Rottweiler',
-                        'Sabueso Español', 'Samoyedo', 'San Bernardo', 'Setter Inglés',
-                        'Setter Irlandés', 'Shar Pei', 'Shiba Inu', 'Shih Tzu',
-                        'Schnauzer Gigante', 'Schnauzer Mediano', 'Schnauzer Miniatura',
-                        'Staffordshire Bull Terrier', 'Teckel (Dachshund)', 'Terranova',
-                        'Vizsla', 'Weimaraner', 'West Highland White Terrier',
-                        'Whippet', 'Yorkshire Terrier'
-                    ],
-
-                    get filteredBreeds() {
-                        if (!this.search) return this.breeds;
-                        return this.breeds.filter(b =>
-                            b.toLowerCase().includes(this.search.toLowerCase())
-                        );
-                    },
-
-                    selectBreed(breed) {
-                        this.selected = breed;
-                        this.search = breed;
-                        this.open = false;
-                    }
-                }
-            }
-        </script>
-
-
-
+        <x-breed-selector />
 
         {{-- Filtro de energía --}}
         <div>
@@ -367,7 +273,6 @@ function swipePage() {
             await this.requestLocation();
             // Luego cargar candidatos
             await this.loadCandidates();
-            this.requestGPS();
         },
         async requestLocation() {
             return new Promise((resolve) => {
@@ -383,6 +288,12 @@ function swipePage() {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
                         try {
+                            // Establecer ubicación en el cliente para usarla inmediatamente
+                            this.searchLat = Number(position.coords.latitude.toFixed(6));
+                            this.searchLng = Number(position.coords.longitude.toFixed(6));
+                            this.locationLabel = 'Mi ubicación actual';
+
+                            // Guardar también en el servidor para futuras sesiones
                             await fetch('/update-location', {
                                 method: 'POST',
                                 headers: {
@@ -438,6 +349,8 @@ function swipePage() {
                 if (error.status === 422) {
                     this.locationError = true;
                     this.statusText = 'Ubicación requerida';
+                } else if (error.status >= 500) {
+                    this.statusText = 'Error del servidor cargando candidatos';
                 } else {
                     this.statusText = 'No se pudieron cargar los candidatos';
                 }
@@ -447,6 +360,61 @@ function swipePage() {
             } finally {
                 this.loading = false;
             }
+        },
+
+        async useGPS() {
+            if (!navigator.geolocation) {
+                this.statusText = 'La geolocalización no está disponible';
+                return;
+            }
+
+            this.gpsLoading = true;
+            this.statusText = 'Obteniendo tu ubicación…';
+
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0,
+                });
+            }).catch((error) => {
+                console.warn('Error GPS:', error);
+                return null;
+            });
+
+            if (!position) {
+                this.gpsLoading = false;
+                this.statusText = 'No se pudo obtener la ubicación GPS';
+                return;
+            }
+
+            this.searchLat = Number(position.coords.latitude.toFixed(6));
+            this.searchLng = Number(position.coords.longitude.toFixed(6));
+            this.locationLabel = 'Mi ubicación actual';
+            this.activeSavedLocationId = null;
+
+            await this.loadCandidates();
+            this.gpsLoading = false;
+        },
+
+        async loadSavedLocations() {
+            try {
+                const response = await window.API.apiGet('/locations');
+                this.savedLocations = response.data || [];
+            } catch (error) {
+                this.savedLocations = [];
+                console.error(error);
+            }
+        },
+
+        async selectSavedLocation(loc) {
+            if (!loc) return;
+
+            this.searchLat = Number(loc.lat);
+            this.searchLng = Number(loc.lng);
+            this.activeSavedLocationId = loc.id;
+            this.locationLabel = loc.name || 'Ubicación guardada';
+            await this.loadCandidates();
         },
 
         async handleDecision(action) {

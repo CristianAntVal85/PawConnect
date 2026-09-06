@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Breed Selector</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body style="font-family: sans-serif; padding: 20px; max-width: 500px; margin: 0 auto;">
+    <h1>Test Breed Selector</h1>
+
+    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+        <p><strong>Instrucciones:</strong></p>
+        <ul>
+            <li>Escribe "rott" en el campo de búsqueda</li>
+            <li>Deberías ver "Rottweiler" en la lista</li>
+            <li>Prueba con "boxer" - deberías ver "Boxer"</li>
+            <li>Prueba sin tildes: "galgo" - deberías ver todas las razas de galgo</li>
+        </ul>
+    </div>
+
+    <div x-data="breedSelector('all')" class="relative" style="margin-top: 20px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 8px;">
+            Raza:
+        </label>
+
+        <div class="relative">
+            <input type="text"
+                x-model="search"
+                @focus="open = true"
+                @input="open = true; filterBreeds()"
+                placeholder="Buscar raza (ej: rott, boxer, galgo)..."
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+        </div>
+
+        <div x-show="open && filteredList.length > 0"
+            @click.away="open = false"
+            style="position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px; border: 1px solid #ccc; background: white; border-radius: 4px; max-height: 300px; overflow-y: auto; z-index: 10;">
+
+            <template x-for="breed in filteredList" :key="breed">
+                <div @click="selectBreed(breed)"
+                    style="padding: 10px; cursor: pointer; border-bottom: 1px solid #eee;"
+                    @mouseenter="$el.style.backgroundColor = '#f0f0f0'"
+                    @mouseleave="$el.style.backgroundColor = 'white'">
+                    <span x-text="breed"></span>
+                </div>
+            </template>
+        </div>
+
+        <select x-model="selected" style="display: none; margin-top: 10px;">
+            <option value="all">Todas</option>
+            <template x-for="breed in breeds" :key="breed">
+                <option :value="breed" x-text="breed"></option>
+            </template>
+        </select>
+
+        <div style="margin-top: 20px; padding: 10px; background: #e8f5e9; border-radius: 4px;">
+            <strong>Raza seleccionada:</strong> <span x-text="selected || '(ninguna)'"></span>
+        </div>
+
+        <div style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; font-size: 12px;">
+            <strong>Resultados:</strong> <span x-text="filteredList.length"></span> razas
+        </div>
+    </div>
+
+    <script>
+        function breedSelector(initialSelected = 'all') {
+            return {
+                search: '',
+                selected: initialSelected,
+                open: false,
+                filteredList: [],
+
+                breeds: [
+                    'Affenpinscher', 'Afgano', 'Airedale Terrier', 'Akita', 'Alaskan Malamute',
+                    'American Staffordshire Terrier', 'Appenzeller Sennenhund', 'Ariegeois', 'Artois Hound', 'Azawakh',
+                    'Basenji', 'Basset Artesien Normand', 'Basset Hound', 'Beagle', 'Bearded Collie',
+                    'Beaucerons', 'Bedlington Terrier', 'Bichon Frise', 'Bichon Maltes', 'Biewer Terrier',
+                    'Bloodhound', 'Bobtail (Old English Sheepdog)', 'Boerboel', 'Border Collie', 'Border Terrier',
+                    'Borzoi', 'Boston Terrier', 'Bouvier Des Flandres', 'Boxer', 'Boykin Spaniel',
+                    'Braco Aleman', 'Braco De Weimar', 'Briard', 'Brittany', 'Bulldog Frances',
+                    'Bulldog Ingles', 'Bull Terrier', 'Bullmastiff', 'Cairn Terrier', 'Caniche',
+                    'Carlino (Pug)', 'Catahoula Leopard Dog', 'Catalan Sheepdog', 'Caucasian Ovcharka', 'Cavalier King Charles',
+                    'Cesky Terrier', 'Chesapeake Bay Retriever', 'Chihuahua', 'Chin Japones', 'Chow Chow',
+                    'Clumber Spaniel', 'Cocker Spaniel', 'Coton De Tulear', 'Collie Rough', 'Collie Smooth',
+                    'Corgi Cardigun', 'Corgi Pembroke', 'Dachshund', 'Dalmata', 'Dandie Dinmont Terrier',
+                    'Deerhound Escoces', 'Doberman Pinscher', 'Dogo Argentino', 'Dogo Canario', 'Dogo De Burdeos',
+                    'Dogo Tibetano', 'Dutch Shepherd', 'English Springer Spaniel', 'Epagneul Breton', 'Escoces Ciervo',
+                    'Espaniel Breton', 'Estaffordshire Bull Terrier', 'Estonian Hound', 'Fazione', 'Faraon Hound',
+                    'Fila Brasileiro', 'Flat-Coated Retriever', 'Fox Terrier (Pelo Duro)', 'Fox Terrier (Pelo Liso)', 'Foxhound Americano',
+                    'Foxhound Ingles', 'Galgo Espanol', 'Galgo Irlandes', 'Galgo Italiano', 'Galgo Ruso',
+                    'German Pinscher', 'German Shorthaired Pointer', 'German Wirehaired Pointer', 'Gran Danes', 'Grand Basset Griffon Vendeen',
+                    'Grand Bleu De Gascogne', 'Grand Griffon Vendeen', 'Greyhound', 'Griffon Bruxelas', 'Griffon Nivernais',
+                    'Groenendael', 'Gypsy Vanner', 'Hairless Peruvian', 'Hamiltonstovare', 'Hannover Hound',
+                    'Harrier', 'Havanese', 'Hokkaido', 'Hovawart', 'Husky Siberiano',
+                    'Ibizan Hound', 'Icelandic Sheepdog', 'Irish Red Setter', 'Irish Terrier', 'Irish Water Spaniel',
+                    'Irish Wolfhound', 'Istrian Shorthaired Hound', 'Italian Greyhound', 'Italiano Spinone', 'Jack Russell Terrier',
+                    'Jagdterrier', 'Kakapo', 'Kangal Dog', 'Karelian Bear Dog', 'Keeshond',
+                    'Kerry Blue Terrier', 'Komondor', 'Kuvasz', 'Labrador Retriever', 'Lakeland Terrier',
+                    'Lapphund Sueco', 'Lapphund Finlandes', 'Lebrel Afgano', 'Lebrel Escoces', 'Lebrel Irlandes',
+                    'Leonberger', 'Levrier Borzoi', 'Levrier Italiano', 'Levrier Polaco', 'Levrier Ruso',
+                    'Lhasa Apso', 'Malaskan Malamute', 'Maltese', 'Maremma Sheepdog', 'Mastif Espanol',
+                    'Mastif Napolitano', 'Mastiff Ingles', 'Mastiff Tibetano', 'Mastin', 'Mastin Espanol',
+                    'Mastin Napolitano', 'Mudi', 'Neapolitan Mastiff', 'Newfoundland', 'Norfolk Terrier',
+                    'Norwegian Buhund', 'Norwegian Elkhound', 'Norwich Terrier', 'Nova Scotia Duck Tolling Retriever', 'Old English Sheepdog',
+                    'Pachon Navarro', 'Papillon', 'Parson Russell Terrier', 'Pastor Aleman', 'Pastor Australiano',
+                    'Pastor Belga Groenendael', 'Pastor Belga Laekenois', 'Pastor Belga Malinois', 'Pastor Belga Tervuren', 'Pastor Blanco Suizo',
+                    'Pastor Caucasico', 'Pastor Catalan', 'Pastor Ganadero Australiano', 'Pastor Ganadero Australiano (Miniatura)', 'Pastor Ganadero Ingles',
+                    'Pastor Ganadero Ingles (Miniatura)', 'Pastor Ingles De Ovejas', 'Pastor Ingles De Ovejas (Miniatura)', 'Pastor Ingles Viejo', 'Pastor Islandés',
+                    'Pastor Lapón Finlandés', 'Pastor Lapón Sueco', 'Pastor Maremmano', 'Pastor Pirenáico', 'Pastor Polaco Nizinny',
+                    'Pastor Puli', 'Pastor Ruso', 'Pastor Ruso Meridional', 'Pastor Sueco De Värmland', 'Pastor Tatra',
+                    'Pastor Vasco', 'Patterdale Terrier', 'Pekines', 'Pekines Japones', 'Perdigüero Burgalés',
+                    'Perdigüero De Burgos', 'Perdiguero Portugués', 'Perro Agua Español', 'Perro Agua Portugues', 'Perro Agua Portugues Pequeno',
+                    'Perro Agua Romagnolo', 'Perro Agua Tosa', 'Perro Crestado Chino', 'Perro Dalmata', 'Perro De Aguas Españolas',
+                    'Perro De Aguas Español', 'Perro De Agua Español', 'Perro De Agua Portugués', 'Perro De Agua Romagnolo', 'Rottweiler'
+                ],
+
+                normalize(text) {
+                    return text.toLowerCase()
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '');
+                },
+
+                filterBreeds() {
+                    if (!this.search.trim()) {
+                        this.filteredList = this.breeds;
+                        return;
+                    }
+
+                    const searchNorm = this.normalize(this.search);
+                    this.filteredList = this.breeds.filter(breed => {
+                        const breedNorm = this.normalize(breed);
+                        return breedNorm.includes(searchNorm);
+                    });
+                },
+
+                selectBreed(breed) {
+                    this.selected = breed;
+                    this.search = breed;
+                    this.open = false;
+                },
+
+                init() {
+                    this.filterBreeds();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
