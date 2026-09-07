@@ -52,12 +52,10 @@ class LoginController extends Controller
         }
 
         // 3️⃣ SESIÓN: Autentica con sesión web (remember si está checked)
+        // Auth::login() regenera la sesión automáticamente
         $this->authService->authenticateWeb($user, $request->boolean('remember'));
 
-        // 4️⃣ SEGURIDAD: Regenera la sesión
-        $request->session()->regenerate();
-
-        // 5️⃣ REDIRIGIR: Va al dashboard
+        // 4️⃣ REDIRIGIR: Va al dashboard
         if ($user->role === 'admin') {
             return redirect()->intended('/admin/dashboard');
         }
