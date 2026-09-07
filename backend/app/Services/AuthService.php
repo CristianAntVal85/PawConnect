@@ -53,6 +53,9 @@ class AuthService
     /**
      * Autenticar usuario con sesión web
      * (Solo para Web, no para API)
+     *
+     * Nota: Las credenciales ya fueron validadas en validateCredentials(),
+     * por lo que Auth::login() es suficiente y más eficiente que Auth::attempt()
      */
     public function authenticateWeb(User $user, bool $remember = false): void
     {

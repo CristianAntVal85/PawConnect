@@ -15,8 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Forzar respuestas JSON para todas las rutas API
-        $middleware->statefulApi();
+        // statefulApi() es para SPAs que comparten dominio con la API.
+        // Desactivado por ahora (solo se usa web).
+        // Activar cuando esté lista la SPA multiplataforma:
+        // $middleware->statefulApi();
 
         // Headers de seguridad en todas las respuestas
         $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
