@@ -23,7 +23,7 @@ class MatchController extends Controller
      *   ?radius=25                 → radio en kilómetros (por defecto 25)
      *   ?pet_id=3                  → mascota activa (por defecto la primera del usuario)
      *
-     * Si no se envía lat/lng se usa la ubicación predeterminada guardada del usuario.
+     * Si no se envía lat/lng se usa la ubicación actual del usuario.
      * Si no existe ninguna de las dos se devuelve 422.
      */
     public function index(Request $request): JsonResponse
@@ -37,7 +37,12 @@ class MatchController extends Controller
 
         $radiusKm = (int) $request->query('radius', 25);
 
-        $candidates = $this->matchService->getCandidates($pet, $searchLat, $searchLng, $radiusKm);
+        $candidates = $this->matchService->getCandidates(
+            $pet,
+            $searchLat,
+            $searchLng,
+            $radiusKm
+        );
 
         return $this->success(
             $candidates->values(),
@@ -91,7 +96,7 @@ class MatchController extends Controller
     /**
      * Resuelve la ubicación de búsqueda:
      *   1. lat/lng explícitos en la query (GPS del navegador o ubicación manual)
-     *   2. Ubicación predeterminada guardada del usuario
+     *   2. Ubicación actual del usuario (users.lat/lng)
      *
      * @return array{0: float, 1: float}
      * @throws ValidationException si no hay ninguna ubicación disponible
@@ -110,14 +115,14 @@ class MatchController extends Controller
             return [(float) $lat, (float) $lng];
         }
 
-        $default = $request->user()->defaultLocation;
+        $user = $request->user();
 
-        if ($default) {
-            return [(float) $default->lat, (float) $default->lng];
+        if ($user->lat !== null && $user->lng !== null) {
+            return [(float) $user->lat, (float) $user->lng];
         }
 
         throw ValidationException::withMessages([
-            'lat' => ['Debes enviar tu ubicación o tener una ubicación predeterminada guardada.'],
+            'lat' => ['Debes enviar tu ubicación o actualizar tu perfil con una ubicación.'],
         ]);
     }
 }

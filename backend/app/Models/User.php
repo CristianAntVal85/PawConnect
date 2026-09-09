@@ -99,16 +99,6 @@ class User extends Authenticatable
         return $this->hasMany(Walk::class, 'creator_id');
     }
 
-    public function locations(): HasMany
-    {
-        return $this->hasMany(UserLocation::class);
-    }
-
-    public function defaultLocation(): HasOne
-    {
-        return $this->hasOne(UserLocation::class)->where('is_default', true)->latest();
-    }
-
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;

@@ -94,40 +94,6 @@
                 </svg>
                 <span x-text="gpsLoading ? 'Localizando…' : 'Mi ubicación'"></span>
             </button>
-
-            {{-- Picker de ubicaciones guardadas --}}
-            <div class="relative" x-data="{ open: false }" @click.outside="open = false">
-                <button type="button" @click="open = !open; if(open) $root.loadSavedLocations()"
-                        class="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-                    </svg>
-                    Guardadas
-                </button>
-
-                <template x-if="open">
-                    <div class="absolute right-0 z-20 mt-1 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
-                        <template x-if="savedLocations.length === 0">
-                            <p class="px-3 py-2 text-sm text-slate-400">Sin ubicaciones guardadas</p>
-                        </template>
-                        <template x-for="loc in savedLocations" :key="loc.id">
-                            <button type="button"
-                                    @click="selectSavedLocation(loc); open = false"
-                                    class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"
-                                    :class="activeSavedLocationId === loc.id ? 'bg-emerald-50 text-emerald-700 font-medium' : ''">
-                                <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
-                                </svg>
-                                <span x-text="loc.name"></span>
-                                <template x-if="loc.is_default">
-                                    <span class="ml-auto rounded-full bg-emerald-100 px-1.5 py-0.5 text-xs text-emerald-700">predeterminada</span>
-                                </template>
-                            </button>
-                        </template>
-                    </div>
-                </template>
-            </div>
         </div>
     </div>
 
@@ -264,9 +230,6 @@ function swipePage() {
         locationLabel: 'Detectando ubicación…',
         radiusKm: 25,
         gpsLoading: false,
-        // Ubicaciones guardadas
-        savedLocations: [],
-        activeSavedLocationId: null,
 
         async init() {
             // Solicitar geolocalización primero
@@ -340,11 +303,6 @@ function swipePage() {
                 this.statusText = count > 0
                     ? `${count} candidato${count !== 1 ? 's' : ''} cerca`
                     : 'Sin candidatos cercanos';
-
-                // Actualizar etiqueta si la respuesta fue con ubicación por defecto del servidor
-                if (this.searchLat === null && this.locationLabel === 'Detectando ubicación…') {
-                    this.locationLabel = 'Ubicación predeterminada guardada';
-                }
             } catch (error) {
                 if (error.status === 422) {
                     this.locationError = true;
@@ -391,30 +349,9 @@ function swipePage() {
             this.searchLat = Number(position.coords.latitude.toFixed(6));
             this.searchLng = Number(position.coords.longitude.toFixed(6));
             this.locationLabel = 'Mi ubicación actual';
-            this.activeSavedLocationId = null;
 
             await this.loadCandidates();
             this.gpsLoading = false;
-        },
-
-        async loadSavedLocations() {
-            try {
-                const response = await window.API.apiGet('/locations');
-                this.savedLocations = response.data || [];
-            } catch (error) {
-                this.savedLocations = [];
-                console.error(error);
-            }
-        },
-
-        async selectSavedLocation(loc) {
-            if (!loc) return;
-
-            this.searchLat = Number(loc.lat);
-            this.searchLng = Number(loc.lng);
-            this.activeSavedLocationId = loc.id;
-            this.locationLabel = loc.name || 'Ubicación guardada';
-            await this.loadCandidates();
         },
 
         async handleDecision(action) {

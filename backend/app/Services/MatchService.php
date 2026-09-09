@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Pet;
-use App\Models\UserLocation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Support\Facades\DB;
@@ -14,35 +13,36 @@ class MatchService
      * Devuelve candidatos ordenados por distancia ascendente desde la ubicación
      * de búsqueda (estilo Wallapop): el buscador envía su posición actual (GPS o
      * elegida manualmente) y los candidatos se ordenan por la distancia entre esa
-     * posición y su ubicación predeterminada almacenada.
+     * posición y la ubicación actual almacenada del dueño del candidato.
      *
      * Reglas:
      * - excluir mascotas propias del usuario
      * - excluir mascotas ya vistas (likes/pass)
      * - filtrar por distancia (Haversine) entre searchLat/searchLng y la
-     *   ubicación predeterminada del dueño del candidato
+     *   ubicación actual del dueño del candidato (users.lat/lng)
      * - ordenar por distancia ascendente; compatibilidad como criterio secundario
      * - incluir distance_km en cada candidato
      */
     public function getCandidates(
         Pet $currentPet,
+        float $searchLat,
+        float $searchLng,
         int $radiusKm = 25,
         ?string $breed = null,
         ?string $energy = null,
         ?string $age = null
     ): Collection
     {
-        $user = $currentPet->user;
-
-        if ($currentPet->species !== 'dog' || ! $user->lat || ! $user->lng) {
+        if ($currentPet->species !== 'dog') {
             return new Collection();
         }
 
         $seenPetIds = $this->getSeenPetIds($currentPet);
+        $currentUser = $currentPet->user;
 
         $query = Pet::query()
             ->where('id', '!=', $currentPet->id)
-            ->where('user_id', '!=', $user->id)
+            ->where('user_id', '!=', $currentUser->id)
             ->whereNotIn('id', $seenPetIds)
             ->where('available_for_walks', true)
             ->where('species', 'dog')
@@ -71,7 +71,7 @@ class MatchService
         $candidates = $query->get();
 
         // Filtrar por distancia
-        $candidates = $candidates->filter(function (Pet $candidate) use ($user, $radiusKm): bool {
+        $candidates = $candidates->filter(function (Pet $candidate) use ($searchLat, $searchLng, $radiusKm): bool {
             $candidateUser = $candidate->user;
 
             if (! $candidateUser?->lat || ! $candidateUser?->lng) {
@@ -79,8 +79,8 @@ class MatchService
             }
 
             $distance = $this->haversine(
-                (float) $user->lat,
-                (float) $user->lng,
+                $searchLat,
+                $searchLng,
                 (float) $candidateUser->lat,
                 (float) $candidateUser->lng,
             );

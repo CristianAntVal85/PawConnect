@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\ForgotPasswordController;
 use App\Http\Controllers\Web\HealthController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\LocationController;
 use App\Http\Controllers\Web\MarketplaceController;
 use App\Http\Controllers\Web\MatchController;
 use App\Http\Controllers\Web\OrderController;
@@ -42,6 +43,8 @@ Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
 Route::get('/places/{id}', [PlaceController::class, 'show'])->name('places.show');
 
 Route::middleware('auth')->group(function (): void {
+    Route::post('/update-location', [LocationController::class, 'updateLocation'])->name('web.location.update');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('web.dashboard');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('web.notifications.index');
     Route::get('/chat/{match?}', [ChatController::class, 'index'])

@@ -56,11 +56,9 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::put('/users/me', [UserController::class, 'updateMe']);
         Route::delete('/users/me', [UserController::class, 'destroyMe']);
 
-        // Ubicaciones guardadas del usuario (estilo Wallapop)
-        Route::get('/locations', [UserLocationController::class, 'index'])->name('api.v1.locations.index');
-        Route::post('/locations', [UserLocationController::class, 'store'])->name('api.v1.locations.store');
-        Route::patch('/locations/{location}/default', [UserLocationController::class, 'setDefault'])->name('api.v1.locations.default');
-        Route::delete('/locations/{location}', [UserLocationController::class, 'destroy'])->name('api.v1.locations.destroy');
+        // Ubicación actual del usuario (lat/lng)
+        Route::get('/location', [UserLocationController::class, 'index'])->name('api.v1.location.index');
+        Route::post('/location', [UserLocationController::class, 'store'])->name('api.v1.location.store');
 
         // Pets
         Route::apiResource('pets', PetController::class);

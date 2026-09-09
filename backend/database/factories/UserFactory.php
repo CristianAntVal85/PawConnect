@@ -24,12 +24,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // Generar ubicaciones cercanas a Madrid para tests (±0.12° ≈ 13 km)
+        $centerLat = 40.4168;
+        $centerLng = -3.7038;
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'role' => User::ROLE_USER,
+            'lat' => $centerLat + fake()->randomFloat(4, -0.12, 0.12),
+            'lng' => $centerLng + fake()->randomFloat(4, -0.12, 0.12),
+            'address' => fake()->address(),
             'remember_token' => Str::random(10),
         ];
     }

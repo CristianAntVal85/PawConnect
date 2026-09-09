@@ -1,30 +1,21 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Esta migración es ahora innecesaria.
+     * El campo `blocked_at` ya está en create_users_table.php
+     * Se mantiene para compatibilidad pero no hace nada.
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('blocked_at')->nullable()->after('billing_address');
-            $table->index('blocked_at');
-        });
+        // No-op: el campo ya existe en create_users_table
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['blocked_at']);
-            $table->dropColumn('blocked_at');
-        });
+        // No-op
     }
 };

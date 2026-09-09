@@ -10,6 +10,9 @@ class PetSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * Crea mascotas (preferiblemente perros) asociadas a usuarios existentes.
+     * Solo los perros con available_for_walks=true aparecen en swipe.
      */
     public function run(): void
     {
@@ -19,9 +22,15 @@ class PetSeeder extends Seeder
             $userIds = User::factory()->count(10)->create()->pluck('id');
         }
 
+        // Crear mascotas con preferencia por perros (species = 'dog')
         Pet::factory()
-            ->count(20)
-            ->state(fn () => ['user_id' => $userIds->random()])
+            ->count(30)
+            ->state(function () use ($userIds) {
+                return [
+                    'user_id' => $userIds->random(),
+                    'species' => fake()->randomElement(array_fill(0, 7, 'dog') + ['cat', 'rabbit', 'bird']), // 70% perros
+                ];
+            })
             ->create();
     }
 }
