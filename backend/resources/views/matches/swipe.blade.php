@@ -77,11 +77,12 @@
             {{-- Selector de radio --}}
             <select x-model.number="radiusKm" @change="loadCandidates()"
                     class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100">
-                <option value="5">5 km</option>
-                <option value="10">10 km</option>
-                <option value="25" selected>25 km</option>
-                <option value="50">50 km</option>
-                <option value="100">100 km</option>
+                    <option value="all">Todas</option>
+                    <option value="5">5 km</option>
+                    <option value="10">10 km</option>
+                    <option value="25" selected>25 km</option>
+                    <option value="50">50 km</option>
+                    <option value="100">100 km</option>
             </select>
 
             {{-- Botón GPS --}}

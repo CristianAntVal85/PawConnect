@@ -27,7 +27,7 @@ class MatchService
         Pet $currentPet,
         float $searchLat,
         float $searchLng,
-        int $radiusKm = 25,
+        ?int $radiusKm = 25,
         ?string $breed = null,
         ?string $energy = null,
         ?string $age = null
@@ -73,6 +73,11 @@ class MatchService
         // Filtrar por distancia
         $candidates = $candidates->filter(function (Pet $candidate) use ($searchLat, $searchLng, $radiusKm): bool {
             $candidateUser = $candidate->user;
+
+            // Si radiusKm es null → no filtrar por distancia
+            if ($radiusKm === null) {
+                return true;
+    }
 
             if (! $candidateUser?->lat || ! $candidateUser?->lng) {
                 return false;

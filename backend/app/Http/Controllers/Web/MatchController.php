@@ -27,11 +27,13 @@ class MatchController extends Controller
         $searchLat = (float) ($user->lat ?? 0);
         $searchLng = (float) ($user->lng ?? 0);
 
+        $radius = $request->input('radiusKm', '25');
+
         $candidates = $this->matchService->getCandidates(
             $pet,
             $searchLat,
             $searchLng,
-            radiusKm: (int) $request->input('radiusKm', 25),
+            radiusKm: $radius === 'all' ? null : (int) $radius,
             breed: $request->input('breed'),
             energy: $request->input('energy'),
             age: $request->input('age')
