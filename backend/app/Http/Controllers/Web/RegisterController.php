@@ -31,8 +31,8 @@ class RegisterController extends Controller
      *
      * 1. Valida nombre, email y contraseña
      * 2. Crea usuario (delegado en AuthService)
-     * 3. Autentica automáticamente
-     * 4. Redirige a dashboard
+     * 3. Autentica automáticamente + crea token Sanctum
+     * 4. Devuelve JSON si es AJAX, o redirige si es formulario tradicional
      */
     public function store(Request $request)
     {
@@ -52,9 +52,28 @@ class RegisterController extends Controller
         // 4️⃣ SESIÓN: Regenera la sesión
         $request->session()->regenerate();
 
-        // 5️⃣ REDIRIGIR: Va al dashboard
+        // 5️⃣ CREAR TOKEN: Genera token Sanctum para requests AJAX a la API
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // 6️⃣ RESPONDER: JSON si es AJAX, HTML redirect si es formulario tradicional
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Registro exitoso. ¡Bienvenido a PawConnect!',
+                'token' => $token,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                ],
+            ]);
+        }
+
+        // Redirigir a dashboard (para navegadores tradicionales sin JavaScript)
         return redirect()
             ->route('web.dashboard')
+            ->with('auth_token', $token)
             ->with('success', 'Registro exitoso. ¡Bienvenido a PawConnect!');
     }
 }

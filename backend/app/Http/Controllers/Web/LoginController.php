@@ -30,8 +30,8 @@ class LoginController extends Controller
      *
      * 1. Valida email y contraseña
      * 2. Valida credenciales (delegado en AuthService)
-     * 3. Autentica con sesión web
-     * 4. Redirige a dashboard
+     * 3. Autentica con sesión web + crea token Sanctum
+     * 4. Devuelve JSON si es AJAX, o redirige si es formulario tradicional
      */
     public function store(Request $request)
     {
@@ -55,12 +55,33 @@ class LoginController extends Controller
         // Auth::login() regenera la sesión automáticamente
         $this->authService->authenticateWeb($user, $request->boolean('remember'));
 
-        // 4️⃣ REDIRIGIR: Va al dashboard
+        // 4️⃣ CREAR TOKEN: Genera token Sanctum para requests AJAX a la API
+        // Revoca tokens anteriores con el mismo nombre (sesión única por dispositivo)
+        $this->authService->revokeSameName($user, 'auth_token');
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // 5️⃣ RESPONDER: JSON si es AJAX, HTML redirect si es formulario tradicional
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Inicio de sesión exitoso.',
+                'token' => $token,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                ],
+            ]);
+        }
+
+        // Redirigir a dashboard (para navegadores tradicionales sin JavaScript)
         if ($user->role === 'admin') {
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->intended('/admin/dashboard')
+                ->with('auth_token', $token);
         }
         return redirect()
             ->intended('/dashboard')
-            ->with('success', 'Inicio de sesión exitoso.');
+            ->with('auth_token', $token);
     }
 }

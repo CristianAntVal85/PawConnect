@@ -11,14 +11,14 @@
 
         <!-- Filtros -->
         <div class="mb-6 flex gap-2">
-            <button 
+            <button
                 @click="filter = 'all'"
                 :class="filter === 'all' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'"
                 class="px-4 py-2 rounded-lg transition-colors"
             >
                 Todas
             </button>
-            <button 
+            <button
                 @click="filter = 'unread'"
                 :class="filter === 'unread' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'"
                 class="px-4 py-2 rounded-lg transition-colors"
@@ -38,7 +38,7 @@
 
             <template x-if="filteredNotifications.length > 0">
                 <template x-for="notification in filteredNotifications" :key="notification.id">
-                    <div 
+                    <div
                         :class="notification.read_at ? 'bg-white' : 'bg-blue-50 border-l-4 border-blue-600'"
                         class="bg-white rounded-lg shadow p-6 transition-all"
                     >
@@ -50,7 +50,7 @@
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
                                             <h3 class="font-semibold text-gray-900">
-                                                Recordatorio de salud para 
+                                                Recordatorio de salud para
                                                 <span x-text="notification.data.pet_name" class="text-blue-600"></span>
                                             </h3>
                                             <p class="text-sm text-gray-600 mt-1">
@@ -65,20 +65,20 @@
                                             </span>
                                         </template>
                                     </div>
-                                    
+
                                     <p class="text-sm text-gray-700 mt-3">
                                         <span x-text="notification.data.message"></span>
                                     </p>
 
                                     <div class="mt-4 flex gap-3">
-                                        <a 
+                                        <a
                                             :href="`/pets/${notification.data.pet_id}/health`"
                                             class="inline-flex items-center px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
                                         >
                                             Ver historial →
                                         </a>
                                         <template x-if="!notification.read_at">
-                                            <button 
+                                            <button
                                                 @click="markAsRead(notification.id)"
                                                 class="inline-flex items-center px-3 py-2 text-gray-600 text-sm hover:bg-gray-100 rounded-lg transition-colors"
                                             >
@@ -143,17 +143,8 @@ function notificationsPage() {
 
         async loadAllNotifications() {
             try {
-                const response = await fetch('/api/v1/notifications?per_page=100', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]')?.content || ''}`
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    this.notifications = data.data.data || [];
-                }
+                const data = await window.API.apiGet('/notifications?per_page=100');
+                this.notifications = data.data.data || [];
             } catch (error) {
                 console.error('Error loading notifications:', error);
             }
@@ -161,22 +152,13 @@ function notificationsPage() {
 
         async markAsRead(notificationId) {
             try {
-                const response = await fetch(`/api/v1/notifications/${notificationId}/mark-as-read`, {
-                    method: 'PUT',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]')?.content || ''}`
-                    }
-                });
-
-                if (response.ok) {
-                    await this.loadAllNotifications();
-                }
+                await window.API.apiPut(`/notifications/${notificationId}/mark-as-read`);
+                await this.loadAllNotifications();
             } catch (error) {
                 console.error('Error marking notification as read:', error);
             }
         },
+
 
         get filteredNotifications() {
             if (this.filter === 'unread') {
@@ -197,17 +179,17 @@ function notificationsPage() {
             if (diffMins < 60) return `Hace ${diffMins} min`;
             if (diffHours < 24) return `Hace ${diffHours}h`;
             if (diffDays < 7) return `Hace ${diffDays}d`;
-            
+
             return date.toLocaleDateString('es-ES');
         },
 
         formatDateFull(dateString) {
             const date = new Date(dateString);
-            return date.toLocaleDateString('es-ES', { 
-                weekday: 'short', 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric' 
+            return date.toLocaleDateString('es-ES', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
             });
         }
     };
