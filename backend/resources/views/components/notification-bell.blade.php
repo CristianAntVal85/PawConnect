@@ -3,7 +3,7 @@
 <div x-data="notificationBell()" class="{{ $class }}">
     <!-- Campana de notificaciones -->
     <div class="relative inline-block">
-        <button 
+        <button
             @click="open = !open"
             @click.outside="open = false"
             class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
@@ -16,7 +16,7 @@
 
             <!-- Badge con contador -->
             <template x-if="unreadCount > 0">
-                <span 
+                <span
                     class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1 -translate-y-1 bg-red-600 rounded-full"
                     x-text="unreadCount"
                 >
@@ -25,7 +25,7 @@
         </button>
 
         <!-- Dropdown de notificaciones -->
-        <div 
+        <div
             x-show="open"
             x-transition
             class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl z-50"
@@ -53,7 +53,7 @@
                 <template x-if="notifications.length > 0">
                     <div class="divide-y divide-gray-200">
                         <template x-for="notification in notifications" :key="notification.id">
-                            <div 
+                            <div
                                 :class="notification.read_at ? 'bg-white' : 'bg-blue-50'"
                                 class="px-4 py-3 hover:bg-gray-50 transition-colors cursor-pointer"
                                 @click="markAsRead(notification.id)"
@@ -110,7 +110,7 @@ function notificationBell() {
         open: false,
         notifications: [],
         unreadCount: 0,
-        
+
         init() {
             this.loadNotifications();
             // Recargar notificaciones cada 30 segundos
@@ -119,32 +119,16 @@ function notificationBell() {
 
         async loadNotifications() {
             try {
-                const response = await fetch('/api/v1/notifications/unread-count', {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]')?.content || ''}`
-                    }
-                });
-                
-                if (!response.ok) return;
-                
-                const data = await response.json();
+                // 1. Contador de no leídas
+                const data = await window.API.apiGet('/notifications/unread-count');
                 this.unreadCount = data.unread_count;
 
-                // Si hay notificaciones no leídas, cargar la lista
+                // 2. Si hay notificaciones, cargar lista
                 if (this.unreadCount > 0) {
-                    const notifResponse = await fetch('/api/v1/notifications', {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]')?.content || ''}`
-                        }
-                    });
-
-                    if (notifResponse.ok) {
-                        const notifData = await notifResponse.json();
-                        this.notifications = notifData.data.data || [];
-                    }
+                    const notifData = await window.API.apiGet('/notifications?per_page=100');
+                    this.notifications = notifData.data.data || [];
                 }
+
             } catch (error) {
                 console.error('Error loading notifications:', error);
             }
@@ -152,23 +136,13 @@ function notificationBell() {
 
         async markAsRead(notificationId) {
             try {
-                const response = await fetch(`/api/v1/notifications/${notificationId}/mark-as-read`, {
-                    method: 'PUT',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${document.querySelector('meta[name="api-token"]')?.content || ''}`
-                    }
-                });
-
-                if (response.ok) {
-                    // Recargar notificaciones
-                    this.loadNotifications();
-                }
+                await window.API.apiPut(`/notifications/${notificationId}/mark-as-read`);
+                await this.loadNotifications();
             } catch (error) {
                 console.error('Error marking notification as read:', error);
             }
         },
+
 
         formatDate(dateString) {
             const date = new Date(dateString);
@@ -182,7 +156,7 @@ function notificationBell() {
             if (diffMins < 60) return `Hace ${diffMins} min`;
             if (diffHours < 24) return `Hace ${diffHours}h`;
             if (diffDays < 7) return `Hace ${diffDays}d`;
-            
+
             return date.toLocaleDateString('es-ES');
         }
     };
