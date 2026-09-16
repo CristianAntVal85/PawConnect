@@ -7,6 +7,7 @@ use App\Http\Requests\Web\UpdatePasswordRequest;
 use App\Http\Requests\Web\UpdateProfileRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -19,8 +20,20 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request): RedirectResponse
     {
         $user = $request->user();
+        $validated = $request->validated();
 
-        $user->update($request->validated());
+        // Manejar foto de perfil si se subió
+        if ($request->hasFile('photo')) {
+            // Eliminar foto anterior si existe
+            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            // Guardar nueva foto
+            $path = $request->file('photo')->store('users', 'public');
+            $validated['photo'] = $path;
+        }
+
+        $user->update($validated);
 
         return redirect()
             ->route('web.profile.edit')

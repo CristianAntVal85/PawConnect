@@ -63,6 +63,12 @@
             >
         </div>
 
+        <x-photo-upload
+            name="photo"
+            label="Foto principal"
+        />
+
+
         <div id="error-alert" class="hidden rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-700"></div>
 
         <button type="submit" class="w-full rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed">

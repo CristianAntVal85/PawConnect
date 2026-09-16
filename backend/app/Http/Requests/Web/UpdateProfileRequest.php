@@ -26,6 +26,7 @@ class UpdateProfileRequest extends FormRequest
             ],
             'address' => ['nullable', 'string', 'max:255'],
             'billing_address' => ['nullable', 'string', 'max:255'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 }

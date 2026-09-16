@@ -23,7 +23,7 @@
     @endif
 
     <div class="grid gap-6 lg:grid-cols-2">
-        <form method="POST" action="{{ route('web.profile.update') }}" class="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <form method="POST" action="{{ route('web.profile.update') }}" enctype="multipart/form-data" class="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             @csrf
             @method('PUT')
 
@@ -52,6 +52,13 @@
                 <input id="billing_address" name="billing_address" value="{{ old('billing_address', $user->billing_address) }}" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200">
                 @error('billing_address') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
             </div>
+
+            <x-photo-upload
+                name="photo"
+                label="Actualizar foto de perfil"
+                current="{{ $user->photo }}"
+            />
+
 
             <button type="submit" class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600">Guardar perfil</button>
         </form>
